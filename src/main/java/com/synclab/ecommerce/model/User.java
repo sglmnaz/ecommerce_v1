@@ -1,7 +1,6 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
 import java.util.Date;
 
 import javax.persistence.*;
@@ -17,16 +16,16 @@ public class User implements Serializable {
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private BigInteger userId;
+	private long userId;
 
 	@Column(name = "security_id")
-	private BigInteger securityId;
+	private long securityId;
 
 	@Column(name = "role_id")
-	private BigInteger roleId;
+	private long roleId;
 
 	@Column(name = "address_id")
-	private BigInteger addressId;
+	private long addressId;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -44,35 +43,35 @@ public class User implements Serializable {
 
 	// region getter and setters
 
-	public BigInteger getUserId() {
+	public long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(BigInteger userId) {
+	public void setUserId(long userId) {
 		this.userId = userId;
 	}
 
-	public BigInteger getSecurityId() {
+	public long getSecurityId() {
 		return securityId;
 	}
 
-	public void setSecurityId(BigInteger securityId) {
+	public void setSecurityId(long securityId) {
 		this.securityId = securityId;
 	}
 
-	public BigInteger getRoleId() {
+	public long getRoleId() {
 		return roleId;
 	}
 
-	public void setRoleId(BigInteger roleId) {
+	public void setRoleId(long roleId) {
 		this.roleId = roleId;
 	}
 
-	public BigInteger getAddressId() {
+	public long getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(BigInteger addressId) {
+	public void setAddressId(long addressId) {
 		this.addressId = addressId;
 	}
 

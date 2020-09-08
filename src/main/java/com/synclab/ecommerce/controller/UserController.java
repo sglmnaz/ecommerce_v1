@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.math.BigInteger;
-
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.UserServiceImplementation;
 
@@ -45,7 +43,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/get/{id}", produces = "application/json")
-	public ResponseEntity<User> findById(@PathVariable(value = "id") BigInteger id) {
+	public ResponseEntity<User> findById(@PathVariable(value = "id") long id) {
 		User newUser = userServiceImplementation.findById(id).get();
 
 		if (newUser != null) {

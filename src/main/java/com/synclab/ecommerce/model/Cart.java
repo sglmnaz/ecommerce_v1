@@ -1,8 +1,6 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
-import java.math.BigInteger;
-
 import javax.persistence.*;
 
 @Entity
@@ -16,19 +14,19 @@ public class Cart implements Serializable {
     @Id
     @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private BigInteger cartId;
+    private long cartId;
 
     // @OneToOne(fetch = FetchType.LAZY)
     // @JoinTable(name = "users", joinColumns = @JoinColumn(name = "user_id"),
     // inverseJoinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "user_id")
-    private BigInteger userId;
+    private long userId;
 
     @Column(name = "total_price")
-    private BigInteger totalPrice;
+    private long totalPrice;
 
     @Column(name = "total_items")
-    private BigInteger totalItems;
+    private long totalItems;
 
     // endregion
 

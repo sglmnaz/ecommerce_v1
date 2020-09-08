@@ -1,6 +1,5 @@
 package com.synclab.ecommerce.service;
 
-import java.math.BigInteger;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,7 +25,7 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public Optional<User> findById(BigInteger id) {
+	public Optional<User> findById(long id) {
 		return userRepository.findById(id);
 	}
 
