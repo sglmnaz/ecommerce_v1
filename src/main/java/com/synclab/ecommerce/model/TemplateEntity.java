@@ -6,7 +6,7 @@ import java.math.BigInteger;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "template1")
+@Table(name = "template")
 public class TemplateEntity implements Serializable {
 
     private static final long serialVersionUID = 1L;
