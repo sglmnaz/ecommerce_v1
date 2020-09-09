@@ -3,7 +3,9 @@ package com.synclab.ecommerce.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
-public class TemplateEntity implements Serializable {
+@Entity
+@Table(name = "templateEntities")
+public class Temp implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
