@@ -1,5 +1,6 @@
 package com.synclab.ecommerce.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,8 +26,13 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public Optional<User> findById(long id) {
+	public Optional<User> findById(Long id) {
 		return userRepository.findById(id);
+	}
+
+	@Override
+	public List<User> findAll() {
+		return userRepository.findAll();
 	}
 
 }

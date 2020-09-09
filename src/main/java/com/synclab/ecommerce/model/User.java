@@ -16,16 +16,13 @@ public class User implements Serializable {
 	@Id
 	@Column(name = "user_id")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private long userId;
+	private Long userId;
 
-	@Column(name = "security_id")
-	private long securityId;
-
-	@Column(name = "role_id")
-	private long roleId;
+	@Column(name = "account_id")
+	private Long accountId;
 
 	@Column(name = "address_id")
-	private long addressId;
+	private Long addressId;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -43,35 +40,27 @@ public class User implements Serializable {
 
 	// region getter and setters
 
-	public long getUserId() {
+	public Long getUserId() {
 		return userId;
 	}
 
-	public void setUserId(long userId) {
+	public void setUserId(Long userId) {
 		this.userId = userId;
 	}
 
-	public long getSecurityId() {
-		return securityId;
+	public Long getSecurityId() {
+		return accountId;
 	}
 
-	public void setSecurityId(long securityId) {
-		this.securityId = securityId;
+	public void setSecurityId(Long securityId) {
+		this.accountId = securityId;
 	}
 
-	public long getRoleId() {
-		return roleId;
-	}
-
-	public void setRoleId(long roleId) {
-		this.roleId = roleId;
-	}
-
-	public long getAddressId() {
+	public Long getAddressId() {
 		return addressId;
 	}
 
-	public void setAddressId(long addressId) {
+	public void setAddressId(Long addressId) {
 		this.addressId = addressId;
 	}
 

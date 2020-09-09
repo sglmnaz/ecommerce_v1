@@ -10,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.UserServiceImplementation;
 
@@ -19,6 +21,8 @@ public class UserController {
 
 	@Autowired
 	private UserServiceImplementation userServiceImplementation;
+
+	// region postMapping
 
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<User> insert(@RequestBody User user) {
@@ -31,8 +35,12 @@ public class UserController {
 		}
 	}
 
-	@GetMapping(value = "/findByName/{name}", produces = "application/json")
-	public ResponseEntity<User> findByName(@PathVariable(value = "name") String name) {
+	// endregion
+
+	// region getMapping
+
+	@GetMapping(value = "/findByFirstName/{name}", produces = "application/json")
+	public ResponseEntity<User> findByFitstName(@PathVariable(value = "name") String name) {
 		User newUser = userServiceImplementation.findByFirstName(name).get();
 
 		if (newUser != null) {
@@ -43,7 +51,7 @@ public class UserController {
 	}
 
 	@GetMapping(value = "/get/{id}", produces = "application/json")
-	public ResponseEntity<User> findById(@PathVariable(value = "id") long id) {
+	public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
 		User newUser = userServiceImplementation.findById(id).get();
 
 		if (newUser != null) {
@@ -52,4 +60,19 @@ public class UserController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 	}
+
+	@GetMapping(value = "/get/", produces = "application/json")
+	public ResponseEntity<List<User>> findAll() {
+
+		List<User> users = userServiceImplementation.findAll();
+
+		if (!users.isEmpty()) {
+			return ResponseEntity.ok(users);
+		} else {
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		}
+	}
+
+	// endregion
+
 }
