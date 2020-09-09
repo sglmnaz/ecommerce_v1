@@ -10,12 +10,12 @@ public class TemplateEntity implements Serializable {
     // region fields
 
     @Id
-    @Column(name = "_id")
+    @Column(name = "cart_item_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long Id;
+    private Long cartItemId;
 
-    @Column(name = "_id")
-    private Long _Id;
+    @Column(name = "cart_id")
+    private Long cartId;
 
     // endregion
 
