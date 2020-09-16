@@ -18,6 +18,9 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
+	//TODO: check this code
+	@OneToOne(cascade = CascadeType.ALL) 
+	@JoinColumn(name = "account_id" , table = "accounts")
 	@Column(name = "account_id")
 	private Long accountId;
 
