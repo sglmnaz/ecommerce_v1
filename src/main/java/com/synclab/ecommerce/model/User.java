@@ -18,11 +18,6 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
-	//TODO: check this code
-	@OneToOne(cascade = CascadeType.ALL) 
-	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
-	private Account account;
-
 	@Column(name = "account_id")
 	private Long accountId;
 
@@ -40,6 +35,11 @@ public class User implements Serializable {
 
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
+
+	//TODO: check this code
+	@OneToOne(cascade = CascadeType.ALL) 
+	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
+	private Account account;
 
 	// endregion
 

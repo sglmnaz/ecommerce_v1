@@ -39,6 +39,7 @@ public class Account implements Serializable {
     @Column(name = "is_banned")
     private Boolean isBanned;
 
+    //TODO: check this code
     @OneToOne(mappedBy = "accounts")
     private User user;
 
