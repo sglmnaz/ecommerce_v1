@@ -20,7 +20,7 @@ public class User implements Serializable {
 
 	//TODO: check this code
 	@OneToOne(cascade = CascadeType.ALL) 
-	@JoinColumn(name = "account_id" , table = "accounts")
+	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
 	@Column(name = "account_id")
 	private Long accountId;
 
