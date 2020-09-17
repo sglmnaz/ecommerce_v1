@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -17,8 +18,11 @@ public class Stock implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stockId;
 
-    @Column(name = "warehouse_id")
-    private Long warehouseId;
+    @OneToOne(mappedBy = "stock")
+    private Warehouse warehouse;
+
+    @OneToMany(mappedBy = "stock")
+    private List<StockItem> stockItems;
 
     // endregion
 
@@ -32,12 +36,20 @@ public class Stock implements Serializable {
         this.stockId = stockId;
     }
 
-    public Long getWarehouseId() {
-        return warehouseId;
+    public Warehouse getWarehouse() {
+        return warehouse;
     }
 
-    public void setWarehouseId(Long warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setWarehouse(Warehouse warehouse) {
+        this.warehouse = warehouse;
+    }
+
+    public List<StockItem> getStockItems() {
+        return stockItems;
+    }
+
+    public void setStockItems(List<StockItem> stockItems) {
+        this.stockItems = stockItems;
     }
 
     // endregion

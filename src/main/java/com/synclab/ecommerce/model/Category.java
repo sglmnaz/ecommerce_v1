@@ -19,8 +19,9 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "image_id")
-    private Long imageId;
+    @OneToOne() 
+	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
+    private Image image;
 
     // endregion
 
@@ -42,13 +43,14 @@ public class Category implements Serializable {
         this.name = name;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public Image getImage() {
+        return image;
     }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+    public void setImage(Image image) {
+        this.image = image;
     }
+
 
     // endregion
 

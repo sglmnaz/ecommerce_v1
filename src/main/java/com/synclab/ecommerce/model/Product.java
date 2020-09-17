@@ -4,6 +4,7 @@ import javax.persistence.*;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 @Entity
 @Table(name = "products")
@@ -21,11 +22,35 @@ public class Product implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @Column(name = "category_id")
-    private Long categoryId;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "products_categories",
+            joinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "category_id", referencedColumnName = "category_id",
+                            nullable = false, updatable = false)})
+	private List<Category> category;
 
-    @Column(name = "subcategory_id")
-    private Long subcategoryId;
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "products_subcategories",
+            joinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id",
+                            nullable = false, updatable = false)})
+    private List<Subcategory> subcategory;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "products_images",
+            joinColumns = {
+                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "image_id", referencedColumnName = "image_id",
+                            nullable = false, updatable = false)})
+    private List<Image> image;
 
     @Column(name = "description")
     private String description;
@@ -41,6 +66,9 @@ public class Product implements Serializable {
 
     @OneToOne(mappedBy = "product")
     private CartItem cartItem;
+
+    @OneToOne(mappedBy = "product")
+    private StockItem stockItem;
 
     // endregion
 
@@ -60,22 +88,6 @@ public class Product implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public Long getSubcategoryId() {
-        return subcategoryId;
-    }
-
-    public void setSubcategoryId(Long subcategoryId) {
-        this.subcategoryId = subcategoryId;
     }
 
     public String getDescription() {
@@ -116,6 +128,38 @@ public class Product implements Serializable {
 
     public void setCartItem(CartItem cartItem) {
         this.cartItem = cartItem;
+    }
+
+    public List<Category> getCategory() {
+        return category;
+    }
+
+    public void setCategory(List<Category> category) {
+        this.category = category;
+    }
+
+    public List<Subcategory> getSubcategory() {
+        return subcategory;
+    }
+
+    public void setSubcategory(List<Subcategory> subcategory) {
+        this.subcategory = subcategory;
+    }
+
+    public List<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Image> image) {
+        this.image = image;
+    }
+
+    public StockItem getStockItem() {
+        return stockItem;
+    }
+
+    public void setStockItem(StockItem stockItem) {
+        this.stockItem = stockItem;
     }
 
     // endregion

@@ -20,11 +20,15 @@ public class StockItem implements Serializable {
     @Column(name = "stock_id")
     private Long stockId;
 
-    @Column(name = "product_id")
-    private Long productId;
-
     @Column (name = "quantity")
     private Integer quantity;
+
+    @ManyToOne()
+    private Stock stock;
+
+    @OneToOne()
+    @JoinColumn(name = "product_id" ,referencedColumnName = "product_id")
+    private Product product;
 
     // endregion
 
@@ -46,13 +50,6 @@ public class StockItem implements Serializable {
         this.stockId = stockId;
     }
 
-    public Long getProductId() {
-        return productId;
-    }
-
-    public void setProductId(Long productId) {
-        this.productId = productId;
-    }
 
     public Integer getQuantity() {
         return quantity;
@@ -60,6 +57,22 @@ public class StockItem implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
 

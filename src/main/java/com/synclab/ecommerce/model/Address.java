@@ -39,6 +39,9 @@ public class Address implements Serializable {
     @OneToMany(mappedBy = "address")
     private List<Shipping> shippings;
 
+    @OneToOne(mappedBy = "address")
+    private Warehouse warehouse;
+
     // endregion
 
     // region getter and setters

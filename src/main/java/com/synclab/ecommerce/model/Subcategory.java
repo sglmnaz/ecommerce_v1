@@ -16,26 +16,17 @@ public class Subcategory implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long subcategoryId;
 
-    @Column(name = "category_id")
-    private Long categoryId;
-
     @Column(name = "name")
     private String name;
 
-    @Column(name = "image_id")
-    private Long imageId;
+    @OneToOne() 
+	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
+    private Image image;
 
     // endregion
 
     // region getter and setters
 
-    public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
 
     public String getName() {
         return name;
@@ -45,13 +36,7 @@ public class Subcategory implements Serializable {
         this.name = name;
     }
 
-    public Long getImageId() {
-        return imageId;
-    }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
-    }
 
     public Long getSubcategoryId() {
         return subcategoryId;
@@ -59,6 +44,14 @@ public class Subcategory implements Serializable {
 
     public void setSubcategoryId(Long subcategoryId) {
         this.subcategoryId = subcategoryId;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 
     // endregion

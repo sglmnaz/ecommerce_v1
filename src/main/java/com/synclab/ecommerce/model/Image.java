@@ -29,6 +29,12 @@ public class Image implements Serializable {
     @Column(name = "file_size")
     private Long fileSize;
 
+    @OneToOne(mappedBy = "image") 
+    private Category category;
+
+    @OneToOne(mappedBy = "image") 
+    private Subcategory subCategory;
+
     // endregion
 
     // region getter and setters
@@ -71,6 +77,30 @@ public class Image implements Serializable {
 
     public void setFileSize(Long fileSize) {
         this.fileSize = fileSize;
+    }
+
+    public Long getImageId() {
+        return imageId;
+    }
+
+    public void setImageId(Long imageId) {
+        this.imageId = imageId;
+    }
+
+    public Category getCategory() {
+        return category;
+    }
+
+    public void setCategory(Category category) {
+        this.category = category;
+    }
+
+    public Subcategory getSubCategory() {
+        return subCategory;
+    }
+
+    public void setSubCategory(Subcategory subCategory) {
+        this.subCategory = subCategory;
     }
 
     // endregion
