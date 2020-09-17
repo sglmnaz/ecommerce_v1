@@ -13,7 +13,8 @@ public interface AccountService {
 	List<Account> findAll();
 	Optional<Account> findById(Long id);
     //U
-    Account UpdateById(Long id, Account account);
+    Account UpdateById(Long id, Account account) throws Exception;
+    Account PatchById(Long id, Account account) throws Exception;
     //D
     void DeleteById(Long id);
     void deleteAll();

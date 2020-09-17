@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.repository.AccountRepository;
+import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
 @Service
 public class AccountServiceImplementation implements AccountService {
@@ -31,15 +32,35 @@ public class AccountServiceImplementation implements AccountService {
     }
 
     @Override
-    public Account UpdateById(Long id, Account account) {
+    public Account UpdateById(Long id, Account account) throws Exception {
         
         if(findById(id) == null)
-            return null;
+            throw new RecordNotFoundException(); 
 
         Account newAccount = account;
         newAccount.setAccountId(id);
         accountRepository.save(newAccount);
         
+        return account  ;
+    }
+
+    @Override
+    public Account PatchById(Long id, Account account) throws Exception {
+       
+        Account newAccount = findById(id).get();
+        if( newAccount == null)
+            throw new RecordNotFoundException(); 
+
+        if(account.getIsBanned() != null)
+            newAccount.setIsBanned(account.getIsBanned());
+        if(account.getIsSuspended() != null)
+            newAccount.setIsSuspended(account.getIsSuspended());
+        if(account.getAccountId() != null)
+            newAccount.setAccountId(account.getAccountId());
+
+
+        accountRepository.save(newAccount);
+    
         return account  ;
     }
 
@@ -52,6 +73,8 @@ public class AccountServiceImplementation implements AccountService {
     public void deleteAll() {
         accountRepository.deleteAll();
     }
+
+  
     
 
 }
