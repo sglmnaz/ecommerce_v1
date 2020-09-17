@@ -39,9 +39,9 @@ public class Account implements Serializable {
     @Column(name = "is_banned")
     private Boolean isBanned;
 
-    //TODO: check this code
-    @OneToOne(mappedBy = "accounts")
+    @OneToOne(mappedBy = "account")
     private User user;
+    
 
     // endregion
 
@@ -110,6 +110,15 @@ public class Account implements Serializable {
     public void setIsBanned(Boolean isBanned) {
         this.isBanned = isBanned;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
 
     // endregion
 

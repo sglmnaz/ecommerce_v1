@@ -2,6 +2,7 @@ package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,11 +19,19 @@ public class User implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long userId;
 
-	@Column(name = "account_id")
-	private Long accountId;
+	@OneToOne() 
+	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
+	private Account account;
 
-	@Column(name = "address_id")
-	private Long addressId;
+	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "users_addresses",
+            joinColumns = {
+                    @JoinColumn(name = "user_id", referencedColumnName = "user_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "address_id", referencedColumnName = "address_id",
+                            nullable = false, updatable = false)})
+	private List<Address> address;
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -36,10 +45,7 @@ public class User implements Serializable {
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
 
-	//TODO: check this code
-	@OneToOne(cascade = CascadeType.ALL) 
-	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
-	private Account account;
+
 
 	// endregion
 
@@ -51,22 +57,6 @@ public class User implements Serializable {
 
 	public void setUserId(Long userId) {
 		this.userId = userId;
-	}
-
-	public Long getSecurityId() {
-		return accountId;
-	}
-
-	public void setSecurityId(Long securityId) {
-		this.accountId = securityId;
-	}
-
-	public Long getAddressId() {
-		return addressId;
-	}
-
-	public void setAddressId(Long addressId) {
-		this.addressId = addressId;
 	}
 
 	public String getFirstName() {
@@ -100,6 +90,24 @@ public class User implements Serializable {
 	public void setLastLoginDate(Date lastLoginDate) {
 		this.lastLoginDate = lastLoginDate;
 	}
+
+	public Account getAccount() {
+		return account;
+	}
+
+	public void setAccount(Account account) {
+		this.account = account;
+	}
+
+	public List<Address> getAddress() {
+		return address;
+	}
+
+	public void setAddress(List<Address> address) {
+		this.address = address;
+	}
+
+	
 
 	// endregion
 

@@ -1,6 +1,8 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -33,6 +35,8 @@ public class Address implements Serializable {
 
     @Column(name = "house_number")
     private int houseNumber;
+
+    //private List<User> user;
 
     // endregion
 
@@ -93,6 +97,7 @@ public class Address implements Serializable {
     public void setHouseNumber(int houseNumber) {
         this.houseNumber = houseNumber;
     }
+
 
     // endregion
 
