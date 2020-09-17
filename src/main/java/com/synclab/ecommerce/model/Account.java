@@ -2,6 +2,7 @@ package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -42,6 +43,15 @@ public class Account implements Serializable {
     @OneToOne(mappedBy = "account")
     private User user;
     
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "accounts_roles",
+            joinColumns = {
+                    @JoinColumn(name = "account_id", referencedColumnName = "account_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "role_id", referencedColumnName = "role_id",
+                            nullable = false, updatable = false)})
+    private List<Role> role;
 
     // endregion
 

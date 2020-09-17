@@ -45,7 +45,9 @@ public class User implements Serializable {
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
 
-
+	@OneToOne()
+	@JoinColumn(name = "cart_id" , referencedColumnName = "cart_id" )
+	private Cart cart;
 
 	// endregion
 
@@ -105,6 +107,14 @@ public class User implements Serializable {
 
 	public void setAddress(List<Address> address) {
 		this.address = address;
+	}
+
+	public Cart getCart() {
+		return cart;
+	}
+
+	public void setCart(Cart cart) {
+		this.cart = cart;
 	}
 
 	

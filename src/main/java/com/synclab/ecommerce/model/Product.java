@@ -39,6 +39,9 @@ public class Product implements Serializable {
     @Column(name = "is_available")
     private Boolean isAvailable;
 
+    @OneToOne(mappedBy = "product")
+    private CartItem cartItem;
+
     // endregion
 
     // region getter and setters
@@ -105,6 +108,14 @@ public class Product implements Serializable {
 
     public void setIsAvailable(Boolean isAvailable) {
         this.isAvailable = isAvailable;
+    }
+
+    public CartItem getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(CartItem cartItem) {
+        this.cartItem = cartItem;
     }
 
     // endregion

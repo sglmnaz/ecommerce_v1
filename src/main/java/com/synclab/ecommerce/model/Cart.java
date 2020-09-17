@@ -2,6 +2,7 @@ package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -18,14 +19,17 @@ public class Cart implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @OneToOne(mappedBy = "cart")
+    private User user;
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
     @Column(name = "total_items")
     private int totalItems;
+
+    @OneToMany(mappedBy = "cart")
+    private List<CartItem> cartItem;
 
     // endregion
 
@@ -37,14 +41,6 @@ public class Cart implements Serializable {
 
     public void setCartId(Long cartId) {
         this.cartId = cartId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
     }
 
     public BigDecimal getTotalPrice() {
@@ -61,6 +57,22 @@ public class Cart implements Serializable {
 
     public void setTotalItems(int totalItems) {
         this.totalItems = totalItems;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<CartItem> getCartItem() {
+        return cartItem;
+    }
+
+    public void setCartItem(List<CartItem> cartItem) {
+        this.cartItem = cartItem;
     }
 
     // endregion
