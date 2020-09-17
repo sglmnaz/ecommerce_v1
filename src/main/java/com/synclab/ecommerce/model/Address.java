@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -34,6 +35,9 @@ public class Address implements Serializable {
 
     @Column(name = "house_number")
     private int houseNumber;
+
+    @OneToMany(mappedBy = "address")
+    private List<Shipping> shippings;
 
     // endregion
 

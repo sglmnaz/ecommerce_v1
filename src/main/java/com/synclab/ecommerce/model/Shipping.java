@@ -18,17 +18,18 @@ public class Shipping implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long shippingId;
 
-    @Column(name = "order_id")
-    private Long orderId;
+    @OneToOne()
+    @JoinColumn(name = "order_id" , referencedColumnName = "order_id")
+    private Order order;
 
-    @Column(name = "user_id")
-    private Long userId;
+    @Column(name = "recipient")
+    private String recipient;
 
-    @Column(name = "shipping_address_id")
-    private Long shippingAddressId;
+    @ManyToOne()
+    private Address address;
 
-    @Column(name = "courier_id")
-    private Long courierId;
+    @ManyToOne()
+    private Courier courier;
 
     @Column(name = "status")
     private String status;
@@ -52,38 +53,6 @@ public class Shipping implements Serializable {
 
     public void setShippingId(Long shippingId) {
         this.shippingId = shippingId;
-    }
-
-    public Long getOrderId() {
-        return orderId;
-    }
-
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
-    }
-
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
-
-    public Long getShippingAddressId() {
-        return shippingAddressId;
-    }
-
-    public void setShippingAddressId(Long shippingAddressId) {
-        this.shippingAddressId = shippingAddressId;
-    }
-
-    public Long getCourierId() {
-        return courierId;
-    }
-
-    public void setCourierId(Long courierId) {
-        this.courierId = courierId;
     }
 
     public String getStatus() {
@@ -116,6 +85,38 @@ public class Shipping implements Serializable {
 
     public void setEstimatedDeliverDate(Date estimatedDeliverDate) {
         this.estimatedDeliverDate = estimatedDeliverDate;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
+    }
+
+    public String getRecipient() {
+        return recipient;
+    }
+
+    public void setRecipient(String recipient) {
+        this.recipient = recipient;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Courier getCourier() {
+        return courier;
+    }
+
+    public void setCourier(Courier courier) {
+        this.courier = courier;
     }
 
 

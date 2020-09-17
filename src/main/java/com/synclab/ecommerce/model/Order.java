@@ -3,6 +3,7 @@ package com.synclab.ecommerce.model;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.*;
 
@@ -19,8 +20,11 @@ public class Order implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @Column(name = "user_id")
-    private Long userId;
+    //@Column
+    //private List<CartItem> orderItems;
+
+    @OneToOne(mappedBy = "order")
+    private Shipping shipping;
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
@@ -43,13 +47,6 @@ public class Order implements Serializable {
         this.cartId = cartId;
     }
 
-    public Long getUserId() {
-        return userId;
-    }
-
-    public void setUserId(Long userId) {
-        this.userId = userId;
-    }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
