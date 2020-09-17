@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.service;
+package com.synclab.ecommerce.service.user;
 
 import java.util.List;
 import java.util.Optional;

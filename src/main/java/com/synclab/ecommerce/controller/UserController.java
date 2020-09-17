@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.service.UserServiceImplementation;
+import com.synclab.ecommerce.service.user.UserServiceImplementation;
 
 @RestController
 @RequestMapping("/user")
