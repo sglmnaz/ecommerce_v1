@@ -12,6 +12,7 @@ public interface AccountService {
     //R
 	List<Account> findAll();
 	Optional<Account> findById(Long id);
+	Account findByEmail(String email);
     //U
     Account UpdateById(Long id, Account account) throws Exception;
     Account PatchById(Long id, Account account) throws Exception;

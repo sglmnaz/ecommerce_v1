@@ -50,6 +50,12 @@ public class Role implements Serializable {
         this.description = description;
     }
 
+	
     // endregion
 
+    @Override
+	public String toString() {
+		return "Role [roleId=" + roleId + ", name=" + name + ", description=" + description + "]";
+	}
+    
 }

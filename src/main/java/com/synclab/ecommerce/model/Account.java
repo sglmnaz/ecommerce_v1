@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Account implements Serializable {
     @OneToOne(mappedBy = "account")
     private User user;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "accounts_roles",
             joinColumns = {
                     @JoinColumn(name = "account_id", referencedColumnName = "account_id",
@@ -51,7 +52,8 @@ public class Account implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "role_id", referencedColumnName = "role_id",
                             nullable = false, updatable = false)})
-    private List<Role> role;
+    
+    private List<Role> role = new ArrayList<>();
 
     // endregion
 
@@ -129,7 +131,22 @@ public class Account implements Serializable {
         this.user = user;
     }
 
+    public List<Role> getRole() {
+		return role;
+	}
 
+	public void setRole(List<Role> role) {
+		this.role = role;
+	}
+
+	
     // endregion
 
+   
+	@Override
+	public String toString() {
+		return "Account [accountId=" + accountId + ", username=" + username + ", email=" + email + ", password="
+				+ password + ", birthDate=" + birthDate + ", phone=" + phone + ", isSuspended=" + isSuspended
+				+ ", isBanned=" + isBanned + ", user=" + user + ", role=" + role + "]";
+	}
 }

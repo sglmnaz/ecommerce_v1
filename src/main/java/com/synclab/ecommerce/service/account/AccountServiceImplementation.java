@@ -30,6 +30,12 @@ public class AccountServiceImplementation implements AccountService {
     public Optional<Account> findById(Long id) {
         return accountRepository.findById(id);
     }
+    
+	@Override
+	public Account findByEmail(String email) {
+		return accountRepository.findByEmail(email);
+	}
+
 
     @Override
     public Account UpdateById(Long id, Account account) throws Exception {
@@ -39,9 +45,8 @@ public class AccountServiceImplementation implements AccountService {
 
         Account newAccount = account;
         newAccount.setAccountId(id);
-        accountRepository.save(newAccount);
         
-        return account  ;
+        return accountRepository.save(newAccount);
     }
 
     @Override
@@ -61,7 +66,7 @@ public class AccountServiceImplementation implements AccountService {
 
         accountRepository.save(newAccount);
     
-        return account  ;
+        return newAccount  ;
     }
 
     @Override
@@ -74,7 +79,5 @@ public class AccountServiceImplementation implements AccountService {
         accountRepository.deleteAll();
     }
 
-  
-    
 
 }

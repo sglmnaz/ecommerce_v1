@@ -8,5 +8,6 @@ import com.synclab.ecommerce.model.Account;
 @Repository
 public interface AccountRepository extends JpaRepository<Account, Long> {
 
-
+	Account findByEmail(String email);
+	
 }

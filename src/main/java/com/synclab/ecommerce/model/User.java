@@ -23,7 +23,7 @@ public class User implements Serializable {
 	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
 	private Account account;
 
-	@ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+	@ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "users_addresses",
             joinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "user_id",
@@ -101,11 +101,11 @@ public class User implements Serializable {
 		this.account = account;
 	}
 
-	public List<Address> getAddress() {
+	public List<Address> getAddresses() {
 		return address;
 	}
 
-	public void setAddress(List<Address> address) {
+	public void setAddresses(List<Address> address) {
 		this.address = address;
 	}
 
@@ -118,7 +118,14 @@ public class User implements Serializable {
 	}
 
 	
-
 	// endregion
 
+	@Override
+	public String toString() {
+		return "User [userId=" + userId + ", account=" + account + ", address=" + address + ", firstName=" + firstName
+				+ ", lastName=" + lastName + ", signupDate=" + signupDate + ", lastLoginDate=" + lastLoginDate
+				+ ", cart=" + cart + "]";
+	}
+
+	
 }
