@@ -30,7 +30,7 @@ public class Product implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "category_id", referencedColumnName = "category_id",
                             nullable = false, updatable = false)})
-	private List<Category> category;
+	private List<Category> categories;
 
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "products_subcategories",
@@ -130,12 +130,12 @@ public class Product implements Serializable {
         this.cartItem = cartItem;
     }
 
-    public List<Category> getCategory() {
-        return category;
+    public List<Category> getCategories() {
+        return categories;
     }
 
-    public void setCategory(List<Category> category) {
-        this.category = category;
+    public void setCategories(List<Category> category) {
+        this.categories = category;
     }
 
     public List<Subcategory> getSubcategory() {
@@ -162,6 +162,14 @@ public class Product implements Serializable {
         this.stockItem = stockItem;
     }
 
+	@Override
+	public String toString() {
+		return "Product [productId=" + productId + ", name=" + name + ", categories=" + categories + ", price=" + price
+				+ ", rating=" + rating + ", isAvailable=" + isAvailable + "]";
+	}
+
     // endregion
+    
+    
 
 }

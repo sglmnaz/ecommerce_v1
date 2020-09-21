@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import com.synclab.ecommerce.model.Account;
+import com.synclab.ecommerce.model.Address;
 import com.synclab.ecommerce.model.User;
 
 public interface UserService {
@@ -13,6 +14,7 @@ public interface UserService {
     //R
 	Optional<User> findById(Long id);
 	User findByAccount(Account account);
+	List<User> findByAddress(Address address);
 	Optional<User> findByFirstName(String name);
 	List<User> findAll();
     //U

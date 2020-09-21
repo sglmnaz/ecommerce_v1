@@ -1,5 +1,6 @@
 package com.synclab.ecommerce.service.user;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -7,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.synclab.ecommerce.model.Account;
+import com.synclab.ecommerce.model.Address;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.repository.UserRepository;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
@@ -94,6 +96,13 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User findByAccount(Account account) {
 		return userRepository.findByAccount(account);
+	}
+
+	@Override
+	public List<User> findByAddress(Address address) {
+		List<User> users = new ArrayList<>();
+		users = userRepository.findByAddress(address);
+		return users;
 	}
 
 }
