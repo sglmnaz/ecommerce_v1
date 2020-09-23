@@ -162,12 +162,6 @@ public class Product implements Serializable {
         this.stockItem = stockItem;
     }
 
-	@Override
-	public String toString() {
-		return "Product [productId=" + productId + ", name=" + name + ", categories=" + categories + ", price=" + price
-				+ ", rating=" + rating + ", isAvailable=" + isAvailable + "]";
-	}
-
     // endregion
     
     
