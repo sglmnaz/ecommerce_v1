@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import com.synclab.ecommerce.model.Category;
 import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.model.Subcategory;
+import com.synclab.ecommerce.repository.CategoryRepository;
 import com.synclab.ecommerce.repository.ProductRepository;
 
 @Service
@@ -17,6 +18,9 @@ public class ProductServiceImplementation implements ProductService{
 
 	@Autowired
 	ProductRepository repository;
+	
+	@Autowired
+	CategoryRepository categoryRepository;
 	
 	//insert
 	
@@ -44,7 +48,7 @@ public class ProductServiceImplementation implements ProductService{
 
 	@Override
 	public List<Product> findBySubcategory(Subcategory subcategory) {
-		return repository.findBySubcategory(subcategory);
+		return repository.findByCategories(categoryRepository.findBySubcategories(subcategory));
 	}
 
 	@Override

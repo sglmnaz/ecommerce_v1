@@ -13,9 +13,7 @@ import com.synclab.ecommerce.model.Subcategory;
 public interface ProductRepository extends JpaRepository<Product, Long>{
 	
 	List<Product> findByCategories(Category category);
-	List<Product> findBySubcategory(Subcategory subcategory);
 	List<Product> findByName(String name);
-	//List<Product> findByPrice(Float min,Float max);
-	//List<Product> findByRating(Integer min, Integer max);
+	
 
 }

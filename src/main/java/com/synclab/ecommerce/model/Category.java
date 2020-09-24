@@ -1,6 +1,8 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.List;
+
 import javax.persistence.*;
 
 @Entity
@@ -22,12 +24,30 @@ public class Category implements Serializable {
     @OneToOne() 
 	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
     private Image image;
+    
+    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @JoinTable(name = "categories_subcategories",
+            joinColumns = {
+                    @JoinColumn(name = "category_id", referencedColumnName = "category_id",
+                            nullable = false, updatable = false)},
+            inverseJoinColumns = {
+                    @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id",
+                            nullable = false, updatable = false)})
+    private List<Subcategory> subcategories;
 
     // endregion
 
     // region getter and setters
 
-    public Long getCategoryId() {
+    public List<Subcategory> getSubcategories() {
+		return subcategories;
+	}
+
+	public void setSubcategories(List<Subcategory> subcategories) {
+		this.subcategories = subcategories;
+	}
+
+	public Long getCategoryId() {
         return categoryId;
     }
 

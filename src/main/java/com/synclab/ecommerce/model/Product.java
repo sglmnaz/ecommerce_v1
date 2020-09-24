@@ -31,16 +31,6 @@ public class Product implements Serializable {
                     @JoinColumn(name = "category_id", referencedColumnName = "category_id",
                             nullable = false, updatable = false)})
 	private List<Category> categories;
-
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    @JoinTable(name = "products_subcategories",
-            joinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id",
-                            nullable = false, updatable = false)})
-    private List<Subcategory> subcategory;
     
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     @JoinTable(name = "products_images",
@@ -136,14 +126,6 @@ public class Product implements Serializable {
 
     public void setCategories(List<Category> category) {
         this.categories = category;
-    }
-
-    public List<Subcategory> getSubcategory() {
-        return subcategory;
-    }
-
-    public void setSubcategory(List<Subcategory> subcategory) {
-        this.subcategory = subcategory;
     }
 
     public List<Image> getImage() {

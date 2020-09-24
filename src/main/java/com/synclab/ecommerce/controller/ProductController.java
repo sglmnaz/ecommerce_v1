@@ -1,4 +1,5 @@
 package com.synclab.ecommerce.controller;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,54 +26,48 @@ import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 @RequestMapping("/product")
 public class ProductController {
 
-	//fields
-	
+	// fields
+
 	@Autowired
 	private ProductServiceImplementation productServiceImplementation;
-	
+
 	@Autowired
 	private CategoryServiceImplementation categoryServiceImplementation;
-	
+
 	// post
 
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Product> insert(@RequestBody Product product) {
-		
-		if (product != null)
-		{
-			System.out.println("insert new product: " + product.getName());
-			Product newProduct = product;
-			List<Category> categories = newProduct.getCategories();
-			List<Category> newCategories = new ArrayList<Category>();
-			
-			//check if category is existing
-			Category otherCategory = categoryServiceImplementation.findByName("Other");
-			if (categories != null)
-			{
-				for (int i = 0; i < categories.size() ; i++) {
-					String categoryName = categories.get(i).getName();
-					Category existingCategory = categoryServiceImplementation.findByName(categoryName);
-					if(existingCategory != null)
-					{
-						newCategories.add(existingCategory);
-					}
-					else if (!newCategories.contains(otherCategory)) {
-						newCategories.add(otherCategory);
-					}
-				}
-				newProduct.setCategories(newCategories);
-			}
-			
-			//add to database
-			productServiceImplementation.insert(newProduct);
-			
-			return ResponseEntity.ok(newProduct);
-		}
-		else 
-		{
+
+		if (product == null) { 
+			//product is empty, return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
+		Product newProduct = product;
+		List<Category> categories = newProduct.getCategories();
+		List<Category> newCategories = new ArrayList<Category>();
+
+		// check if category is existing
+		Category otherCategory = categoryServiceImplementation.findByName("Other");
+		if (categories != null) {
+			for (int i = 0; i < categories.size(); i++) {
+				String categoryName = categories.get(i).getName();
+				Category existingCategory = categoryServiceImplementation.findByName(categoryName);
+				if (existingCategory != null) {
+					newCategories.add(existingCategory);
+				} else if (!newCategories.contains(otherCategory)) {
+					newCategories.add(otherCategory);
+				}
+			}
+			newProduct.setCategories(newCategories);
+		}
+
+		// add to database
+		productServiceImplementation.insert(newProduct);
+
+		return ResponseEntity.ok(newProduct);
+
 	}
 
 	// get
@@ -81,119 +76,109 @@ public class ProductController {
 	public ResponseEntity<Product> findById(@PathVariable(value = "id") Long id) {
 		Product newProduct = productServiceImplementation.findById(id);
 
-		return newProduct != null 
-				? ResponseEntity.ok(newProduct)
+		return newProduct != null ? ResponseEntity.ok(newProduct)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		
+
 	}
 
 	@GetMapping(value = "/get/all", produces = "application/json")
 	public ResponseEntity<List<Product>> findAll() {
 
 		List<Product> products = productServiceImplementation.findAll();
-		
-		return !products.isEmpty()
-				? ResponseEntity.ok(products)
+
+		return !products.isEmpty() ? ResponseEntity.ok(products)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
-	
+
 	@GetMapping(value = "/get/price", produces = "application/json")
-	public ResponseEntity<List<Product>> findByPrice(@RequestParam(defaultValue = "0") BigDecimal min , @RequestParam(defaultValue = "9999999999999") BigDecimal max) {
-		 
+	public ResponseEntity<List<Product>> findByPrice(@RequestParam(defaultValue = "0") BigDecimal min,
+			@RequestParam(defaultValue = "9999999999999") BigDecimal max) {
+
 		List<Product> products = productServiceImplementation.findByPrice(min, max);
 
-		return !products.isEmpty()
-				? ResponseEntity.ok(products)
+		return !products.isEmpty() ? ResponseEntity.ok(products)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
+
 	@GetMapping(value = "/get/rating", produces = "application/json")
-	public ResponseEntity<List<Product>> findByRating(@RequestParam(defaultValue = "0") int min , @RequestParam(defaultValue = "10") int max) {
-		 
+	public ResponseEntity<List<Product>> findByRating(@RequestParam(defaultValue = "0") int min,
+			@RequestParam(defaultValue = "10") int max) {
+
 		List<Product> products = productServiceImplementation.findByRating(min, max);
 
-		return !products.isEmpty()
-				? ResponseEntity.ok(products)
+		return !products.isEmpty() ? ResponseEntity.ok(products)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
+
 	@GetMapping(value = "/get/category", produces = "application/json")
 	public ResponseEntity<List<Product>> findByCategory(@RequestParam(defaultValue = "") List<String> categories) {
-		
+
 		System.out.println("Searching for products in: " + categories.toString());
-				
+
 		// takes a list of category and combine the result of those together.
-		
+
 		List<Product> products = new ArrayList<Product>();
-		
+
 		for (String s : categories) {
 			List<Product> p = productServiceImplementation.findByCategory(categoryServiceImplementation.findByName(s));
 			products.addAll(p);
 		}
-		
+
 		// remove duplicates.
-		
+
 		List<Product> productsNoDuplicates = new ArrayList<Product>();
-		
+
 		for (Product product : products) {
-			   if (!productsNoDuplicates.contains(product)) { 
-				   
-	                productsNoDuplicates.add(product); 
-	            } 
+			if (!productsNoDuplicates.contains(product)) {
+
+				productsNoDuplicates.add(product);
+			}
 		}
-		
+
 		// returns list of products without duplicates.
 
-		return !productsNoDuplicates.isEmpty()
-				? ResponseEntity.ok(productsNoDuplicates)
+		return !productsNoDuplicates.isEmpty() ? ResponseEntity.ok(productsNoDuplicates)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
 	// update
-	
+
 	@PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Product> update(@RequestBody Product product) throws RecordNotFoundException {
-		
-		if (product != null)
-		{
-			
-			
+
+		if (product != null) {
+
 			Product newProduct = product;
-			
-			//initialize fields with default values
-			
-			
-			//update to database
-			try 
-			{
-				productServiceImplementation.update(newProduct);;
+
+			// initialize fields with default values
+
+			// update to database
+			try {
+				productServiceImplementation.update(newProduct);
+				;
 				return ResponseEntity.ok(newProduct);
-			}
-			catch (Exception e) 
-			{
+			} catch (Exception e) {
 				throw new RecordNotFoundException();
 			}
-		}
-		else 
-		{
+		} else {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
-		
+
 	}
-	
+
 	// delete
-	
-	@DeleteMapping(value = "/delete/all" , produces = "application/json")
+
+	@DeleteMapping(value = "/delete/all", produces = "application/json")
 	public ResponseEntity<List<Product>> deleteAll() {
-		
+
 		productServiceImplementation.deleteAll();
-		
+
 		List<Product> products = productServiceImplementation.findAll();
 
 		return products.isEmpty() ? ResponseEntity.ok(products)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		
+
 	}
 
 }
