@@ -20,7 +20,7 @@ public class Cart implements Serializable {
     private Long cartId;
 
     @OneToOne()
-    @JoinColumn(name = "user_id" , referencedColumnName = "user_id" )
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     private User user;
 
     @Column(name = "total_price")
@@ -31,23 +31,24 @@ public class Cart implements Serializable {
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItem;
-    
+
     // Initializer
-    
-    public Cart () {} 
-    
-    public Cart (BigDecimal totalPrice, Integer totalItems ) {
-    	super();
-    	this.totalItems = totalItems;
-    	this.totalPrice = totalPrice;
-    } 
-    
-    public Cart (User user, BigDecimal totalPrice, Integer totalItems ) {
-    	super();
-    	this.user = user;
-    	this.totalItems = totalItems;
-    	this.totalPrice = totalPrice;
-    } 
+
+    public Cart() {
+    }
+
+    public Cart(BigDecimal totalPrice, Integer totalItems) {
+        super();
+        this.totalItems = totalItems;
+        this.totalPrice = totalPrice;
+    }
+
+    public Cart(User user, BigDecimal totalPrice, Integer totalItems) {
+        super();
+        this.user = user;
+        this.totalItems = totalItems;
+        this.totalPrice = totalPrice;
+    }
 
     // getter and setters
 
@@ -89,6 +90,14 @@ public class Cart implements Serializable {
 
     public void setCartItem(List<CartItem> cartItem) {
         this.cartItem = cartItem;
+    }
+
+    public BigDecimal evaluateTotal() {
+        BigDecimal total = BigDecimal.ZERO;
+        for (CartItem item : cartItem) {
+            total.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+        }
+        return total;
     }
 
 }

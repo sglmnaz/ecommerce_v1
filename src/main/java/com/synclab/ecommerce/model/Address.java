@@ -11,7 +11,7 @@ public class Address implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "address_id")
@@ -28,13 +28,13 @@ public class Address implements Serializable {
     private String city;
 
     @Column(name = "zipcode")
-    private int zipcode;
+    private Integer zipcode;
 
     @Column(name = "street")
     private String street;
 
     @Column(name = "house_number")
-    private int houseNumber;
+    private Integer houseNumber;
 
     @OneToMany(mappedBy = "address")
     private List<Shipping> shippings;
@@ -42,9 +42,7 @@ public class Address implements Serializable {
     @OneToOne(mappedBy = "address")
     private Warehouse warehouse;
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getAddressId() {
         return addressId;
@@ -78,11 +76,11 @@ public class Address implements Serializable {
         this.city = city;
     }
 
-    public int getZipcode() {
+    public Integer getZipcode() {
         return zipcode;
     }
 
-    public void setZipcode(int zipcode) {
+    public void setZipcode(Integer zipcode) {
         this.zipcode = zipcode;
     }
 
@@ -94,15 +92,21 @@ public class Address implements Serializable {
         this.street = street;
     }
 
-    public int getHouseNumber() {
+    public Integer getHouseNumber() {
         return houseNumber;
     }
 
-    public void setHouseNumber(int houseNumber) {
+    public void setHouseNumber(Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
 
-
-    // endregion
+    public Address(String country, String province, String city, Integer zipcode, String street, Integer houseNumber) {
+        this.country = country;
+        this.province = province;
+        this.city = city;
+        this.zipcode = zipcode;
+        this.street = street;
+        this.houseNumber = houseNumber;
+    }
 
 }

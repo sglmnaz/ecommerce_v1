@@ -1,17 +1,5 @@
 package com.synclab.ecommerce.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +9,17 @@ import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/product")
@@ -39,8 +38,8 @@ public class ProductController {
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<Product> insert(@RequestBody Product product) {
 
-		if (product == null) { 
-			//product is empty, return error message
+		if (product == null) {
+			// product is empty, return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
@@ -168,6 +167,5 @@ public class ProductController {
 	}
 
 	// delete
-
 
 }
