@@ -8,7 +8,7 @@ import com.synclab.ecommerce.model.User;
 public interface CartService {
 
 	//insert
-	void insert(Cart record);
+	Cart insert(Cart record);
 	//retrieve
 	Cart findById(Long id);
 	Cart findByUser(User user);

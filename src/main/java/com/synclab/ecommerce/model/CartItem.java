@@ -1,6 +1,8 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.security.PublicKey;
+
 import javax.persistence.*;
 
 @Entity
@@ -9,7 +11,7 @@ public class CartItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "cart_item_id")
@@ -24,11 +26,20 @@ public class CartItem implements Serializable {
     private Product product;
 
     @Column(name = "quantity")
-    private int quantity;
+    private Integer quantity;
+    
+    // Initializer
+    
+    public CartItem() {}
+    
+    public CartItem(Cart cart, Product product, Integer quantity) {
+    	super();
+    	this.cart=cart;
+    	this.product = product;
+    	this.quantity = quantity;
+    }
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getCartItemId() {
         return cartItemId;
@@ -62,6 +73,5 @@ public class CartItem implements Serializable {
         this.product = product;
     }
 
-    // endregion
 
 }

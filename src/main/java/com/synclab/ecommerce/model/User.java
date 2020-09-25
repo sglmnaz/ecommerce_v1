@@ -45,8 +45,7 @@ public class User implements Serializable {
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
 
-	@OneToOne()
-	@JoinColumn(name = "cart_id" , referencedColumnName = "cart_id" )
+	@OneToOne(mappedBy = "user")
 	private Cart cart;
 
 	// endregion

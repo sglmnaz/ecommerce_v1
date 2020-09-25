@@ -12,28 +12,44 @@ public class Cart implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // Fields
 
     @Id
     @Column(name = "cart_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartId;
 
-    @OneToOne(mappedBy = "cart")
+    @OneToOne()
+    @JoinColumn(name = "user_id" , referencedColumnName = "user_id" )
     private User user;
 
     @Column(name = "total_price")
     private BigDecimal totalPrice;
 
     @Column(name = "total_items")
-    private int totalItems;
+    private Integer totalItems;
 
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItem;
+    
+    // Initializer
+    
+    public Cart () {} 
+    
+    public Cart (BigDecimal totalPrice, Integer totalItems ) {
+    	super();
+    	this.totalItems = totalItems;
+    	this.totalPrice = totalPrice;
+    } 
+    
+    public Cart (User user, BigDecimal totalPrice, Integer totalItems ) {
+    	super();
+    	this.user = user;
+    	this.totalItems = totalItems;
+    	this.totalPrice = totalPrice;
+    } 
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getCartId() {
         return cartId;
@@ -74,7 +90,5 @@ public class Cart implements Serializable {
     public void setCartItem(List<CartItem> cartItem) {
         this.cartItem = cartItem;
     }
-
-    // endregion
 
 }

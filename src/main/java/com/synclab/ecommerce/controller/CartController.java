@@ -12,8 +12,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
+import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
+import com.synclab.ecommerce.service.cartItem.CartItemService;
+import com.synclab.ecommerce.service.cartItem.CartItemServiceImplementation;
+import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
@@ -28,6 +32,12 @@ public class CartController {
 
 	@Autowired
 	private UserServiceImplementation userServiceImplementation;
+
+	@Autowired
+	private ProductServiceImplementation productServiceImplementation;
+	
+	@Autowired
+	private CartItemServiceImplementation cartItemServiceImplementation;
 	
 	// post
 	
@@ -84,6 +94,22 @@ public class CartController {
 
 	}
 
+	@GetMapping(value = "/insertProduct", produces = "application/json")
+	public ResponseEntity<String> addProduct(@RequestParam (name = "cartId") Long cartId,
+											 @RequestParam (name = "productId")Long productId,
+											 @RequestParam (name = "productQuantity" ,defaultValue = "1")Integer productQuantity) {
+		
+		Cart cart = cartServiceImplementation.findById(cartId);
+		Product product = productServiceImplementation.findById(productId);
+		CartItem cartItem = new CartItem(cart,product,productQuantity);
+		
+		cartItem = cartItemServiceImplementation.insert(cartItem);
+
+		return cartItem != null ? ResponseEntity.ok("product: " + product.getName() + " x" + productQuantity + " was added to cart")
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+	}
+	
 	// update
 	
 	@PostMapping(value = "/update", consumes = "application/json", produces = "application/json")

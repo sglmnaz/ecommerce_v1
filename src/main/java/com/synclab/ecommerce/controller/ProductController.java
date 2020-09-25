@@ -169,16 +169,5 @@ public class ProductController {
 
 	// delete
 
-	@DeleteMapping(value = "/delete/all", produces = "application/json")
-	public ResponseEntity<List<Product>> deleteAll() {
-
-		productServiceImplementation.deleteAll();
-
-		List<Product> products = productServiceImplementation.findAll();
-
-		return products.isEmpty() ? ResponseEntity.ok(products)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-	}
 
 }

@@ -16,8 +16,8 @@ public class CartServiceImplementation implements CartService {
 	CartRepository repository;
 	
 	@Override
-	public void insert(Cart record) {
-		repository.save(record);
+	public Cart insert(Cart record) {
+		return repository.save(record);
 	}
 
 	@Override
