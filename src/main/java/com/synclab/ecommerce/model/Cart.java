@@ -92,10 +92,18 @@ public class Cart implements Serializable {
         this.cartItem = cartItem;
     }
 
-    public BigDecimal evaluateTotal() {
+    public BigDecimal evaluateTotalPrice() {
         BigDecimal total = BigDecimal.ZERO;
         for (CartItem item : cartItem) {
             total.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+        }
+        return total;
+    }
+
+    public Integer evaluateTotalItems() {
+        Integer total = 0;
+        for (CartItem item : cartItem) {
+            total += item.getQuantity();
         }
         return total;
     }

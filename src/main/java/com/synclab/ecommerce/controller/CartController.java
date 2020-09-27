@@ -1,8 +1,5 @@
 package com.synclab.ecommerce.controller;
 
-import java.math.BigDecimal;
-import java.util.List;
-
 import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
 import com.synclab.ecommerce.model.Product;
@@ -53,20 +50,10 @@ public class CartController {
 
 		// declarations
 		Cart entity = request;
-		List<CartItem> items = entity.getCartItem();
-		Integer totalItems = 0;
-		BigDecimal totalPrice = new BigDecimal("0");
 
 		// operations
-		if (items != null)
-			for (CartItem item : items) {
-				totalItems += item.getQuantity();
-				BigDecimal price = item.getProduct().getPrice();
-				totalPrice = BigDecimal.valueOf(item.getQuantity()).multiply(price);
-			}
-
-		entity.setTotalItems(totalItems);
-		entity.setTotalPrice(totalPrice);
+		entity.setTotalItems(entity.evaluateTotalItems());
+		entity.setTotalPrice(entity.evaluateTotalPrice());
 
 		// add to database
 		cartServiceImplementation.insert(entity);
@@ -150,18 +137,6 @@ public class CartController {
 		Cart entity = cartServiceImplementation.findById(id);
 
 		return entity == null ? ResponseEntity.ok(entity)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-	}
-
-	@DeleteMapping(value = "/delete/all", produces = "application/json")
-	public ResponseEntity<List<Cart>> deleteAll() {
-
-		cartServiceImplementation.deleteAll();
-
-		List<Cart> entities = cartServiceImplementation.findAll();
-
-		return entities.isEmpty() ? ResponseEntity.ok(entities)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
