@@ -10,7 +10,7 @@ public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "image_id")
@@ -29,15 +29,15 @@ public class Image implements Serializable {
     @Column(name = "file_size")
     private Long fileSize;
 
-    @OneToOne(mappedBy = "image") 
+    // foreign keys
+
+    @OneToOne(mappedBy = "image")
     private Category category;
 
-    @OneToOne(mappedBy = "image") 
+    @OneToOne(mappedBy = "image")
     private Subcategory subCategory;
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getCartItemId() {
         return imageId;
@@ -102,7 +102,5 @@ public class Image implements Serializable {
     public void setSubCategory(Subcategory subCategory) {
         this.subCategory = subCategory;
     }
-
-    // endregion
 
 }

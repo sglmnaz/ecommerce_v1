@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.synclab.ecommerce.model.Category;
+import com.synclab.ecommerce.model.Image;
 import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
@@ -36,19 +37,21 @@ public class ProductController {
 	// post
 
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Product> insert(@RequestBody Product product) {
+	public ResponseEntity<Product> insert(@RequestBody Product requestBody) {
 
-		if (product == null) {
-			// product is empty, return error message
+		if (requestBody == null) {
+			// body is empty, return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		}
 
-		Product newProduct = product;
+		Product newProduct = requestBody;
 		List<Category> categories = newProduct.getCategories();
 		List<Category> newCategories = new ArrayList<Category>();
+		List<Image> images = newProduct.getImage();
 
-		// check if category is existing
+		// other category if product isn't of any known category
 		Category otherCategory = categoryServiceImplementation.findByName("Other");
+
 		if (categories != null) {
 			for (int i = 0; i < categories.size(); i++) {
 				String categoryName = categories.get(i).getName();
