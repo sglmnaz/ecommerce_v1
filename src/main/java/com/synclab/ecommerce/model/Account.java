@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 @Entity
 @Table(name = "accounts")
 public class Account implements Serializable {
@@ -29,22 +31,20 @@ public class Account implements Serializable {
     @Column(name = "password")
     private String password;
 
+    @JsonFormat(pattern="dd/MM/yyyy")
     @Column(name = "birth_date")
     private Date birthDate;
 
     @Column(name = "phone")
-    private Integer phone;
+    private String phone;
 
     @Column(name = "is_suspended")
-    private Boolean isSuspended;
+    private Boolean isSuspended = false;
 
     @Column(name = "is_banned")
-    private Boolean isBanned;
-
-    @OneToOne(mappedBy = "account")
-    private User user;
+    private Boolean isBanned = false;
     
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany()
     @JoinTable(name = "accounts_roles",
             joinColumns = {
                     @JoinColumn(name = "account_id", referencedColumnName = "account_id",
@@ -99,11 +99,11 @@ public class Account implements Serializable {
         this.birthDate = birthDate;
     }
 
-    public Integer getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(Integer phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -123,14 +123,6 @@ public class Account implements Serializable {
         this.isBanned = isBanned;
     }
 
-    public User getUser() {
-        return user;
-    }
-
-    public void setUser(User user) {
-        this.user = user;
-    }
-
     public List<Role> getRole() {
 		return role;
 	}
@@ -147,6 +139,6 @@ public class Account implements Serializable {
 	public String toString() {
 		return "Account [accountId=" + accountId + ", username=" + username + ", email=" + email + ", password="
 				+ password + ", birthDate=" + birthDate + ", phone=" + phone + ", isSuspended=" + isSuspended
-				+ ", isBanned=" + isBanned + ", user=" + user + ", role=" + role + "]";
+				+ ", isBanned=" + isBanned + ", role=" + role + "]";
 	}
 }

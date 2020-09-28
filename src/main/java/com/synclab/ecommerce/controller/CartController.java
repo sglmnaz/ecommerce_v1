@@ -10,6 +10,8 @@ import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
+import java.math.BigDecimal;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,18 +44,17 @@ public class CartController {
 
 	// post
 
-	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Cart> insert(@RequestBody Cart request) {
+	@PostMapping(value = "/insert/{userId}", produces = "application/json")
+	public ResponseEntity<Cart> insert(@PathVariable(value = "userId") Long userId) {
 
-		if (request == null) // return error message
+		User user = userServiceImplementation.findById(userId).get();
+		
+		if (user == null) // return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 		// declarations
-		Cart entity = request;
-
-		// operations
-		entity.setTotalItems(entity.evaluateTotalItems());
-		entity.setTotalPrice(entity.evaluateTotalPrice());
+		Cart entity = new Cart(BigDecimal.ZERO,0);
+		entity.setUser(user);
 
 		// add to database
 		cartServiceImplementation.insert(entity);
@@ -74,10 +75,10 @@ public class CartController {
 
 	}
 
-	@GetMapping(value = "/getByUser/{id}", produces = "application/json")
-	public ResponseEntity<Cart> findByUser(@PathVariable(value = "id") Long id) {
+	@GetMapping(value = "/getByUser/{userId}", produces = "application/json")
+	public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") Long userId) {
 
-		User user = userServiceImplementation.findById(id).get();
+		User user = userServiceImplementation.findById(userId).get();
 		Cart entity = cartServiceImplementation.findByUser(user);
 
 		return entity != null ? ResponseEntity.ok(entity)

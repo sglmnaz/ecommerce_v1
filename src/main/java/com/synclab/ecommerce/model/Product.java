@@ -22,7 +22,7 @@ public class Product implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(name = "products_categories",
             joinColumns = {
                     @JoinColumn(name = "product_id", referencedColumnName = "product_id",
@@ -32,7 +32,7 @@ public class Product implements Serializable {
                             nullable = false, updatable = false)})
 	private List<Category> categories;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(name = "products_images",
             joinColumns = {
                     @JoinColumn(name = "product_id", referencedColumnName = "product_id",

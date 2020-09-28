@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class User implements Serializable {
 	@JoinColumn(name = "account_id" , referencedColumnName = "account_id")
 	private Account account;
 
-	@ManyToMany(fetch = FetchType.LAZY)
+	@ManyToMany()
     @JoinTable(name = "users_addresses",
             joinColumns = {
                     @JoinColumn(name = "user_id", referencedColumnName = "user_id",
@@ -31,7 +32,7 @@ public class User implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "address_id", referencedColumnName = "address_id",
                             nullable = false, updatable = false)})
-	private List<Address> address;
+	private List<Address> address = new ArrayList<Address>();
 
 	@Column(name = "first_name")
 	private String firstName;
@@ -45,8 +46,6 @@ public class User implements Serializable {
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
 
-	@OneToOne(mappedBy = "user")
-	private Cart cart;
 
 	// endregion
 
@@ -108,14 +107,6 @@ public class User implements Serializable {
 		this.address = address;
 	}
 
-	public Cart getCart() {
-		return cart;
-	}
-
-	public void setCart(Cart cart) {
-		this.cart = cart;
-	}
-
 	
 	// endregion
 
@@ -123,7 +114,7 @@ public class User implements Serializable {
 	public String toString() {
 		return "User [userId=" + userId + ", account=" + account + ", address=" + address + ", firstName=" + firstName
 				+ ", lastName=" + lastName + ", signupDate=" + signupDate + ", lastLoginDate=" + lastLoginDate
-				+ ", cart=" + cart + "]";
+				 + "]";
 	}
 
 	

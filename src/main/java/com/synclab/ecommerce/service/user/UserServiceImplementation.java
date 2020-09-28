@@ -65,8 +65,6 @@ public class UserServiceImplementation implements UserService {
 			newUser.setAccount(user.getAccount());
 		if(user.getAddresses() != null)
 			newUser.setAddresses(user.getAddresses());
-		if(user.getCart() != null)
-			newUser.setCart(user.getCart());
 		if(user.getFirstName() != null)
 			newUser.setFirstName(user.getFirstName());
 		if(user.getLastName() != null)

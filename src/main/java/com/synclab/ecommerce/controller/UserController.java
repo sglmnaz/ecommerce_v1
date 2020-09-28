@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.controller;
 
 import java.math.BigDecimal;
+import java.util.Date;
 import java.util.List;
 
 import com.synclab.ecommerce.model.Account;
@@ -41,8 +42,6 @@ public class UserController {
 	@Autowired
 	private AddressServiceImplementation addressServiceImplementation;
 
-	@Autowired
-	private CartServiceImplementation cartServiceImplementation;
 
 	// post
 
@@ -54,34 +53,26 @@ public class UserController {
 		}
 
 		User entity = user;
-		List<Address> addressList = entity.getAddresses();
 		Account account = entity.getAccount();
-		Role role = roleServiceImplementation.findByName("ROLE_CLIENT");
-		Cart cart = entity.getCart();
+		List<Address> addressList = entity.getAddresses();
 
+		//initialize fields with default value and add tthem to db
+		account.getRole().add(roleServiceImplementation.findByName("ROLE_CLIENT"));
+		account = accountServiceImplementation.insert(account);
 		if (addressList != null) {
 			for (Address address : addressList) {
 				addressServiceImplementation.insert(address);
 			}
 		}
-
-		if (role != null) {
-			account.getRole().add(role);
-		}
-
-		if (account != null) {
-			account = accountServiceImplementation.insert(account);
-		} else {
-			account = accountServiceImplementation.insert(new Account());
-		}
-
-		if (cart != null) {
-			cart = cartServiceImplementation.insert(cart);
-		} else {
-			cart = cartServiceImplementation.insert(new Cart(BigDecimal.ZERO, 0));
-		}
-
+		
+		// assign fields to entity
+		entity.setAccount(account);
+		entity.setSignupDate(new Date());
+		
+		
+		// add entity to db
 		entity = userServiceImplementation.insert(entity);
+
 
 		return ResponseEntity.ok(entity);
 

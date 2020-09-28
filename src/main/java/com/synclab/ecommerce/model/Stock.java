@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -22,7 +23,7 @@ public class Stock implements Serializable {
     private Warehouse warehouse;
 
     @OneToMany(mappedBy = "stock")
-    private List<StockItem> stockItems;
+    private List<StockItem> stockItems = new ArrayList<StockItem>();
 
     // endregion
 

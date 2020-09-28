@@ -21,7 +21,7 @@ public class Warehouse implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(name = "warehouses_furnishers",
             joinColumns = {
                     @JoinColumn(name = "warehouse_id", referencedColumnName = "warehouse_id",

@@ -1,6 +1,7 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class Category implements Serializable {
 	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
     private Image image;
     
-    @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    @ManyToMany()
     @JoinTable(name = "categories_subcategories",
             joinColumns = {
                     @JoinColumn(name = "category_id", referencedColumnName = "category_id",
@@ -33,7 +34,7 @@ public class Category implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id",
                             nullable = false, updatable = false)})
-    private List<Subcategory> subcategories;
+    private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 
     // endregion
 
