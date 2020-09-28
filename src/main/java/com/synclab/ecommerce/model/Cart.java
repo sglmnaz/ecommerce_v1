@@ -96,16 +96,22 @@ public class Cart implements Serializable {
     public BigDecimal evaluateTotalPrice() {
     	if (cartItem == null)
     		return BigDecimal.ZERO;
+    	
         BigDecimal total = BigDecimal.ZERO;
         for (CartItem item : cartItem) {
-            total.add(item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+        	BigDecimal itemPrice = item.getProduct().getPrice();
+        	BigDecimal itemQuantity = BigDecimal.valueOf(item.getQuantity());
+            BigDecimal temp = (itemQuantity.multiply(itemPrice));
+            total = total.add(temp);
         }
+        
         return total;
     }
 
     public Integer evaluateTotalItems() {
     	if (cartItem == null)
     		return 0;
+    	
         Integer total = 0;
         for (CartItem item : cartItem) {
             total += item.getQuantity();

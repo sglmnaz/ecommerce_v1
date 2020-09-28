@@ -54,12 +54,6 @@ public class Product implements Serializable {
     @Column(name = "is_available")
     private Boolean isAvailable;
 
-    @OneToOne(mappedBy = "product")
-    private CartItem cartItem;
-
-    @OneToOne(mappedBy = "product")
-    private StockItem stockItem;
-
     // endregion
 
     // region getter and setters
@@ -112,14 +106,6 @@ public class Product implements Serializable {
         this.isAvailable = isAvailable;
     }
 
-    public CartItem getCartItem() {
-        return cartItem;
-    }
-
-    public void setCartItem(CartItem cartItem) {
-        this.cartItem = cartItem;
-    }
-
     public List<Category> getCategories() {
         return categories;
     }
@@ -136,13 +122,6 @@ public class Product implements Serializable {
         this.image = image;
     }
 
-    public StockItem getStockItem() {
-        return stockItem;
-    }
-
-    public void setStockItem(StockItem stockItem) {
-        this.stockItem = stockItem;
-    }
 
     // endregion
     

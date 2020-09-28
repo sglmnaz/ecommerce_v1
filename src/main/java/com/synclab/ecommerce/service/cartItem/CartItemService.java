@@ -13,7 +13,7 @@ public interface CartItemService {
 		CartItem findById(Long id);
 		List<CartItem> findAll();
 		//update
-		void update(CartItem record);
+		CartItem update(CartItem record);
 		//delete
 		void deleteById(Long id);
 		void deleteAll();

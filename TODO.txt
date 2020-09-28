@@ -1,4 +1,4 @@
-separare controllers 70
+separare controllers 95
 metodo calcolo tot carrello 100
 aggiunta immagine al prodotto 0
 update quantità prodotto nel carrello 0

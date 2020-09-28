@@ -5,6 +5,8 @@ import java.security.PublicKey;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+
 @Entity
 @Table(name = "cartsitems")
 public class CartItem implements Serializable {
@@ -57,8 +59,8 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public Cart getCart() {
-        return cart;
+    public Long getCart() {
+        return cart.getCartId();
     }
 
     public void setCart(Cart cart) {

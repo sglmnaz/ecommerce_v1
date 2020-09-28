@@ -32,9 +32,8 @@ public class CartItemServiceImplementation implements CartItemService {
 	}
 
 	@Override
-	public void update(CartItem record) {
-		// TODO Auto-generated method stub
-		
+	public CartItem update(CartItem record) {
+		return repository.save(record);
 	}
 
 	@Override

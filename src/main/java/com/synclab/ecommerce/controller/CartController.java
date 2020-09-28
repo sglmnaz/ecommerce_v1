@@ -11,6 +11,7 @@ import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -85,6 +86,16 @@ public class CartController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
+	
+	@GetMapping(value = "/getAllProducts/{id}", produces = "application/json")
+	public ResponseEntity<List<CartItem>> findAllProductsById(@PathVariable(value = "id") Long id) {
+
+		Cart entity = cartServiceImplementation.findById(id);
+
+		return entity != null ? ResponseEntity.ok(entity.getCartItem())
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+	}
 
 	@GetMapping(value = "/insertProduct", produces = "application/json")
 	public ResponseEntity<String> addProduct(@RequestParam(name = "cartId") Long cartId,
@@ -96,9 +107,43 @@ public class CartController {
 		CartItem cartItem = new CartItem(cart, product, productQuantity);
 
 		cartItem = cartItemServiceImplementation.insert(cartItem);
+		cart.setTotalItems(cart.evaluateTotalItems());
+		cart.setTotalPrice(cart.evaluateTotalPrice());
+		cartServiceImplementation.update(cart);
 
 		return cartItem != null
 				? ResponseEntity.ok("product: " + product.getName() + " x" + productQuantity + " was added to cart")
+				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+	}
+	
+	@GetMapping(value = "/changeProductQuantity", produces = "application/json")
+	public ResponseEntity<String> changeProductQuantity(@RequestParam(name = "cartId") Long cartId,
+			@RequestParam(name = "productId") Long productId,
+			@RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
+
+		Cart cart = cartServiceImplementation.findById(cartId);
+		CartItem cartItem = null;
+		
+		for (CartItem item : cart.getCartItem()) {
+			if (item.getProduct().getProductId() == productId) {
+				cartItem = item;
+			}
+		}
+		
+		if (cartItem == null)
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		
+		cartItem.setQuantity(productQuantity);
+
+		cartItem = cartItemServiceImplementation.update(cartItem);
+		
+		cart.setTotalItems(cart.evaluateTotalItems());
+		cart.setTotalPrice(cart.evaluateTotalPrice());
+		cartServiceImplementation.update(cart);
+
+		return cartItem != null
+				? ResponseEntity.ok("product quantity set to: " + productQuantity)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
