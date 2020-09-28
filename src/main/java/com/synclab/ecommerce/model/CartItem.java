@@ -5,6 +5,7 @@ import java.security.PublicKey;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 
 @Entity
@@ -59,7 +60,7 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public Long getCart() {
+    public Long getCartID() { //changed to avoid loop (can be canged with jsnignoreproperty?)
         return cart.getCartId();
     }
 
@@ -74,6 +75,13 @@ public class CartItem implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
+
+	@Override
+	public String toString() {
+		return "CartItem [ID=" + cartItemId + ", cartID=" + getCartID() + ", product=" + product + ", quantity=" + quantity + "]";
+	}
+    
+    
 
 
 }

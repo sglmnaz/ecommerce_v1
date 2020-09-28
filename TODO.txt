@@ -2,3 +2,5 @@ separare controllers 95
 metodo calcolo tot carrello 100
 aggiunta immagine al prodotto 0
 update quantità prodotto nel carrello 0
+
+cambiare le get di tutte le entità in modo che ritornino id invece che oggetti per evitare loop durante le stampe ?
