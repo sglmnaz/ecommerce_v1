@@ -7,6 +7,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "carts")
 public class Cart implements Serializable {
@@ -30,6 +32,7 @@ public class Cart implements Serializable {
     @Column(name = "total_items")
     private Integer totalItems;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "cart")
     private List<CartItem> cartItem = new ArrayList<CartItem>();
 

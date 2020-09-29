@@ -21,10 +21,15 @@ public class CartItem implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long cartItemId;
 
-    @ManyToOne
+    @ManyToOne()
+    @JoinColumn(name = "cart", referencedColumnName = "cart_id")
     private Cart cart;
+    
+    @ManyToOne
+    @JoinColumn(name = "order", referencedColumnName = "order_id")
+    private Order order;
 
-    @OneToOne()
+	@OneToOne()
     @JoinColumn(name = "product_id" , referencedColumnName = "product_id")
     private Product product;
 
@@ -52,11 +57,11 @@ public class CartItem implements Serializable {
         this.cartItemId = cartItemId;
     }
 
-    public int getQuantity() {
+    public Integer getQuantity() {
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
+    public void setQuantity(Integer quantity) {
         this.quantity = quantity;
     }
 
@@ -67,6 +72,14 @@ public class CartItem implements Serializable {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
+    
+    public Long getOrder() { //changed to avoid loop (can be canged with jsnignoreproperty?)
+  		return order.getOrderId();
+  	}
+
+  	public void setOrder(Order order) {
+  		this.order = order;
+  	}
 
     public Product getProduct() {
         return product;

@@ -49,12 +49,12 @@ public class CartController {
 	public ResponseEntity<Cart> insert(@PathVariable(value = "userId") Long userId) {
 
 		User user = userServiceImplementation.findById(userId).get();
-		
+
 		if (user == null) // return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 		// declarations
-		Cart entity = new Cart(BigDecimal.ZERO,0);
+		Cart entity = new Cart(BigDecimal.ZERO, 0);
 		entity.setUser(user);
 
 		// add to database
@@ -86,7 +86,7 @@ public class CartController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
-	
+
 	@GetMapping(value = "/getAllProducts/{id}", produces = "application/json")
 	public ResponseEntity<List<CartItem>> findAllProductsById(@PathVariable(value = "id") Long id) {
 
@@ -116,7 +116,7 @@ public class CartController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
-	
+
 	@GetMapping(value = "/changeProductQuantity", produces = "application/json")
 	public ResponseEntity<String> changeProductQuantity(@RequestParam(name = "cartId") Long cartId,
 			@RequestParam(name = "productId") Long productId,
@@ -124,26 +124,25 @@ public class CartController {
 
 		Cart cart = cartServiceImplementation.findById(cartId);
 		CartItem cartItem = null;
-		
+
 		for (CartItem item : cart.getCartItem()) {
 			if (item.getProduct().getProductId() == productId) {
 				cartItem = item;
 			}
 		}
-		
+
 		if (cartItem == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		
+
 		cartItem.setQuantity(productQuantity);
 
 		cartItem = cartItemServiceImplementation.update(cartItem);
-		
+
 		cart.setTotalItems(cart.evaluateTotalItems());
 		cart.setTotalPrice(cart.evaluateTotalPrice());
 		cartServiceImplementation.update(cart);
 
-		return cartItem != null
-				? ResponseEntity.ok("product quantity set to: " + productQuantity)
+		return cartItem != null ? ResponseEntity.ok("product quantity set to: " + productQuantity)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
@@ -178,7 +177,6 @@ public class CartController {
 	public ResponseEntity<Cart> deleteById(@PathVariable(value = "id") Long id) {
 
 		cartServiceImplementation.deleteById(id);
-		;
 
 		Cart entity = cartServiceImplementation.findById(id);
 

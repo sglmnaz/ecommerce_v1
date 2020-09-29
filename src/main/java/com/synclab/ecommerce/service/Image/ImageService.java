@@ -1,7 +1,6 @@
 package com.synclab.ecommerce.service.Image;
 
 
-import org.springframework.http.ResponseEntity;
 
 import com.synclab.ecommerce.model.Image;
 

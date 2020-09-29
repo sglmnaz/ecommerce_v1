@@ -2,10 +2,13 @@ package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.*;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "orders")
@@ -18,15 +21,9 @@ public class Order implements Serializable {
     @Id
     @Column(name = "order_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
+    private Long orderId;
 
-    //@Column
-    //private List<CartItem> orderItems;
-
-    @OneToOne(mappedBy = "order")
-    private Shipping shipping;
-
-    @Column(name = "total_price")
+	@Column(name = "total_price")
     private BigDecimal totalPrice;
 
     @Column(name = "total_items")
@@ -35,18 +32,29 @@ public class Order implements Serializable {
     @Column(name = "creation_date")
     private Date creationDate;
 
+    @JsonIgnore
+    @OneToMany(mappedBy = "order")
+    private List<CartItem> orderItems = new ArrayList<CartItem>();
+    
     // endregion
 
     // region getter and setters
 
-    public Long getCartId() {
-        return cartId;
-    }
+    public Long getOrderId() {
+ 		return orderId;
+ 	}
 
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
-    }
+ 	public void setOrderId(Long orderId) {
+ 		this.orderId = orderId;
+ 	}
 
+ 	public List<CartItem> getOrderItems() {
+ 		return orderItems;
+ 	}
+
+ 	public void setOrderItems(List<CartItem> orderItems) {
+ 		this.orderItems = orderItems;
+ 	}
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
