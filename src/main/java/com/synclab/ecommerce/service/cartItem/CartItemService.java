@@ -11,6 +11,7 @@ public interface CartItemService {
 		CartItem insert(CartItem record);
 		//retrieve
 		CartItem findById(Long id);
+		List<CartItem> findByCart_CartId(Long cartId);
 		List<CartItem> findAll();
 		//update
 		CartItem update(CartItem record);

@@ -22,11 +22,11 @@ public class CartItem implements Serializable {
     private Long cartItemId;
 
     @ManyToOne()
-    @JoinColumn(name = "cart", referencedColumnName = "cart_id")
+    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     private Cart cart;
     
     @ManyToOne
-    @JoinColumn(name = "order", referencedColumnName = "order_id")
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Order order;
 
 	@OneToOne()

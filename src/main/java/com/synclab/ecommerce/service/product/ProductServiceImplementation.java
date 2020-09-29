@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,6 +14,9 @@ import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.model.Subcategory;
 import com.synclab.ecommerce.repository.CategoryRepository;
 import com.synclab.ecommerce.repository.ProductRepository;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
 
 @Service
 public class ProductServiceImplementation implements ProductService{
@@ -111,5 +116,22 @@ public class ProductServiceImplementation implements ProductService{
 	public void deleteAll() {
 		repository.deleteAll();
 	}
+
+//	RSQL
+//	public List<Product> rsqlQuery(String queryString){
+//        // We will need a JPA EntityManager
+//
+//    // Create the JPA Visitor
+//    RSQLVisitor<CriteriaQuery<Product>, EntityManager> visitor = new JpaCriteriaQueryVisitor<Prodotto>();
+//
+//    // Parse a RSQL into a Node
+//    Node rootNode = new RSQLParser().parse(queryString);
+//
+//    // Visit the node to retrieve CriteriaQuery
+//    CriteriaQuery<Product> query = rootNode.accept(visitor, entityManager);
+//
+//    // Execute and get results
+//    List<Product> products = entityManager.createQuery(query).getResultList();
+//    return products;
 
 }

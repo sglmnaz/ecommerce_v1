@@ -3,4 +3,8 @@ metodo calcolo tot carrello 100
 aggiunta immagine 100
 update quantità prodotto nel carrello 100
 
+fare l order
+
 cambiare le get di tutte le entità in modo che ritornino id invece che oggetti per evitare loop durante le stampe ?
+
+lombok

@@ -48,13 +48,11 @@ public class OrderController {
 		
 		Order order = new Order();
 		order.setCreationDate(new Date());
-		order.setOrderItems(cart.getCartItem());
 		order.setTotalItems(cart.getTotalItems());
 		order.setTotalPrice(cart.getTotalPrice());
 		
 		order = orderServiceImplementation.insert(order);
 		
-		cart.setCartItem(new ArrayList<CartItem>());
 		cart.setTotalItems(0);
 		cart.setTotalPrice(BigDecimal.ZERO);
 		

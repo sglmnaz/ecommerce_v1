@@ -32,9 +32,6 @@ public class Order implements Serializable {
     @Column(name = "creation_date")
     private Date creationDate;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "order")
-    private List<CartItem> orderItems = new ArrayList<CartItem>();
     
     // endregion
 
@@ -46,14 +43,6 @@ public class Order implements Serializable {
 
  	public void setOrderId(Long orderId) {
  		this.orderId = orderId;
- 	}
-
- 	public List<CartItem> getOrderItems() {
- 		return orderItems;
- 	}
-
- 	public void setOrderItems(List<CartItem> orderItems) {
- 		this.orderItems = orderItems;
  	}
 
     public BigDecimal getTotalPrice() {

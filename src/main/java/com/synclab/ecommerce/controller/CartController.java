@@ -92,7 +92,7 @@ public class CartController {
 
 		Cart entity = cartServiceImplementation.findById(id);
 
-		return entity != null ? ResponseEntity.ok(entity.getCartItem())
+		return entity != null ? ResponseEntity.ok(cartItemServiceImplementation.findByCart_CartId(id))
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
@@ -107,9 +107,8 @@ public class CartController {
 		CartItem cartItem = new CartItem(cart, product, productQuantity);
 
 		cartItem = cartItemServiceImplementation.insert(cartItem);
-		cart.setTotalItems(cart.evaluateTotalItems());
-		cart.setTotalPrice(cart.evaluateTotalPrice());
 		cartServiceImplementation.update(cart);
+		evaluateTotals(cart.getCartId());
 
 		return cartItem != null
 				? ResponseEntity.ok("product: " + product.getName() + " x" + productQuantity + " was added to cart")
@@ -123,9 +122,11 @@ public class CartController {
 			@RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
 
 		Cart cart = cartServiceImplementation.findById(cartId);
+		List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
+		
 		CartItem cartItem = null;
 
-		for (CartItem item : cart.getCartItem()) {
+		for (CartItem item : items) {
 			if (item.getProduct().getProductId() == productId) {
 				cartItem = item;
 			}
@@ -138,9 +139,8 @@ public class CartController {
 
 		cartItem = cartItemServiceImplementation.update(cartItem);
 
-		cart.setTotalItems(cart.evaluateTotalItems());
-		cart.setTotalPrice(cart.evaluateTotalPrice());
 		cartServiceImplementation.update(cart);
+		evaluateTotals(cart.getCartId());
 
 		return cartItem != null ? ResponseEntity.ok("product quantity set to: " + productQuantity)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -184,5 +184,44 @@ public class CartController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
+	
+	// utility
+	
+    public BigDecimal evaluateTotalPrice(List<CartItem> items) {
+    	
+    	BigDecimal total = BigDecimal.ZERO;
+    	
+    	if (items == null)
+    		return total;
+    	
+        for (CartItem item : items) {
+        	BigDecimal itemPrice = item.getProduct().getPrice();
+        	BigDecimal itemQuantity = BigDecimal.valueOf(item.getQuantity());
+            BigDecimal temp = (itemQuantity.multiply(itemPrice));
+            total = total.add(temp);
+        }
+        
+        return total;
+    }
+
+    public void evaluateTotals(Long cartId) {
+    	
+    	Cart cart = cartServiceImplementation.findById(cartId);
+    	List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
+    	Integer total = 0;
+    	
+    	if (items == null)
+    		cart.setTotalItems(total);
+    	
+        for (CartItem item : items) {
+            total += item.getQuantity();
+        }
+        
+		cart.setTotalItems(total);
+		cart.setTotalPrice(evaluateTotalPrice(items));
+		
+		cart = cartServiceImplementation.insert(cart);
+        
+    }
 
 }

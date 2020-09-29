@@ -32,10 +32,6 @@ public class Cart implements Serializable {
     @Column(name = "total_items")
     private Integer totalItems;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "cart")
-    private List<CartItem> cartItem = new ArrayList<CartItem>();
-
     // Initializer
 
     public Cart() {
@@ -88,38 +84,5 @@ public class Cart implements Serializable {
         this.user = user;
     }
 
-    public List<CartItem> getCartItem() {
-        return cartItem;
-    }
-
-    public void setCartItem(List<CartItem> cartItem) {
-        this.cartItem = cartItem;
-    }
-
-    public BigDecimal evaluateTotalPrice() {
-    	if (cartItem == null)
-    		return BigDecimal.ZERO;
-    	
-        BigDecimal total = BigDecimal.ZERO;
-        for (CartItem item : cartItem) {
-        	BigDecimal itemPrice = item.getProduct().getPrice();
-        	BigDecimal itemQuantity = BigDecimal.valueOf(item.getQuantity());
-            BigDecimal temp = (itemQuantity.multiply(itemPrice));
-            total = total.add(temp);
-        }
-        
-        return total;
-    }
-
-    public Integer evaluateTotalItems() {
-    	if (cartItem == null)
-    		return 0;
-    	
-        Integer total = 0;
-        for (CartItem item : cartItem) {
-            total += item.getQuantity();
-        }
-        return total;
-    }
 
 }
