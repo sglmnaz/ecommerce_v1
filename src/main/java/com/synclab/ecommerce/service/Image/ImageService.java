@@ -1,16 +1,18 @@
 package com.synclab.ecommerce.service.Image;
 
 
+import org.springframework.http.ResponseEntity;
+
 import com.synclab.ecommerce.model.Image;
 
 public interface ImageService {
 	
 	//insert
-	void insert(Image image);
+	Image insert(Image image);
 	//retrieve
 	Image findById(Long id);
 	//update
-	void update(Image image);
+	Image update(Image image);
 	//delete
 	void deleteById(Long id);
 	void deleteAll();

@@ -1,11 +1,15 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
+import java.sql.Blob;
+
 import javax.persistence.*;
-import javax.sql.rowset.serial.SerialBlob;
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
 @Table(name = "images")
+@JsonIgnoreProperties(value = { "file" })
 public class Image implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,7 +22,7 @@ public class Image implements Serializable {
     private Long imageId;
 
     @Column(name = "file")
-    private SerialBlob file;
+    private Blob file;
 
     @Column(name = "file_name")
     private String fileName;
@@ -29,13 +33,6 @@ public class Image implements Serializable {
     @Column(name = "file_size")
     private Long fileSize;
 
-    // foreign keys
-
-    @OneToOne(mappedBy = "image")
-    private Category category;
-
-    @OneToOne(mappedBy = "image")
-    private Subcategory subCategory;
 
     // getter and setters
 
@@ -47,11 +44,11 @@ public class Image implements Serializable {
         this.imageId = cartItemId;
     }
 
-    public SerialBlob getFile() {
+    public Blob getFile() {
         return file;
     }
 
-    public void setFile(SerialBlob file) {
+    public void setFile(Blob file) {
         this.file = file;
     }
 
@@ -87,20 +84,5 @@ public class Image implements Serializable {
         this.imageId = imageId;
     }
 
-    public Category getCategory() {
-        return category;
-    }
-
-    public void setCategory(Category category) {
-        this.category = category;
-    }
-
-    public Subcategory getSubCategory() {
-        return subCategory;
-    }
-
-    public void setSubCategory(Subcategory subCategory) {
-        this.subCategory = subCategory;
-    }
-
+ 
 }

@@ -13,8 +13,8 @@ public class ImageServiceImplementation implements ImageService{
 	private ImageRepository repository;
 	
 	@Override
-	public void insert(Image image) {
-		repository.save(image);
+	public Image insert(Image image) {
+		return repository.save(image);
 	}
 
 	@Override
@@ -23,8 +23,8 @@ public class ImageServiceImplementation implements ImageService{
 	}
 
 	@Override
-	public void update(Image image) {
-		repository.save(image);
+	public Image update(Image image) {
+		return repository.save(image);
 	}
 
 	@Override
