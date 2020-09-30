@@ -21,14 +21,12 @@ public class CartItemServiceImplementation implements CartItemService {
 
 	@Override
 	public CartItem findById(Long id) {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findById(id).get();
 	}
 
 	@Override
 	public List<CartItem> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+		return repository.findAll();
 	}
 
 	@Override
@@ -38,14 +36,12 @@ public class CartItemServiceImplementation implements CartItemService {
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		repository.deleteById(id);
 	}
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		repository.deleteAll();
 	}
 
 	@Override

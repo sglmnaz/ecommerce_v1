@@ -31,8 +31,8 @@ public class CartServiceImplementation implements CartService {
 	}
 
 	@Override
-	public void update(Cart record) {
-		repository.save(record);
+	public Cart update(Cart record) {
+		return repository.save(record);
 	}
 
 	@Override

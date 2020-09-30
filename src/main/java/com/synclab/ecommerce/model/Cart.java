@@ -26,6 +26,7 @@ public class Cart implements Serializable {
 
     @OneToOne()
     @JoinColumn(name = "user_id", referencedColumnName = "user_id" )
+    @JsonIgnore
     private User user;
 
     @Column(name = "total_price")

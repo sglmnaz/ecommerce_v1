@@ -26,10 +26,6 @@ public class CartItem implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     private Cart cart;
-    
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
-    private Order order;
 
 	@OneToOne()
     @JoinColumn(name = "product_id" , referencedColumnName = "product_id")
@@ -74,14 +70,6 @@ public class CartItem implements Serializable {
     public void setCart(Cart cart) {
         this.cart = cart;
     }
-    
-    public Long getOrder() { //changed to avoid loop (can be canged with jsnignoreproperty?)
-  		return order.getOrderId();
-  	}
-
-  	public void setOrder(Order order) {
-  		this.order = order;
-  	}
 
     public Product getProduct() {
         return product;

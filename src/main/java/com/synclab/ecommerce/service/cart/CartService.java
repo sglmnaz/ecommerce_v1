@@ -14,7 +14,7 @@ public interface CartService {
 	Cart findByUser(User user);
 	List<Cart> findAll();
 	//update
-	void update(Cart record);
+	Cart update(Cart record);
 	//delete
 	void deleteById(Long id);
 	void deleteAll();
