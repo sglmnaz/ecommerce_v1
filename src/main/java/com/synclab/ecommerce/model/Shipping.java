@@ -33,9 +33,6 @@ public class Shipping implements Serializable {
     @JoinColumn(name = "courier_id", referencedColumnName = "courier_id")
     private Courier courier;
 
-    @Column(name = "status")
-    private String status;
-
     @Column(name = "shipping_date")
     private Date shippingDate;
 
@@ -53,14 +50,6 @@ public class Shipping implements Serializable {
 
     public void setShippingId(Long shippingId) {
         this.shippingId = shippingId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
     }
 
     public Date getShippingDate() {

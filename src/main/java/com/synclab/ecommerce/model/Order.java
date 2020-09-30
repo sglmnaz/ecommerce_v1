@@ -16,7 +16,7 @@ public class Order implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "order_id")
@@ -31,13 +31,22 @@ public class Order implements Serializable {
 
     @Column(name = "creation_date")
     private Date creationDate;
-
     
-    // endregion
+    @ManyToOne()
+    @JoinColumn(name = "status_id",referencedColumnName = "status_id")
+    private Status status;
 
-    // region getter and setters
+    // getter and setters
 
-    public Long getOrderId() {
+    public Status getStatus() {
+		return status;
+	}
+
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public Long getOrderId() {
  		return orderId;
  	}
 

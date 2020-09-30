@@ -5,6 +5,7 @@ import java.util.List;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
+import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
@@ -14,6 +15,10 @@ import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,6 +26,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -104,6 +110,23 @@ public class UserController {
 
 		return !users.isEmpty() ? ResponseEntity.ok(users)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+	}
+	
+	@GetMapping(value = "/getFromQuery", produces = "application/json")
+	public ResponseEntity<Page<User>> findById(@RequestParam String query,
+			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+
+		List<User> list = userServiceImplementation.rsqlQuery(query);
+		Pageable pageable = PageRequest.of(page, size);
+
+		int start = (int) pageable.getOffset();
+		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
+
+		if (list.size() == 0 || start >= end)
+			return ResponseEntity.noContent().build();
+		else
+			return ResponseEntity.ok(new PageImpl<User>(list.subList(start, end), pageable, list.size()));
+
 	}
 
 	// update

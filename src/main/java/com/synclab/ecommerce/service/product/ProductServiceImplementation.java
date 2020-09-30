@@ -32,8 +32,7 @@ public class ProductServiceImplementation implements ProductService {
 	@Autowired
 	private CategoryRepository categoryRepository;
 	
-	@Autowired
-	private EntityManager entityManager;
+	
 
 	// insert
 
@@ -118,6 +117,10 @@ public class ProductServiceImplementation implements ProductService {
 	}
 
 	// RSQL
+	
+	@Autowired
+	private EntityManager entityManager;
+	
 	public List<Product> rsqlQuery(String queryString) {
 		// We will need a JPA EntityManager
 

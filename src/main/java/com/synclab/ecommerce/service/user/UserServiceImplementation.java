@@ -4,14 +4,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.criteria.CriteriaQuery;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
+import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.repository.UserRepository;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
+
+import cz.jirutka.rsql.parser.RSQLParser;
+import cz.jirutka.rsql.parser.ast.Node;
+import cz.jirutka.rsql.parser.ast.RSQLVisitor;
 
 @Service
 public class UserServiceImplementation implements UserService {
@@ -41,43 +50,42 @@ public class UserServiceImplementation implements UserService {
 
 	@Override
 	public User UpdateById(Long id, User user) throws Exception {
-		
-		if(findById(id) == null)
+
+		if (findById(id) == null)
 			throw new RecordNotFoundException();
-		
+
 		User newUser = user;
 		newUser.setUserId(id);
-		
+
 		return userRepository.save(newUser);
 
 	}
 
 	@Override
 	public User PatchById(Long id, User user) throws Exception {
-		
+
 		User newUser = findById(id);
 		if (newUser == null)
 			throw new RecordNotFoundException();
-		
-		if(user.getUserId() != null)
+
+		if (user.getUserId() != null)
 			newUser.setUserId(user.getUserId());
-		if(user.getAccount() != null)
+		if (user.getAccount() != null)
 			newUser.setAccount(user.getAccount());
-		if(user.getAddresses() != null)
+		if (user.getAddresses() != null)
 			newUser.setAddresses(user.getAddresses());
-		if(user.getFirstName() != null)
+		if (user.getFirstName() != null)
 			newUser.setFirstName(user.getFirstName());
-		if(user.getLastName() != null)
+		if (user.getLastName() != null)
 			newUser.setLastName(user.getLastName());
-		if(user.getLastLoginDate() != null)
+		if (user.getLastLoginDate() != null)
 			newUser.setLastLoginDate(user.getLastLoginDate());
-		if(user.getSignupDate() != null)
+		if (user.getSignupDate() != null)
 			newUser.setSignupDate(user.getSignupDate());
-		
-		
+
 		userRepository.save(newUser);
 		return newUser;
-		
+
 	}
 
 	@Override
@@ -88,7 +96,7 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public void deleteAll() {
 		userRepository.deleteAll();
-		
+
 	}
 
 	@Override
@@ -101,6 +109,28 @@ public class UserServiceImplementation implements UserService {
 		List<User> users = new ArrayList<>();
 		users = userRepository.findByAddress(address);
 		return users;
+	}
+
+	// RSQL
+
+	@Autowired
+	private EntityManager entityManager;
+
+	public List<User> rsqlQuery(String queryString) {
+		// We will need a JPA EntityManager
+
+		// Create the JPA Visitor
+		RSQLVisitor<CriteriaQuery<User>, EntityManager> visitor = new JpaCriteriaQueryVisitor<User>();
+
+		// Parse a RSQL into a Node
+		Node rootNode = new RSQLParser().parse(queryString);
+
+		// Visit the node to retrieve CriteriaQuery
+		CriteriaQuery<User> query = rootNode.accept(visitor, entityManager);
+
+		// Execute and get results
+		List<User> entities = entityManager.createQuery(query).getResultList();
+		return entities;
 	}
 
 }
