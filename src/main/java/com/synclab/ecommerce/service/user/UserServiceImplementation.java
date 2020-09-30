@@ -55,7 +55,7 @@ public class UserServiceImplementation implements UserService {
 	@Override
 	public User PatchById(Long id, User user) throws Exception {
 		
-		User newUser = findById(id).get();
+		User newUser = findById(id);
 		if (newUser == null)
 			throw new RecordNotFoundException();
 		
