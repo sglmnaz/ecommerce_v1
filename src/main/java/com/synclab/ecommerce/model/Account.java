@@ -9,13 +9,15 @@ import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "accounts")
 public class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "account_id")
@@ -55,9 +57,7 @@ public class Account implements Serializable {
     
     private List<Role> role = new ArrayList<>();
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getAccountId() {
         return accountId;
@@ -130,9 +130,6 @@ public class Account implements Serializable {
 	public void setRole(List<Role> role) {
 		this.role = role;
 	}
-
-	
-    // endregion
 
    
 	@Override

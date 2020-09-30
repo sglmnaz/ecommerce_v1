@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
 @Entity
 @Table(name = "addresses")
 public class Address implements Serializable {

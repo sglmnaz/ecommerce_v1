@@ -12,6 +12,10 @@ import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -83,13 +87,32 @@ public class ProductController {
 
 	}
 
-	@GetMapping(value = "/get/all", produces = "application/json")
-	public ResponseEntity<List<Product>> findAll() {
+	@GetMapping(value = "/getFromQuery", produces = "application/json")
+	public ResponseEntity<Page<Product>> findById(@RequestParam String query,
+			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
-		List<Product> products = productServiceImplementation.findAll();
+		List<Product> list = productServiceImplementation.rsqlQuery(query);
+		Pageable pageable = PageRequest.of(page, size);
+
+		int start = (int) pageable.getOffset();
+		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
+
+		if (list.size() == 0 || start >= end)
+			return ResponseEntity.noContent().build();
+		else
+			return ResponseEntity.ok(new PageImpl<Product>(list.subList(start, end), pageable, list.size()));
+
+	}
+
+	@GetMapping(value = "/get/all", produces = "application/json")
+	public ResponseEntity<Page<Product>> findAll(@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size) {
+
+		Pageable pageable = PageRequest.of(page, size);
+		Page<Product> products = productServiceImplementation.findAll(pageable);
 
 		return !products.isEmpty() ? ResponseEntity.ok(products)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+				: ResponseEntity.noContent().build();
 
 	}
 
