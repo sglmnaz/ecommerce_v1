@@ -38,11 +38,6 @@ public class Address implements Serializable {
     @Column(name = "house_number")
     private Integer houseNumber;
 
-    @OneToMany(mappedBy = "address")
-    private List<Shipping> shippings;
-
-    @OneToOne(mappedBy = "address")
-    private Warehouse warehouse;
 
     // getter and setters
 

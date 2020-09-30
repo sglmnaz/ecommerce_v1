@@ -12,7 +12,7 @@ public interface UserService {
 	//C
 	User insert(User user);
     //R
-	Optional<User> findById(Long id);
+	User findById(Long id);
 	User findByAccount(Account account);
 	List<User> findByAddress(Address address);
 	Optional<User> findByFirstName(String name);

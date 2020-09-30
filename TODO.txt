@@ -1,8 +1,7 @@
-separare controllers 95
 metodo calcolo tot carrello 100
 aggiunta immagine 100
 update quantità prodotto nel carrello 100
+fare l order 100
+lombok 100 ma non funziona
 
-fare l order
-
-lombok 100
+courier - furnisher - shipping - stock - stockItem - warehouse - subcategory

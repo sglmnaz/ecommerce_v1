@@ -93,7 +93,7 @@ public class UserController {
 
 	@GetMapping(value = "/get/{id}", produces = "application/json")
 	public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
-		User newUser = userServiceImplementation.findById(id).get();
+		User newUser = userServiceImplementation.findById(id);
 
 		return newUser != null ? ResponseEntity.ok(newUser)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -30,8 +30,8 @@ public class UserServiceImplementation implements UserService {
 	}
 
 	@Override
-	public Optional<User> findById(Long id) {
-		return userRepository.findById(id);
+	public User findById(Long id) {
+		return userRepository.findById(id).get();
 	}
 
 	@Override

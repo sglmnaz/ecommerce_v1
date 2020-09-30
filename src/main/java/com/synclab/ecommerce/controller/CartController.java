@@ -48,7 +48,7 @@ public class CartController {
 	@PostMapping(value = "/insert/{userId}", produces = "application/json")
 	public ResponseEntity<Cart> insert(@PathVariable(value = "userId") Long userId) {
 
-		User user = userServiceImplementation.findById(userId).get();
+		User user = userServiceImplementation.findById(userId);
 
 		if (user == null) // return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -79,7 +79,7 @@ public class CartController {
 	@GetMapping(value = "/getByUser/{userId}", produces = "application/json")
 	public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") Long userId) {
 
-		User user = userServiceImplementation.findById(userId).get();
+		User user = userServiceImplementation.findById(userId);
 		Cart entity = cartServiceImplementation.findByUser(user);
 
 		return entity != null ? ResponseEntity.ok(entity)

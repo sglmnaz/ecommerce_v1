@@ -11,7 +11,7 @@ public class Shipping implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "shipping_id")
@@ -26,9 +26,11 @@ public class Shipping implements Serializable {
     private String recipient;
 
     @ManyToOne()
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
     @ManyToOne()
+    @JoinColumn(name = "courier_id", referencedColumnName = "courier_id")
     private Courier courier;
 
     @Column(name = "status")
@@ -43,9 +45,7 @@ public class Shipping implements Serializable {
     @Column(name = "estimated_deliver_date")
     private Date estimatedDeliverDate;
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getShippingId() {
         return shippingId;
@@ -119,7 +119,5 @@ public class Shipping implements Serializable {
         this.courier = courier;
     }
 
-
-    // endregion
 
 }

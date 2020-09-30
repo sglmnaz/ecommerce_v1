@@ -22,9 +22,6 @@ public class Courier implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToMany(mappedBy = "courier")
-    private List<Shipping> shippings = new ArrayList<Shipping>();
-
     // endregion
 
     // region getter and setters
@@ -43,14 +40,6 @@ public class Courier implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public List<Shipping> getShippings() {
-        return shippings;
-    }
-
-    public void setShippings(List<Shipping> shippings) {
-        this.shippings = shippings;
     }
 
     
