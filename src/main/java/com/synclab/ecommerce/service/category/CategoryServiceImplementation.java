@@ -11,7 +11,8 @@ import com.synclab.ecommerce.repository.CategoryRepository;
 @Service
 public class CategoryServiceImplementation implements categoryService {
 	
-	@Autowired CategoryRepository repository;
+	@Autowired 
+	private CategoryRepository repository;
 
 	@Override
 	public void insert(Category category) {

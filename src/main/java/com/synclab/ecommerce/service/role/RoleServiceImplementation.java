@@ -10,7 +10,7 @@ import com.synclab.ecommerce.repository.RoleRepository;
 public class RoleServiceImplementation implements RoleService {
 
 	@Autowired
-	RoleRepository roleRepository;
+	private RoleRepository roleRepository;
 	
 	@Override
 	public Role findByName(String name) {

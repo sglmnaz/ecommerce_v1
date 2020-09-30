@@ -56,7 +56,7 @@ public class ShippingController {
 		shipping.setAddress(address);
 		shipping.setOrder(order);
 		shipping.setRecipient(user.getFirstName() + " " + user.getLastName());
-		shipping.setStatus("STATUS_CREATED");
+		shipping.setStatus("STATUS_CREATED"); //TODO: questo in tabella e spostarlo in order
 		
 		shipping = shippingServiceImplementation.insert(shipping);
 		return ResponseEntity.ok(shipping);

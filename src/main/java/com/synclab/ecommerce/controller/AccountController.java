@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AccountController {
 
     @Autowired
-    AccountRepository accountRepository;
+    private AccountRepository accountRepository;
 
     // insert - takes a JSON body <- stores the object in the db -> outputs Response
     // entity

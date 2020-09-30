@@ -4,4 +4,9 @@ update quantità prodotto nel carrello 100
 fare l order 100
 lombok 100 ma non funziona
 
-courier - furnisher - shipping - stock - stockItem - warehouse - subcategory
+spostare lo status della spedizione nell ordine e creare tabella.
+rsql per utenti, ordini, immagini, categorie.
+paginazione per ordini.
+courier - furnisher - shipping - stock - stockItem - warehouse - subcategory.
+udemy spring fino al capitolo 12.
+udemy spring capitolo su lombok.

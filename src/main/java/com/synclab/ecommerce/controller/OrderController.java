@@ -69,7 +69,7 @@ public class OrderController {
 			cartItemServiceImplementation.deleteById(item.getCartItemId());
 			// orderItems.add(orderItem);
 		}
-
+		
 		cart.setTotalItems(0);
 		cart.setTotalPrice(BigDecimal.ZERO);
 

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class AddressController {
 
     @Autowired
-    AddressRepository addressRepository;
+    private AddressRepository addressRepository;
 
     // insert - takes a JSON body <- stores the object in the db -> outputs Response
     // entity

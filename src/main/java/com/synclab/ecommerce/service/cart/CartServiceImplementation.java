@@ -13,7 +13,7 @@ import com.synclab.ecommerce.repository.CartRepository;
 public class CartServiceImplementation implements CartService {
 
 	@Autowired
-	CartRepository repository;
+	private CartRepository repository;
 	
 	@Override
 	public Cart insert(Cart record) {

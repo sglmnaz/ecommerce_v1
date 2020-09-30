@@ -10,7 +10,7 @@ import com.synclab.ecommerce.repository.OrderRepository;
 public class OrderServiceImplementation implements OrderService {
 
 	@Autowired
-	OrderRepository repository;
+	private OrderRepository repository;
 	
 	@Override
 	public Order insert(Order entity) {

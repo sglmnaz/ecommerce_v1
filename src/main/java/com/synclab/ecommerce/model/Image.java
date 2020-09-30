@@ -21,8 +21,8 @@ public class Image implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long imageId;
 
-    @Column(name = "file")
-    private Blob file;
+    @Column(name = "file", columnDefinition="BLOB")
+    private byte[] file;
 
     @Column(name = "file_name")
     private String fileName;
@@ -44,11 +44,11 @@ public class Image implements Serializable {
         this.imageId = cartItemId;
     }
 
-    public Blob getFile() {
+    public byte[] getFile() {
         return file;
     }
 
-    public void setFile(Blob file) {
+    public void setFile(byte[] file) {
         this.file = file;
     }
 

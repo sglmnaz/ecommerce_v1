@@ -1,6 +1,5 @@
 package com.synclab.ecommerce.controller;
 
-import javax.sql.rowset.serial.SerialBlob;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -22,7 +21,7 @@ import com.synclab.ecommerce.service.Image.ImageServiceImplementation;
 public class ImageController {
 
 	@Autowired
-	ImageServiceImplementation imageServiceImplementation;
+	private ImageServiceImplementation imageServiceImplementation;
 
 	// post
 
@@ -32,12 +31,12 @@ public class ImageController {
 		if (file == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-		SerialBlob blob = new SerialBlob(file.getBytes());
+		//SerialBlob blob = new SerialBlob(file.getBytes());
 		Image image = new Image();
 		image.setFileName(file.getOriginalFilename());
 		image.setMimetype(file.getContentType());
 		image.setFileSize(file.getSize());
-		image.setFile(blob);
+		image.setFile(file.getBytes());
 
 		// add entity to db
 		image = imageServiceImplementation.insert(image);

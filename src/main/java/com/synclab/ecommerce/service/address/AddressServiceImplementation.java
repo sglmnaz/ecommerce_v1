@@ -14,7 +14,7 @@ import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 public class AddressServiceImplementation implements AddressService {
 
 	@Autowired
-	AddressRepository addressRepository;
+	private AddressRepository addressRepository;
 	
 	@Override
 	public Address insert(Address address) {

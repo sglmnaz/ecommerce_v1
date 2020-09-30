@@ -1,17 +1,14 @@
 package com.synclab.ecommerce.controller;
 
-import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
-import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.address.AddressServiceImplementation;
-import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
