@@ -7,6 +7,7 @@ import javax.persistence.*;
 
 import lombok.Data;
 
+@Data
 @Entity
 @Table(name = "addresses")
 public class Address implements Serializable {
@@ -39,63 +40,8 @@ public class Address implements Serializable {
     private Integer houseNumber;
 
 
-    // getter and setters
+    // methods
 
-    public Long getAddressId() {
-        return addressId;
-    }
-
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getProvince() {
-        return province;
-    }
-
-    public void setProvince(String province) {
-        this.province = province;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public Integer getZipcode() {
-        return zipcode;
-    }
-
-    public void setZipcode(Integer zipcode) {
-        this.zipcode = zipcode;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public Integer getHouseNumber() {
-        return houseNumber;
-    }
-
-    public void setHouseNumber(Integer houseNumber) {
-        this.houseNumber = houseNumber;
-    }
 
     public Address(String country, String province, String city, Integer zipcode, String street, Integer houseNumber) {
         this.country = country;

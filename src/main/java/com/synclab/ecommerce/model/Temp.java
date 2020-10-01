@@ -3,6 +3,9 @@ package com.synclab.ecommerce.model;
 import java.io.Serializable;
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "templateEntities")
 public class Temp implements Serializable {

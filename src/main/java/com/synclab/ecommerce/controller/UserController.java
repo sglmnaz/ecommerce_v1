@@ -58,7 +58,7 @@ public class UserController {
 
 		User entity = user;
 		Account account = entity.getAccount();
-		List<Address> addressList = entity.getAddresses();
+		List<Address> addressList = entity.getAddress();
 
 		// initialize fields with default value and add tthem to db
 		account.getRole().add(roleServiceImplementation.findByName("ROLE_CLIENT"));
@@ -141,7 +141,7 @@ public class UserController {
 
 		if (user != null) {
 
-			List<Address> addresses = user.getAddresses();
+			List<Address> addresses = user.getAddress();
 			Account account = user.getAccount();
 			String email = account.getEmail();
 			Account oldAccount = accountServiceImplementation.findByEmail(email);
@@ -152,7 +152,7 @@ public class UserController {
 
 			// initialize fields with default values
 			newUser.setUserId(id);
-			newUser.setAddresses(addresses);
+			newUser.setAddress(addresses);
 			newUser.setAccount(account);
 			account.setRole(roles);
 

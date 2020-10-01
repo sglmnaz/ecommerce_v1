@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "categories")
 public class Category implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "category_id")
@@ -36,43 +39,5 @@ public class Category implements Serializable {
                             nullable = false, updatable = false)})
     private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 
-    // endregion
-
-    // region getter and setters
-
-    public List<Subcategory> getSubcategories() {
-		return subcategories;
-	}
-
-	public void setSubcategories(List<Subcategory> subcategories) {
-		this.subcategories = subcategories;
-	}
-
-	public Long getCategoryId() {
-        return categoryId;
-    }
-
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Image getImage() {
-        return image;
-    }
-
-    public void setImage(Image image) {
-        this.image = image;
-    }
-
-
-    // endregion
-
+   
 }

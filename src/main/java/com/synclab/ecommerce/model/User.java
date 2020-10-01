@@ -7,13 +7,16 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "users")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	// region fields
+	// fields
 
 	@Id
 	@Column(name = "user_id")
@@ -45,77 +48,6 @@ public class User implements Serializable {
 
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
-
-
-	// endregion
-
-	// region getter and setters
-
-	public Long getUserId() {
-		return userId;
-	}
-
-	public void setUserId(Long userId) {
-		this.userId = userId;
-	}
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
-
-	public String getLastName() {
-		return lastName;
-	}
-
-	public void setLastName(String lastName) {
-		this.lastName = lastName;
-	}
-
-	public Date getSignupDate() {
-		return signupDate;
-	}
-
-	public void setSignupDate(Date signupDate) {
-		this.signupDate = signupDate;
-	}
-
-	public Date getLastLoginDate() {
-		return lastLoginDate;
-	}
-
-	public void setLastLoginDate(Date lastLoginDate) {
-		this.lastLoginDate = lastLoginDate;
-	}
-
-	public Account getAccount() {
-		return account;
-	}
-
-	public void setAccount(Account account) {
-		this.account = account;
-	}
-
-	public List<Address> getAddresses() {
-		return address;
-	}
-
-	public void setAddresses(List<Address> address) {
-		this.address = address;
-	}
-
-	
-	// endregion
-
-	@Override
-	public String toString() {
-		return "User [userId=" + userId + ", account=" + account + ", address=" + address + ", firstName=" + firstName
-				+ ", lastName=" + lastName + ", signupDate=" + signupDate + ", lastLoginDate=" + lastLoginDate
-				 + "]";
-	}
 
 	
 }

@@ -5,6 +5,9 @@ import java.util.Date;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "shippings")
 public class Shipping implements Serializable {
@@ -42,71 +45,5 @@ public class Shipping implements Serializable {
     @Column(name = "estimated_deliver_date")
     private Date estimatedDeliverDate;
 
-    // getter and setters
-
-    public Long getShippingId() {
-        return shippingId;
-    }
-
-    public void setShippingId(Long shippingId) {
-        this.shippingId = shippingId;
-    }
-
-    public Date getShippingDate() {
-        return shippingDate;
-    }
-
-    public void setShippingDate(Date shippingDate) {
-        this.shippingDate = shippingDate;
-    }
-
-    public Date getDeliverDate() {
-        return deliverDate;
-    }
-
-    public void setDeliverDate(Date deliverDate) {
-        this.deliverDate = deliverDate;
-    }
-
-    public Date getEstimatedDeliverDate() {
-        return estimatedDeliverDate;
-    }
-
-    public void setEstimatedDeliverDate(Date estimatedDeliverDate) {
-        this.estimatedDeliverDate = estimatedDeliverDate;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
-
-    public String getRecipient() {
-        return recipient;
-    }
-
-    public void setRecipient(String recipient) {
-        this.recipient = recipient;
-    }
-
-    public Address getAddress() {
-        return address;
-    }
-
-    public void setAddress(Address address) {
-        this.address = address;
-    }
-
-    public Courier getCourier() {
-        return courier;
-    }
-
-    public void setCourier(Courier courier) {
-        this.courier = courier;
-    }
-
-
+    
 }

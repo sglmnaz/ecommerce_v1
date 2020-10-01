@@ -9,7 +9,7 @@ public class Role implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "role_id")
@@ -22,9 +22,7 @@ public class Role implements Serializable {
     @Column(name = "description")
     private String description;
 
-    // endregion
-
-    // region getter and setters
+    // getter and setters
 
     public Long getRoleId() {
         return roleId;

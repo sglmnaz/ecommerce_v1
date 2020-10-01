@@ -10,6 +10,7 @@ import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
+import com.synclab.ecommerce.utility.pages.PageUtils;
 import com.synclab.ecommerce.utility.response.CustomResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -94,15 +95,7 @@ public class ProductController {
 			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
 		List<Product> list = productServiceImplementation.rsqlQuery(query);
-		Pageable pageable = PageRequest.of(page, size);
-
-		int start = (int) pageable.getOffset();
-		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
-
-		if (list.size() == 0 || start >= end)
-			return ResponseEntity.noContent().build();
-		else
-			return ResponseEntity.ok(new PageImpl<Product>(list.subList(start, end), pageable, list.size()));
+		return PageUtils.listToPageResponseEntity(list, page, size);
 
 	}
 
@@ -138,7 +131,8 @@ public class ProductController {
 	}
 
 	@GetMapping(value = "/get/category", produces = "application/json")
-	public ResponseEntity<List<Product>> findByCategory(@RequestParam(defaultValue = "") List<String> categories) {
+	public ResponseEntity<Page<Product>> findByCategory(@RequestParam(defaultValue = "") List<String> categories,
+			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
 		System.out.println("Searching for products in: " + categories.toString());
 
@@ -164,8 +158,7 @@ public class ProductController {
 
 		// returns list of products without duplicates.
 
-		return !productsNoDuplicates.isEmpty() ? ResponseEntity.ok(productsNoDuplicates)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return PageUtils.listToPageResponseEntity(productsNoDuplicates, page, size);
 	}
 
 	// update

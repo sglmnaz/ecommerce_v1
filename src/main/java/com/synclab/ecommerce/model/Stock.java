@@ -6,13 +6,16 @@ import java.util.List;
 
 import javax.persistence.*;
 
+import lombok.Data;
+
+@Data
 @Entity
 @Table(name = "stock")
 public class Stock implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    // region fields
+    // fields
 
     @Id
     @Column(name = "stock_id")
@@ -24,36 +27,6 @@ public class Stock implements Serializable {
 
     @OneToMany(mappedBy = "stock")
     private List<StockItem> stockItems = new ArrayList<StockItem>();
-
-    // endregion
-
-    // region getter and setters
-
-    public Long getStockId() {
-        return stockId;
-    }
-
-    public void setStockId(Long stockId) {
-        this.stockId = stockId;
-    }
-
-    public Warehouse getWarehouse() {
-        return warehouse;
-    }
-
-    public void setWarehouse(Warehouse warehouse) {
-        this.warehouse = warehouse;
-    }
-
-    public List<StockItem> getStockItems() {
-        return stockItems;
-    }
-
-    public void setStockItems(List<StockItem> stockItems) {
-        this.stockItems = stockItems;
-    }
-
-    // endregion
 
 }
 
