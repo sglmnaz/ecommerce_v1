@@ -1,12 +1,20 @@
-metodo calcolo tot carrello 100
-aggiunta immagine 100
-update quantità prodotto nel carrello 100
-fare l order 100
-lombok 100 ma non funziona
-spostare lo status della spedizione nell ordine e creare tabella. 100
-paginazione per ordini. 100
-rsql per utenti, ordini, immagini, categorie. 80
-udemy spring fino al capitolo 12. 100s
+metodo calcolo tot carrello 100%
+aggiunta immagine 100%
+update quantità prodotto nel carrello 100%
+fare l order 100%
 
-udemy spring capitolo su lombok.
-courier - furnisher - shipping - stock - stockItem - warehouse - subcategory.
+spostare lo status della spedizione nell ordine e creare tabella. 100%
+paginazione per ordini. 100%
+rsql per utenti, ordini, immagini, categorie. 100%
+udemy spring fino al capitolo 12. 100%
+udemy spring capitolo su lombok. 100%
+
+shipping 80%
+courier 30%
+furnisher 30%
+stock 30%
+stockItem 30%
+warehouse 30%
+subcategory 30%
+
+udemy 15-18-19.

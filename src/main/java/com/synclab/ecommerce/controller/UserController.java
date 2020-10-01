@@ -96,10 +96,6 @@ public class UserController {
 
 		User newUser = userServiceImplementation.findById(id);
 
-		// return newUser != null
-			// ? ResponseEntity.ok(newUser)
-			// : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
 		return CustomResponse.getResponse(newUser, "user not found",
 				"user with id: " + id + " could not be found.");
 
@@ -119,17 +115,6 @@ public class UserController {
 			@RequestParam(value = "size") Integer size) {
 
 		List<User> list = userServiceImplementation.rsqlQuery(query);
-		
-//		Pageable pageable = PageRequest.of(page, size);
-//
-//		int start = (int) pageable.getOffset();
-//		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
-//
-//		if (list.size() == 0 || start >= end)
-//			return ResponseEntity.noContent().build();
-//		else
-//			return ResponseEntity.ok(new PageImpl<User>(list.subList(start, end), pageable, list.size()));
-
 		return PageUtils.listToPageResponseEntity(list, page, size);
 		
 	}
