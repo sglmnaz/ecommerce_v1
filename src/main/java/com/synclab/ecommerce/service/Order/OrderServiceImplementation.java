@@ -41,7 +41,18 @@ public class OrderServiceImplementation implements OrderService {
 	public void deleteById(Long id) {
 		repository.deleteById(id);
 	}
+	
 
+	@Override
+	public List<Order> findByUser_UserId(Long id) {
+		return repository.findByUser_UserId(id);
+	}
+
+	@Override
+	public List<Order> findAll() {
+		return repository.findAll();
+	}
+	
 	// RSQL
 
 	@Autowired
@@ -63,5 +74,8 @@ public class OrderServiceImplementation implements OrderService {
 		List<Order> entities = entityManager.createQuery(query).getResultList();
 		return entities;
 	}
+
+	
+
 
 }

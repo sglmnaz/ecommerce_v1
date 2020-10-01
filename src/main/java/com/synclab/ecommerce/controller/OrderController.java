@@ -23,12 +23,12 @@ import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
 import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.OrderItem;
-import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.Order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.cartItem.CartItemServiceImplementation;
 import com.synclab.ecommerce.service.orderItem.OrderItemServiceImplementation;
 import com.synclab.ecommerce.service.status.StatusServiceImplementation;
+import com.synclab.ecommerce.utility.pages.PageUtils;
 
 @RestController
 @RequestMapping("/order")
@@ -45,7 +45,7 @@ public class OrderController {
 
 	@Autowired
 	private OrderItemServiceImplementation orderItemServiceImplementation;
-	
+
 	@Autowired
 	private StatusServiceImplementation statusServiceImplementation;
 
@@ -64,7 +64,9 @@ public class OrderController {
 		order.setCreationDate(new Date());
 		order.setTotalItems(cart.getTotalItems());
 		order.setTotalPrice(cart.getTotalPrice());
-		order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED")); //TODO: questo in tabella e spostarlo in order
+		order.setUser(cart.getUser());
+		order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED")); // TODO: questo in tabella e
+																					// spostarlo in order
 
 		order = orderServiceImplementation.insert(order);
 
@@ -80,7 +82,7 @@ public class OrderController {
 			cartItemServiceImplementation.deleteById(item.getCartItemId());
 			// orderItems.add(orderItem);
 		}
-		
+
 		cart.setTotalItems(0);
 		cart.setTotalPrice(BigDecimal.ZERO);
 
@@ -89,33 +91,41 @@ public class OrderController {
 		return ResponseEntity.ok(order);
 
 	}
-	
+
 	// get
-	
+
 	@GetMapping(value = "/get/{id}", produces = "application/json")
-	public ResponseEntity<Order> findById (@PathVariable(value = "id") Long id){
-		
+	public ResponseEntity<Order> findById(@PathVariable(value = "id") Long id) {
+
 		Order entity = orderServiceImplementation.findById(id);
-		
+
 		return entity != null ? ResponseEntity.ok(entity)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
+
 	@GetMapping(value = "/getFromQuery", produces = "application/json")
-	public ResponseEntity<Page<Order>> findById(@RequestParam String query,
-			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+	public ResponseEntity<Page<Order>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size) {
 
 		List<Order> list = orderServiceImplementation.rsqlQuery(query);
-		Pageable pageable = PageRequest.of(page, size);
+		return PageUtils.listToPageResponseEntity(list,page,size);
+	}
 
-		int start = (int) pageable.getOffset();
-		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
+	@GetMapping(value = "/getForUser/{id}", produces = "application/json")
+	public ResponseEntity<Page<Order>> findByUserId(@PathVariable(name = "id") Long userId,
+			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
-		if (list.size() == 0 || start >= end)
-			return ResponseEntity.noContent().build();
-		else
-			return ResponseEntity.ok(new PageImpl<Order>(list.subList(start, end), pageable, list.size()));
+		List<Order> list = orderServiceImplementation.findByUser_UserId(userId);
+		return PageUtils.listToPageResponseEntity(list,page,size);
 
+	}
+
+	@GetMapping(value = "/getAll", produces = "application/json")
+	public ResponseEntity<Page<Order>> findByUserId(@RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size) {
+
+		List<Order> list = orderServiceImplementation.findAll();
+		return PageUtils.listToPageResponseEntity(list,page,size);
 	}
 
 	// delete

@@ -10,6 +10,7 @@ import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
+import com.synclab.ecommerce.utility.response.CustomResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -80,10 +81,11 @@ public class ProductController {
 
 	@GetMapping(value = "/get/{id}", produces = "application/json")
 	public ResponseEntity<Product> findById(@PathVariable(value = "id") Long id) {
+
 		Product newProduct = productServiceImplementation.findById(id);
 
-		return newProduct != null ? ResponseEntity.ok(newProduct)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		return CustomResponse.getResponse(newProduct, "product not found",
+				"product with id: " + id + " could not be found.");
 
 	}
 
@@ -111,8 +113,7 @@ public class ProductController {
 		Pageable pageable = PageRequest.of(page, size);
 		Page<Product> products = productServiceImplementation.findAll(pageable);
 
-		return !products.isEmpty() ? ResponseEntity.ok(products)
-				: ResponseEntity.noContent().build();
+		return !products.isEmpty() ? ResponseEntity.ok(products) : ResponseEntity.noContent().build();
 
 	}
 

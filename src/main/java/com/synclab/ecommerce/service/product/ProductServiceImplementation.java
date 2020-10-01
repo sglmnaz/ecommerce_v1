@@ -3,6 +3,7 @@ package com.synclab.ecommerce.service.product;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.criteria.CriteriaQuery;
@@ -45,7 +46,10 @@ public class ProductServiceImplementation implements ProductService {
 
 	@Override
 	public Product findById(Long id) {
-		return repository.findById(id).get();
+		Optional<Product> product = repository.findById(id);
+		return product.isEmpty() 
+				? null
+				: product.get();
 	}
 
 	@Override

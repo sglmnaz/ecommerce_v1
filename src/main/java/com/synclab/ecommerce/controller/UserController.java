@@ -13,6 +13,8 @@ import com.synclab.ecommerce.service.address.AddressServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
+import com.synclab.ecommerce.utility.pages.PageUtils;
+import com.synclab.ecommerce.utility.response.CustomResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -45,7 +47,6 @@ public class UserController {
 	@Autowired
 	private AddressServiceImplementation addressServiceImplementation;
 
-
 	// post
 
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
@@ -59,7 +60,7 @@ public class UserController {
 		Account account = entity.getAccount();
 		List<Address> addressList = entity.getAddresses();
 
-		//initialize fields with default value and add tthem to db
+		// initialize fields with default value and add tthem to db
 		account.getRole().add(roleServiceImplementation.findByName("ROLE_CLIENT"));
 		account = accountServiceImplementation.insert(account);
 		if (addressList != null) {
@@ -67,15 +68,13 @@ public class UserController {
 				addressServiceImplementation.insert(address);
 			}
 		}
-		
+
 		// assign fields to entity
 		entity.setAccount(account);
 		entity.setSignupDate(new Date());
-		
-		
+
 		// add entity to db
 		entity = userServiceImplementation.insert(entity);
-
 
 		return ResponseEntity.ok(entity);
 
@@ -85,21 +84,24 @@ public class UserController {
 
 	@GetMapping(value = "/findByFirstName/{name}", produces = "application/json")
 	public ResponseEntity<User> findByFitstName(@PathVariable(value = "name") String name) {
+
 		User newUser = userServiceImplementation.findByFirstName(name).get();
 
-		if (newUser != null) {
-			return ResponseEntity.ok(newUser);
-		} else {
-			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-		}
+		return CustomResponse.getResponse(newUser, "user not found",
+				"user with name: " + name + " could not be found.");
 	}
 
 	@GetMapping(value = "/get/{id}", produces = "application/json")
 	public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
+
 		User newUser = userServiceImplementation.findById(id);
 
-		return newUser != null ? ResponseEntity.ok(newUser)
-				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+		// return newUser != null
+			// ? ResponseEntity.ok(newUser)
+			// : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		return CustomResponse.getResponse(newUser, "user not found",
+				"user with id: " + id + " could not be found.");
 
 	}
 
@@ -111,22 +113,25 @@ public class UserController {
 		return !users.isEmpty() ? ResponseEntity.ok(users)
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
-	
+
 	@GetMapping(value = "/getFromQuery", produces = "application/json")
-	public ResponseEntity<Page<User>> findById(@RequestParam String query,
-			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+	public ResponseEntity<Page<User>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
+			@RequestParam(value = "size") Integer size) {
 
 		List<User> list = userServiceImplementation.rsqlQuery(query);
-		Pageable pageable = PageRequest.of(page, size);
+		
+//		Pageable pageable = PageRequest.of(page, size);
+//
+//		int start = (int) pageable.getOffset();
+//		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
+//
+//		if (list.size() == 0 || start >= end)
+//			return ResponseEntity.noContent().build();
+//		else
+//			return ResponseEntity.ok(new PageImpl<User>(list.subList(start, end), pageable, list.size()));
 
-		int start = (int) pageable.getOffset();
-		int end = (start + pageable.getPageSize()) > list.size() ? list.size() : (start + pageable.getPageSize());
-
-		if (list.size() == 0 || start >= end)
-			return ResponseEntity.noContent().build();
-		else
-			return ResponseEntity.ok(new PageImpl<User>(list.subList(start, end), pageable, list.size()));
-
+		return PageUtils.listToPageResponseEntity(list, page, size);
+		
 	}
 
 	// update

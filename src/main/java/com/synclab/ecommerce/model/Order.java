@@ -35,10 +35,23 @@ public class Order implements Serializable {
     @ManyToOne()
     @JoinColumn(name = "status_id",referencedColumnName = "status_id")
     private Status status;
+    
+    @ManyToOne()
+    @JoinColumn(name = "user_id",referencedColumnName = "user_id")
+    @JsonIgnore
+    private User user;
 
     // getter and setters
 
-    public Status getStatus() {
+    public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Status getStatus() {
 		return status;
 	}
 
