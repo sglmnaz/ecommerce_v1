@@ -25,8 +25,7 @@ public class AddressController {
     @Autowired
     private AddressRepository addressRepository;
 
-    // insert - takes a JSON body <- stores the object in the db -> outputs Response
-    // entity
+    // insert - takes a JSON body <- stores the object in the db -> outputs Response entity
     @PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Address> insert(@RequestBody final Address requestBody) {
 
@@ -38,8 +37,7 @@ public class AddressController {
         return ResponseEntity.ok(address);
     }
 
-    // get - takes a path variable <- find the object in the db -> outputs Response
-    // entity
+    // get - takes a path variable <- find the object in the db -> outputs Response entity
     @GetMapping(value = "/findById", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Address> findById(@PathVariable(value = "id") Long id) {
 
@@ -105,8 +103,7 @@ public class AddressController {
         return ResponseEntity.ok(newAddress);
     }
 
-    // delete - takes a path variable <- delete the object in the db -> outputs
-    // Response entity
+    // delete - takes a path variable <- delete the object in the db -> outputs Response entity
     @DeleteMapping(value = "/findById", consumes = "application/json", produces = "application/json")
     public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
 

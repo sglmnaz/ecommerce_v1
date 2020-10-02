@@ -1,7 +1,6 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
-import java.sql.Blob;
 
 import javax.persistence.*;
 

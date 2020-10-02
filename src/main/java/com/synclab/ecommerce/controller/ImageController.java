@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.Image;
 import com.synclab.ecommerce.service.Image.ImageServiceImplementation;
 

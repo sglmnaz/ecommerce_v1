@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
-import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.repository.UserRepository;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;

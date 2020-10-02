@@ -1,14 +1,9 @@
 package com.synclab.ecommerce.model;
 
 import java.io.Serializable;
-import java.security.PublicKey;
 
 import javax.persistence.*;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.databind.annotation.JsonSerialize;
-
-import lombok.Data;
 
 @Entity
 @Table(name = "cartsitems")

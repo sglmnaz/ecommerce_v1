@@ -8,8 +8,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 
-import com.synclab.ecommerce.model.Order;
-
 public class PageUtils {
 
 	public static <T> ResponseEntity<Page<T>> listToPageResponseEntity(List<T> list, Integer page, Integer size) {

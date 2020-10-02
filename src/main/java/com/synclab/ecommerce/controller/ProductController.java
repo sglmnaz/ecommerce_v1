@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.synclab.ecommerce.model.Category;
-import com.synclab.ecommerce.model.Image;
 import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
@@ -15,7 +14,6 @@ import com.synclab.ecommerce.utility.response.CustomResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -53,7 +51,7 @@ public class ProductController {
 		Product newProduct = requestBody;
 		List<Category> categories = newProduct.getCategories();
 		List<Category> newCategories = new ArrayList<Category>();
-		List<Image> images = newProduct.getImage();
+		//List<Image> images = newProduct.getImage();
 
 		// other category if product isn't of any known category
 		Category otherCategory = categoryServiceImplementation.findByName("Other");
