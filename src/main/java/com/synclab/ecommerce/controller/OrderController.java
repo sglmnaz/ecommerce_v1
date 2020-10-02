@@ -50,7 +50,7 @@ public class OrderController {
 
 	// transorms a cart in order
 	@PostMapping(value = "/insert/{cartId}", produces = "application/json")
-	public ResponseEntity<Order> insert(@PathVariable(value = "cartId") Long cartId) throws Exception {
+	public ResponseEntity<Order> insert(@PathVariable(value = "cartId") Long cartId) {
 
 		Cart cart = cartServiceImplementation.findById(cartId);
 
@@ -62,8 +62,7 @@ public class OrderController {
 		order.setTotalItems(cart.getTotalItems());
 		order.setTotalPrice(cart.getTotalPrice());
 		order.setUser(cart.getUser());
-		order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED")); // TODO: questo in tabella e
-																					// spostarlo in order
+		order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED"));
 
 		order = orderServiceImplementation.insert(order);
 
@@ -75,7 +74,7 @@ public class OrderController {
 			orderItem.setOrder(order);
 			orderItem.setProduct(item.getProduct());
 			orderItem.setQuantity(item.getQuantity());
-			orderItem = orderItemServiceImplementation.insert(orderItem);
+			orderItemServiceImplementation.insert(orderItem);
 			cartItemServiceImplementation.deleteById(item.getCartItemId());
 			// orderItems.add(orderItem);
 		}
@@ -83,7 +82,7 @@ public class OrderController {
 		cart.setTotalItems(0);
 		cart.setTotalPrice(BigDecimal.ZERO);
 
-		cart = cartServiceImplementation.update(cart);
+		cartServiceImplementation.update(cart);
 
 		return ResponseEntity.ok(order);
 
@@ -105,7 +104,7 @@ public class OrderController {
 			@RequestParam(value = "size") Integer size) {
 
 		List<Order> list = orderServiceImplementation.rsqlQuery(query);
-		return PageUtils.listToPageResponseEntity(list,page,size);
+		return PageUtils.listToPageResponseEntity(list, page, size);
 	}
 
 	@GetMapping(value = "/getForUser/{id}", produces = "application/json")
@@ -113,7 +112,7 @@ public class OrderController {
 			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
 		List<Order> list = orderServiceImplementation.findByUser_UserId(userId);
-		return PageUtils.listToPageResponseEntity(list,page,size);
+		return PageUtils.listToPageResponseEntity(list, page, size);
 
 	}
 
@@ -122,7 +121,7 @@ public class OrderController {
 			@RequestParam(value = "size") Integer size) {
 
 		List<Order> list = orderServiceImplementation.findAll();
-		return PageUtils.listToPageResponseEntity(list,page,size);
+		return PageUtils.listToPageResponseEntity(list, page, size);
 	}
 
 	// delete

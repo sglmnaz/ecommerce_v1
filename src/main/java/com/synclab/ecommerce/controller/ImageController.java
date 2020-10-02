@@ -1,6 +1,5 @@
 package com.synclab.ecommerce.controller;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,6 +10,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 import com.synclab.ecommerce.model.Image;
 import com.synclab.ecommerce.service.Image.ImageServiceImplementation;
@@ -25,12 +26,12 @@ public class ImageController {
 	// post
 
 	@PostMapping(value = "/insert")
-	public ResponseEntity<Image> insert(@RequestPart(value = "file") MultipartFile file) throws Exception {
+	public ResponseEntity<Image> insert(@RequestPart(value = "file") MultipartFile file) throws IOException {
 
 		if (file == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-		//SerialBlob blob = new SerialBlob(file.getBytes());
+		// SerialBlob blob = new SerialBlob(file.getBytes());
 		Image image = new Image();
 		image.setFileName(file.getOriginalFilename());
 		image.setMimetype(file.getContentType());

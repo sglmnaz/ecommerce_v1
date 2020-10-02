@@ -25,7 +25,8 @@ public class AccountController {
     @Autowired
     private AccountRepository accountRepository;
 
-    // insert - takes a JSON body <- stores the object in the db -> outputs Response entity
+    // insert - takes a JSON body <- stores the object in the db -> outputs Response
+    // entity
     @PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> insert(@RequestBody final Account requestBody) {
 
@@ -37,7 +38,8 @@ public class AccountController {
         return ResponseEntity.ok(account);
     }
 
-    // get - takes a path variable <- find the object in the db -> outputs Response entity
+    // get - takes a path variable <- find the object in the db -> outputs Response
+    // entity
     @GetMapping(value = "/findById", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> findById(@PathVariable(value = "id") Long id) {
 

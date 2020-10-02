@@ -113,7 +113,7 @@ public class UserController {
 
 		List<User> list = userServiceImplementation.rsqlQuery(query);
 		return PageUtils.listToPageResponseEntity(list, page, size);
-		
+
 	}
 
 	// update

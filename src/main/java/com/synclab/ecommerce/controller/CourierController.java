@@ -25,7 +25,7 @@ public class CourierController {
 	// post
 
 	@PostMapping(value = "/insert")
-	ResponseEntity<Courier> insert(@RequestBody Courier request) {
+	public ResponseEntity<Courier> insert(@RequestBody Courier request) {
 
 		if (request == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

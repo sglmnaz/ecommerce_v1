@@ -25,7 +25,7 @@ public class WarehouseController {
 	// post
 
 	@PostMapping(value = "/insert")
-	ResponseEntity<Warehouse> insert(@RequestBody Warehouse request) {
+	public ResponseEntity<Warehouse> insert(@RequestBody Warehouse request) {
 
 		if (request == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

@@ -38,14 +38,14 @@ public class ShippingController {
 
 	@Autowired
 	private UserServiceImplementation userServiceImplementation;
-	
+
 	@Autowired
 	private CourierServiceImplementation courierServiceImplementation;
 
 	// post
 
 	@PostMapping(value = "/insert")
-	ResponseEntity<Shipping> insert(@RequestParam(name = "orderId") Long orderId,
+	public ResponseEntity<Shipping> insert(@RequestParam(name = "orderId") Long orderId,
 			@RequestParam(name = "userId") Long userId, @RequestParam(name = "addressId") Long addressId,
 			@RequestParam(name = "courierId") Long courierId) {
 
@@ -74,7 +74,8 @@ public class ShippingController {
 	public ResponseEntity<Shipping> findById(@PathVariable(value = "id") Long id) {
 
 		Shipping entity = shippingServiceImplementation.findById(id);
-		return CustomResponse.getFindResponse(entity, "record not found", "record with id: " + id + " could not be found");
+		return CustomResponse.getFindResponse(entity, "record not found",
+				"record with id: " + id + " could not be found");
 	}
 
 	// delete
@@ -84,8 +85,9 @@ public class ShippingController {
 
 		shippingServiceImplementation.deleteById(id);
 		Shipping entity = shippingServiceImplementation.findById(id);
-		
-		return CustomResponse.getDeleteResponse(entity, "deletion failed", "record with id: " + id + " could not be deleted");
+
+		return CustomResponse.getDeleteResponse(entity, "deletion failed",
+				"record with id: " + id + " could not be deleted");
 	}
 
 }

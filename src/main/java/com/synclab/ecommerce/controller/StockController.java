@@ -25,7 +25,7 @@ public class StockController {
 	// post
 
 	@PostMapping(value = "/insert")
-	ResponseEntity<Stock> insert(@RequestBody Stock request) {
+	public ResponseEntity<Stock> insert(@RequestBody Stock request) {
 
 		if (request == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

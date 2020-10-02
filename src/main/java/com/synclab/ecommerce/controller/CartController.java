@@ -123,7 +123,7 @@ public class CartController {
 
 		Cart cart = cartServiceImplementation.findById(cartId);
 		List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
-		
+
 		CartItem cartItem = null;
 
 		for (CartItem item : items) {
@@ -150,7 +150,7 @@ public class CartController {
 	// update
 
 	@PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
-	public ResponseEntity<Cart> update(@RequestBody Cart request) throws Exception {
+	public ResponseEntity<Cart> update(@RequestBody Cart request) throws RecordNotFoundException {
 
 		if (request == null) // return error message
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -184,44 +184,44 @@ public class CartController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
 	}
-	
-	// utility
-	
-    public BigDecimal evaluateTotalPrice(List<CartItem> items) {
-    	
-    	BigDecimal total = BigDecimal.ZERO;
-    	
-    	if (items == null)
-    		return total;
-    	
-        for (CartItem item : items) {
-        	BigDecimal itemPrice = item.getProduct().getPrice();
-        	BigDecimal itemQuantity = BigDecimal.valueOf(item.getQuantity());
-            BigDecimal temp = (itemQuantity.multiply(itemPrice));
-            total = total.add(temp);
-        }
-        
-        return total;
-    }
 
-    public void evaluateTotals(Long cartId) {
-    	
-    	Cart cart = cartServiceImplementation.findById(cartId);
-    	List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
-    	Integer total = 0;
-    	
-    	if (items == null)
-    		cart.setTotalItems(total);
-    	
-        for (CartItem item : items) {
-            total += item.getQuantity();
-        }
-        
+	// utility
+
+	public BigDecimal evaluateTotalPrice(List<CartItem> items) {
+
+		BigDecimal total = BigDecimal.ZERO;
+
+		if (items == null)
+			return total;
+
+		for (CartItem item : items) {
+			BigDecimal itemPrice = item.getProduct().getPrice();
+			BigDecimal itemQuantity = BigDecimal.valueOf(item.getQuantity());
+			BigDecimal temp = (itemQuantity.multiply(itemPrice));
+			total = total.add(temp);
+		}
+
+		return total;
+	}
+
+	public void evaluateTotals(Long cartId) {
+
+		Cart cart = cartServiceImplementation.findById(cartId);
+		List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
+		Integer total = 0;
+
+		if (items == null)
+			cart.setTotalItems(total);
+
+		for (CartItem item : items) {
+			total += item.getQuantity();
+		}
+
 		cart.setTotalItems(total);
 		cart.setTotalPrice(evaluateTotalPrice(items));
-		
-		cart = cartServiceImplementation.insert(cart);
-        
-    }
+
+		cartServiceImplementation.insert(cart);
+
+	}
 
 }

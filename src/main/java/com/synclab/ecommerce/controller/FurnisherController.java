@@ -26,7 +26,7 @@ public class FurnisherController {
 	// post
 
 	@PostMapping(value = "/insert")
-	ResponseEntity<Furnisher> insert(@RequestBody Furnisher request) {
+	public ResponseEntity<Furnisher> insert(@RequestBody Furnisher request) {
 
 		if (request == null)
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

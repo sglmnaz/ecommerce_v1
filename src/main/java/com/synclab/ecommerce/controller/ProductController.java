@@ -50,8 +50,8 @@ public class ProductController {
 
 		Product newProduct = requestBody;
 		List<Category> categories = newProduct.getCategories();
-		List<Category> newCategories = new ArrayList<Category>();
-		//List<Image> images = newProduct.getImage();
+		List<Category> newCategories = new ArrayList<>();
+		// List<Image> images = newProduct.getImage();
 
 		// other category if product isn't of any known category
 		Category otherCategory = categoryServiceImplementation.findByName("Other");
