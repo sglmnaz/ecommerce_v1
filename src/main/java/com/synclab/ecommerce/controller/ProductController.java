@@ -85,7 +85,7 @@ public class ProductController {
 
 		Product newProduct = productServiceImplementation.findById(id);
 
-		return CustomResponse.getResponse(newProduct, "product not found",
+		return CustomResponse.getFindResponse(newProduct, "product not found",
 				"product with id: " + id + " could not be found.");
 
 	}

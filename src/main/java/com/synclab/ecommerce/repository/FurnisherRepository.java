@@ -3,7 +3,9 @@ package com.synclab.ecommerce.repository;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
+import com.synclab.ecommerce.model.Furnisher;
+
 @Repository
-public interface FurnisherRepository extends JpaRepository<FurnisherRepository, Long> {
+public interface FurnisherRepository extends JpaRepository<Furnisher, Long> {
 
 }

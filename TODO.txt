@@ -9,12 +9,15 @@ rsql per utenti, ordini, immagini, categorie. 100%
 udemy spring fino al capitolo 12. 100%
 udemy spring capitolo su lombok. 100%
 
-shipping 80%
-courier 30%
-furnisher 30%
-stock 30%
-stockItem 30%
-warehouse 30%
-subcategory 30%
+shipping 100%
+courier 100%
+furnisher 100%
+stock 100%
+stockItem 100%
+warehouse 100%
+subcategory 100%
+
+
 
 udemy 15-18-19.
+aggiungere rotte mancanti.

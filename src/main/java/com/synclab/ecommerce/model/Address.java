@@ -41,7 +41,10 @@ public class Address implements Serializable {
 
 
     // methods
-
+    
+    public Address () {
+		
+	}
 
     public Address(String country, String province, String city, Integer zipcode, String street, Integer houseNumber) {
         this.country = country;

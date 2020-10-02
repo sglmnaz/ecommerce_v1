@@ -87,7 +87,7 @@ public class UserController {
 
 		User newUser = userServiceImplementation.findByFirstName(name).get();
 
-		return CustomResponse.getResponse(newUser, "user not found",
+		return CustomResponse.getFindResponse(newUser, "user not found",
 				"user with name: " + name + " could not be found.");
 	}
 
@@ -96,7 +96,7 @@ public class UserController {
 
 		User newUser = userServiceImplementation.findById(id);
 
-		return CustomResponse.getResponse(newUser, "user not found",
+		return CustomResponse.getFindResponse(newUser, "user not found",
 				"user with id: " + id + " could not be found.");
 
 	}
