@@ -10,8 +10,8 @@ import com.synclab.ecommerce.repository.CategoryRepository;
 
 @Service
 public class CategoryServiceImplementation implements categoryService {
-	
-	@Autowired 
+
+	@Autowired
 	private CategoryRepository repository;
 
 	@Override
@@ -36,20 +36,18 @@ public class CategoryServiceImplementation implements categoryService {
 
 	@Override
 	public void update(Category category) {
-		// TODO Auto-generated method stub
-		
+		repository.save(category);
 	}
 
 	@Override
 	public void deleteById(Long id) {
-		// TODO Auto-generated method stub
-		
+		repository.deleteById(id);
+
 	}
 
 	@Override
 	public void deleteAll() {
-		// TODO Auto-generated method stub
-		
+		repository.deleteAll();
 	}
 
 }
