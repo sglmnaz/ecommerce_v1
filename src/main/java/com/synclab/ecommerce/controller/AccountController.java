@@ -71,7 +71,7 @@ public class AccountController {
 
     // patch - takes a path variable and a request body <- find the object in the
     // db and patches -> outputs Response entity
-    @PatchMapping(value = "/patchById", consumes = "application/json", produces = "application/json")
+    @PatchMapping(value = "/patchById/{id}", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Account> patchById(@PathVariable(value = "id") Long id,
             @RequestBody final Account requestBody) {
 

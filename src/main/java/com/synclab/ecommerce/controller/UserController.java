@@ -20,9 +20,12 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -118,15 +121,14 @@ public class UserController {
 
 	// update
 
-	@PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
+	@PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<User> update(@RequestBody User user) throws RecordNotFoundException {
 
 		if (user != null) {
 
 			List<Address> addresses = user.getAddress();
 			Account account = user.getAccount();
-			String email = account.getEmail();
-			Account oldAccount = accountServiceImplementation.findByEmail(email);
+			Account oldAccount = accountServiceImplementation.findById(account.getAccountId()).get();
 			Long id = userServiceImplementation.findByAccount(oldAccount).getUserId();
 			List<Role> roles = oldAccount.getRole();
 
@@ -158,6 +160,44 @@ public class UserController {
 
 	}
 
+	// patch
+
+	@PatchMapping(value = "/patch/{id}", consumes = "applicationj/json", produces = "application/json")
+	public ResponseEntity<User> patch(@PathVariable(name = "id") Long id, @RequestBody User user) {
+
+		if (user == null)
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+
+		User oldUser = userServiceImplementation.findById(id);
+
+		if (oldUser == null)
+			return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+		if (user.getFirstName() != null)
+			oldUser.setFirstName(user.getFirstName());
+		if (user.getLastName() != null)
+			oldUser.setLastName(user.getLastName());
+		if (user.getSignupDate() != null)
+			oldUser.setSignupDate(user.getSignupDate());
+		if (user.getAccount() != null)
+			oldUser.setAccount(user.getAccount());
+		if (user.getAddress() != null)
+			oldUser.setAddress(user.getAddress());
+		if (user.getLastLoginDate() != null)
+			oldUser.setLastLoginDate(user.getLastLoginDate());
+
+		oldUser = userServiceImplementation.insert(oldUser);
+		return ResponseEntity.ok(oldUser);
+
+	}
+
 	// delete
+
+	@DeleteMapping(value = "/delete/{id}")
+	public ResponseEntity<User> delete(@PathVariable(name = "id") Long id) {
+		userServiceImplementation.DeleteById(id);
+		User user = userServiceImplementation.findById(id);
+		return CustomResponse.getDeleteResponse(user, "deletion failed", "could not delete entity with id: " + id);
+	}
 
 }

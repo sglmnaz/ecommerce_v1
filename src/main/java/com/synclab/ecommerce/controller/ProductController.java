@@ -132,11 +132,9 @@ public class ProductController {
 	public ResponseEntity<Page<Product>> findByCategory(@RequestParam(defaultValue = "") List<String> categories,
 			@RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
-		System.out.println("Searching for products in: " + categories.toString());
-
 		// takes a list of category and combine the result of those together.
 
-		List<Product> products = new ArrayList<Product>();
+		List<Product> products = new ArrayList<>();
 
 		for (String s : categories) {
 			List<Product> p = productServiceImplementation.findByCategory(categoryServiceImplementation.findByName(s));
@@ -145,7 +143,7 @@ public class ProductController {
 
 		// remove duplicates.
 
-		List<Product> productsNoDuplicates = new ArrayList<Product>();
+		List<Product> productsNoDuplicates = new ArrayList<>();
 
 		for (Product product : products) {
 			if (!productsNoDuplicates.contains(product)) {
@@ -173,7 +171,6 @@ public class ProductController {
 			// update to database
 			try {
 				productServiceImplementation.update(newProduct);
-				;
 				return ResponseEntity.ok(newProduct);
 			} catch (Exception e) {
 				throw new RecordNotFoundException();
