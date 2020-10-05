@@ -1,4 +1,4 @@
-package com.synclab.ecommerce;
+package com.synclab.ecommerce.main;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -12,8 +12,8 @@ public class EcommerceApplication {
 	}
 
 	public static void clearScreen() {
-		System.out.print("\033[H\033[2J");
-		System.out.flush();
+		//System.out.print("\033[H\033[2J");
+		//System.out.flush();
 		System.out.println("Spring server started (✓) - Waiting for commands...");
 	}
 

@@ -20,6 +20,7 @@ import org.springframework.data.domain.Page;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -47,6 +48,9 @@ public class UserController {
 	@Autowired
 	private AddressServiceImplementation addressServiceImplementation;
 
+    @Autowired
+    private BCryptPasswordEncoder passwordEncoder;
+
 	// post
 
 	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
@@ -68,6 +72,9 @@ public class UserController {
 				addressServiceImplementation.insert(address);
 			}
 		}
+
+		//crypt data
+		account.setPassword(passwordEncoder.encode(account.getPassword()));
 
 		// assign fields to entity
 		entity.setAccount(account);
@@ -132,6 +139,9 @@ public class UserController {
 			Long id = userServiceImplementation.findByAccount(oldAccount).getUserId();
 			List<Role> roles = oldAccount.getRole();
 
+			//crypt data
+			account.setPassword(passwordEncoder.encode(account.getPassword()));
+
 			User newUser = user;
 
 			// initialize fields with default values
@@ -179,8 +189,12 @@ public class UserController {
 			oldUser.setLastName(user.getLastName());
 		if (user.getSignupDate() != null)
 			oldUser.setSignupDate(user.getSignupDate());
-		if (user.getAccount() != null)
-			oldUser.setAccount(user.getAccount());
+		if (user.getAccount() != null){
+			Account account = user.getAccount();
+			//crypt data
+			account.setPassword(passwordEncoder.encode(account.getPassword()));
+			oldUser.setAccount(account);
+		}
 		if (user.getAddress() != null)
 			oldUser.setAddress(user.getAddress());
 		if (user.getLastLoginDate() != null)
