@@ -17,19 +17,18 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
      @Bean
-     public BCryptPasswordEncoder passwordEncoder()
-     {
+     public BCryptPasswordEncoder passwordEncoder() {
          return new BCryptPasswordEncoder();
      }
 
      @Bean
      @Override
-     public UserDetailsService userDetailsService ()
-    {
-        UserBuilder users = User.builder();
+     public UserDetailsService userDetailsService () {
+        
+    	UserBuilder users = User.builder();
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
 
-        //Utente1
+        // Utente client
         manager.createUser(
             users
             .username("client")
@@ -38,7 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .build()
         );
 
-        //Utente2
+        // Utente admin
         manager.createUser(
             users
             .username("admin")
@@ -48,7 +47,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         );
 
         return manager;
-
+        
     }
 
     @Override
@@ -60,11 +59,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
     }
 
-    private static final String[] ADMIN_CLIENTI_MATCHER =
-    {
+    private static final String[] ADMIN_ONLY_ENDPOINTS = {
         "/user/insert/**",
         "/user/update/**",
         "/user/delete/**"
+    };
+    
+    private static final String[] CLIENT_OR_ABOVE_ENDPOINTS = {
+         "/user/get/**",
+         "/user/getAll/**"
+    };
+    
+    private static final String[] GUEST_OR_ABOVE_ENDPOINTS = {
+         "/",
+         "/resources/**",
+         "/login/**"
     };
 
     @Override
@@ -72,28 +81,25 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 
         http
         .authorizeRequests()
-        .antMatchers("/resources/**").permitAll()
-        .antMatchers("/login/**").permitAll()
-        .antMatchers("/").hasAnyRole("ROLE_GUEST","ROLE_CLIENT")
-        .antMatchers(ADMIN_CLIENTI_MATCHER).hasRole("ROLE_ADMIN")
-        .antMatchers("/user/**").hasRole("ROLE_CLIENT")
+        .antMatchers(GUEST_OR_ABOVE_ENDPOINTS).hasAnyRole("ROLE_GUEST","ROLE_CLIENT","ROLE_ADMIN")
+        .antMatchers(CLIENT_OR_ABOVE_ENDPOINTS).hasAnyRole("ROLE_CLIENT","ROLE_ADMIN")
+        .antMatchers(ADMIN_ONLY_ENDPOINTS).hasRole("ROLE_ADMIN")
         .and()
-            .formLogin()
-                .loginPage("/login/form")
-                .loginProcessingUrl("/login")
-                .failureUrl("/login/form?error")
-                    .usernameParameter("userId")
-                    .passwordParameter("password")
-        .and()
-            .exceptionHandling()
-            .accessDeniedPage("/login/form?forbidden")
-        .and()
-            .logout()
-            .logoutUrl("/login/form?logout")
-  
-        //.and().csrf().disable()
+            .formLogin().disable()
+//                .loginPage("/login/form")
+//                .loginProcessingUrl("/login")
+//                .failureUrl("/login/form?error")
+//                    .usernameParameter("userId")
+//                    .passwordParameter("password")
+//        .and()
+//            .exceptionHandling()
+//            .accessDeniedPage("/login/form?forbidden")
+//        .and()
+//            .logout()
+//            .logoutUrl("/login/form?logout")
+//		  .and().csrf().disable()
         ;
 
-    }
-    
+	}
+
 }

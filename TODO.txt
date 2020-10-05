@@ -17,7 +17,11 @@ stockItem 100%
 warehouse 100%
 subcategory 100%
 
-
-
-udemy 15-18-19.
+udemy 15 100%
+udemy 18 100%
+udemy 19
 aggiungere rotte mancanti.
+
+spring security.
+token - standard e json web token
+lo out 2
