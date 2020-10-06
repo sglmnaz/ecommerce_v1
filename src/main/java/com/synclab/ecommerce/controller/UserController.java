@@ -51,9 +51,20 @@ public class UserController {
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
 
-	// post
-
-	@PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
+	
+    //test
+    
+    @GetMapping(value = "/test")
+	public void test() {
+    	
+		System.out.println("you can access this endpoint");
+		
+	}
+    
+    
+    // post
+    
+    @PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<User> insert(@RequestBody User user) {
 
 		if (user == null) {

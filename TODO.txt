@@ -19,9 +19,9 @@ subcategory 100%
 
 udemy 15 100%
 udemy 18 100%
-udemy 19
-aggiungere rotte mancanti.
+udemy 19 100%
 
-spring security.
+spring security
+basic auth <-
 token - standard e json web token
 lo out 2
