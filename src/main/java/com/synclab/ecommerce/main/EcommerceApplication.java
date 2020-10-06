@@ -8,12 +8,10 @@ public class EcommerceApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(EcommerceApplication.class, args);
-		clearScreen();
+		runningMessage();
 	}
 
-	public static void clearScreen() {
-		//System.out.print("\033[H\033[2J");
-		//System.out.flush();
+	public static void runningMessage() {
 		System.out.println("Spring server started (✓) - Waiting for commands...");
 	}
 
