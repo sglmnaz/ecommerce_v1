@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.main;
+package com.synclab.ecommerce;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.main;
+package com.synclab.ecommerce;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;

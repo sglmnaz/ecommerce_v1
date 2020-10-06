@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.config.security;
+package com.synclab.ecommerce.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -80,6 +80,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
 
         http
+			.csrf().disable().formLogin().disable()
             .authorizeRequests()
             	.antMatchers(PUBLIC_ENDPOINTS).permitAll()
             	.antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER,MANAGER,ADMIN)

@@ -48,9 +48,6 @@ public class UserController {
 	@Autowired
 	private AddressServiceImplementation addressServiceImplementation;
 
-    @Autowired
-    private BCryptPasswordEncoder passwordEncoder;
-
 	
     //test
     
@@ -85,7 +82,6 @@ public class UserController {
 		}
 
 		//crypt data
-		account.setPassword(passwordEncoder.encode(account.getPassword()));
 
 		// assign fields to entity
 		entity.setAccount(account);
@@ -151,7 +147,6 @@ public class UserController {
 			List<Role> roles = oldAccount.getRole();
 
 			//crypt data
-			account.setPassword(passwordEncoder.encode(account.getPassword()));
 
 			User newUser = user;
 
@@ -203,7 +198,6 @@ public class UserController {
 		if (user.getAccount() != null){
 			Account account = user.getAccount();
 			//crypt data
-			account.setPassword(passwordEncoder.encode(account.getPassword()));
 			oldUser.setAccount(account);
 		}
 		if (user.getAddress() != null)
