@@ -10,6 +10,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 public class UserPrincipal implements UserDetails{
 	
+	private static final long serialVersionUID = 1L;
+	
 	private User user;
 	private Account account;
 	
@@ -22,26 +24,26 @@ public class UserPrincipal implements UserDetails{
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
 		List<GrantedAuthority> authorities = new ArrayList<>();
-		
-		//TODO: check here
-		System.out.println("------------------------------------------------------------------------");
-		
-//		this.account.getRole().forEach(role -> {
-//			GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
-//			authorities.add(authority);
-//		});
-		
 		List<Role> roles = account.getRole();
-		System.out.println(roles);
-
+		
+		printRoles(roles);
 		
 		for (Role role : roles) {
-			System.out.println(role.getName());
 			GrantedAuthority authority = new SimpleGrantedAuthority(role.getName());
 			authorities.add(authority);
 		}
 		
 		return authorities;
+	}
+	
+	private void printRoles(List<Role> roles) {
+		System.out.println("");
+		System.out.print("Class "+ this.getClass().getSimpleName() + " says: User ( " + account.getUsername() + " ) logged in with the following authorities: ");
+		for (Role role : roles) {
+			System.out.print(role.getName() + ", ");
+		}
+		System.out.println("");
+		System.out.println("");
 	}
 
 	@Override

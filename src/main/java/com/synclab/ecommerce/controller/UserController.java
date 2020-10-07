@@ -47,17 +47,6 @@ public class UserController {
 
 	@Autowired
 	private AddressServiceImplementation addressServiceImplementation;
-
-	
-    //test
-    
-    @GetMapping(value = "/test")
-	public void test() {
-    	
-		System.out.println("you can access this endpoint");
-		
-	}
-    
     
     // post
     

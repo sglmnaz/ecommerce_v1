@@ -47,7 +47,7 @@ public class Account implements Serializable {
     @Column(name = "is_banned")
     private Boolean isBanned = false;
     
-    @ManyToMany()
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "accounts_roles",
             joinColumns = {
                     @JoinColumn(name = "account_id", referencedColumnName = "account_id",
