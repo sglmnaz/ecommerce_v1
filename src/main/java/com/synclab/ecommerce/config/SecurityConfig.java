@@ -108,6 +108,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
          
             .and()
             	.httpBasic()
+            	
+//            .and()
+//            	.formLogin()
+//            		.loginPage("/login")
         ;
 
 	}
