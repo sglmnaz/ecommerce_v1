@@ -25,13 +25,13 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long accountId;
 
-    @Column(name = "username")
+    @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "email")
+    @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "password")
+    @Column(name = "password", nullable = false)
     private String password;
 
     @JsonFormat(pattern="dd/MM/yyyy")
@@ -57,6 +57,20 @@ public class Account implements Serializable {
                             nullable = false, updatable = false)})
     
     private List<Role> role = new ArrayList<>();
+    
+    // constructors
+    
+    public Account() {}
+    
+    public Account(String username, String email, String password, String phone, Date birtDate, List<Role> role) {
+    	this.username = username;
+    	this.password = password;
+    	this.email = email;
+    	this.phone = phone;
+    	this.birthDate=birtDate;
+    	this.role = role;
+    }
+    
 
     
 }

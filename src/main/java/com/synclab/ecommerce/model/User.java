@@ -48,6 +48,20 @@ public class User implements Serializable {
 
 	@Column(name = "last_login_date")
 	private Date lastLoginDate;
+	
+	//constructor 
+	
+	public User() {
+		this.signupDate = new Date();
+	}
+	
+	public User(Account account,String firstname, String lastname, List<Address> addresses) {
+		super();
+		this.account = account;
+		this.firstName = firstname;
+		this.lastName = lastname;
+		this.address = addresses;
+	}
 
 	
 }

@@ -6,4 +6,6 @@ public interface RoleService {
 
 	Role findByName (String name);
 	
+	Role insert (Role role);
+	
 }

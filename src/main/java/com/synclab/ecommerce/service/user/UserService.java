@@ -14,6 +14,7 @@ public interface UserService {
     //R
 	User findById(Long id);
 	User findByAccount(Account account);
+	User findByAccount_username(String username);
 	List<User> findByAddress(Address address);
 	Optional<User> findByFirstName(String name);
 	List<User> findAll();

@@ -41,6 +41,11 @@ public class UserServiceImplementation implements UserService {
 	public User findById(Long id) {
 		return userRepository.findById(id).get();
 	}
+	
+	@Override
+	public User findByAccount_username(String username) {
+		return userRepository.findByAccount_username(username);
+	}
 
 	@Override
 	public List<User> findAll() {
@@ -131,5 +136,7 @@ public class UserServiceImplementation implements UserService {
 		List<User> entities = entityManager.createQuery(query).getResultList();
 		return entities;
 	}
+
+	
 
 }

@@ -21,6 +21,17 @@ public class Role implements Serializable {
 
     @Column(name = "description")
     private String description;
+    
+    // constructor
+    
+    public Role() {}
+    
+    public Role(String name, String desc) {
+    	super();
+    	this.name = name;
+    	this.description = desc;
+    }
+
 
     // getter and setters
 
