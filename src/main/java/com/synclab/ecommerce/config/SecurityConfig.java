@@ -8,11 +8,19 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.www.BasicAuthenticationEntryPoint;
 
-import com.synclab.ecommerce.service.userDetails.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.security.JWTAuthenticationFilter;
+import com.synclab.ecommerce.security.JWTAuthorizationFilter;
+import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.service.user.UserServiceImplementation;
+
+import lombok.experimental.PackagePrivate;
+
 
 @Configuration
 @EnableWebSecurity
@@ -87,7 +95,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     // encoder
     
     @Bean
-	PasswordEncoder passwordEncoder() {
+	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
 
 	}
@@ -100,18 +108,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
 			.csrf().disable()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			
+			.and()
+			.addFilter(new JWTAuthenticationFilter())
+			.addFilter(new JWTAuthorizationFilter(authenticationManager()))
+			
             .authorizeRequests()
             	.antMatchers(PUBLIC_ENDPOINTS).permitAll()
             	.antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER,MANAGER,ADMIN)
             	.antMatchers(MANAGER_OR_ABOVE_ENDPOINTS).hasAnyRole(MANAGER,ADMIN)
             	.antMatchers(ADMIN_ONLY_ENDPOINTS).hasRole(ADMIN)
-         
-            .and()
-            	.httpBasic()
             	
-//            .and()
-//            	.formLogin()
-//            		.loginPage("/login")
         ;
 
 	}

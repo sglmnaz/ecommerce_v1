@@ -15,6 +15,7 @@ public interface UserService {
 	User findById(Long id);
 	User findByAccount(Account account);
 	User findByAccount_username(String username);
+	User findByAccount_email(String email);
 	List<User> findByAddress(Address address);
 	Optional<User> findByFirstName(String name);
 	List<User> findAll();

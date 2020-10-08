@@ -85,7 +85,7 @@ public class UserController {
 
 	// get
 
-	@GetMapping(value = "/findByFirstName/{name}", produces = "application/json")
+	@GetMapping(value = "/get/byFirstName/{name}", produces = "application/json")
 	public ResponseEntity<User> findByFitstName(@PathVariable(value = "name") String name) {
 
 		User newUser = userServiceImplementation.findByFirstName(name).get();
@@ -113,8 +113,8 @@ public class UserController {
 				: ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 	}
 
-	@GetMapping(value = "/getFromQuery", produces = "application/json")
-	public ResponseEntity<Page<User>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
+	@GetMapping(value = "/get/fromQuery", produces = "application/json")
+	public ResponseEntity<Page<User>> getFromQuery(@RequestParam String query, @RequestParam(value = "page") Integer page,
 			@RequestParam(value = "size") Integer size) {
 
 		List<User> list = userServiceImplementation.rsqlQuery(query);

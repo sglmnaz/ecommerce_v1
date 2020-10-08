@@ -35,7 +35,7 @@ public class DbInit implements CommandLineRunner{ //this class creates some plac
 	
 	@Override
 	public void run(String... args) throws Exception {
-		//generateUsers(10);
+		generateUsers(10);
 	}
 
 	
@@ -43,8 +43,8 @@ public class DbInit implements CommandLineRunner{ //this class creates some plac
 		for (int i = 0; i < n; i++) {
 			ArrayList<Role> roles = new ArrayList<>();
 			roles.add(roleRepository.findByName("ROLE_USER"));
-			Account account = new Account("user_"+i, "email_" + i + "@synclab.net",passwordEncoder.encode("password_"+i) ,null, null , roles) ;
-			User user = new User(accountRepository.insert(account),"name_"+i,"last_name_"+i,null);
+			Account account = new Account("user"+i, "email" + i + "@synclab.net",passwordEncoder.encode("password") ,null, null , roles) ;
+			User user = new User(accountRepository.insert(account),"firstname"+i,"lastname"+i,null);
 			userRepository.insert(user);
 		}
 	}

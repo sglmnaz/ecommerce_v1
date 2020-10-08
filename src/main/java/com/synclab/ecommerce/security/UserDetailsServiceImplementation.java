@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.service.userDetails;
+package com.synclab.ecommerce.security;
 
 import javax.transaction.Transactional;
 
@@ -8,7 +8,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.model.UserPrincipal;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 
 @Service

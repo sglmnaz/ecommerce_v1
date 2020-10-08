@@ -1,22 +1,19 @@
 package com.synclab.ecommerce.controller;
 
+import java.util.List;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
+
+import com.synclab.ecommerce.model.User;
 
 @RestController
 @RequestMapping("/")
 public class GeneralPurposeController {
-
-//	@GetMapping("login")
-//	public ModelAndView getLogin(Model model) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("login");
-//		return modelAndView;
-//	}
-	
 
 	@GetMapping("signup")
 	public String getSignup(Model model) {
@@ -42,5 +39,6 @@ public class GeneralPurposeController {
 	public String getAdminPage(Model model) {
 		return "<h1>Admin page</h1>";
 	}
+	
 
 }
