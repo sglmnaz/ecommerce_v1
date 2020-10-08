@@ -1,7 +1,5 @@
 package com.synclab.ecommerce.security;
 
-import javax.transaction.Transactional;
-
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;

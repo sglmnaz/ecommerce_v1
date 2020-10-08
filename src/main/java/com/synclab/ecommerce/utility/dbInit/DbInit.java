@@ -35,7 +35,7 @@ public class DbInit implements CommandLineRunner{ //this class creates some plac
 	
 	@Override
 	public void run(String... args) throws Exception {
-		generateUsers(10);
+		//generateUsers(10);
 	}
 
 	

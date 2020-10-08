@@ -106,6 +106,8 @@ public class UserController {
 
 	@GetMapping(value = "/get/all", produces = "application/json")
 	public ResponseEntity<List<User>> findAll() {
+		
+		System.out.println("retriving all users");
 
 		List<User> users = userServiceImplementation.findAll();
 

@@ -25,12 +25,11 @@ import com.synclab.ecommerce.service.user.UserServiceImplementation;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 	
-	@Autowired
 	private AuthenticationManager authenticationManager;
 	
-	@Autowired
-	private UserServiceImplementation UserServiceImplementation;
-	
+	public JWTAuthenticationFilter(AuthenticationManager authenticationManager) {
+		this.authenticationManager = authenticationManager;
+	}
 	
 	// triggered by POST to /login
 	@Override
@@ -38,6 +37,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			throws AuthenticationException {
 		
 		//map credentials from request
+		
 		LoginModel credentials = null;
 		try {
 			credentials = new ObjectMapper().readValue(request.getInputStream(),LoginModel.class);
@@ -46,16 +46,17 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 			e.printStackTrace();
 		}
 		
-		if (credentials.getUsername() == null && credentials.getEmail() != null)
-			credentials.setUsername(UserServiceImplementation.findByAccount_email(credentials.getEmail()).getAccount().getUsername()); 
-			
 		//create token
+		
 		UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(
 				credentials.getUsername(),
 				credentials.getPassword(),
 				new ArrayList<>());
+		
 		//authenticate user
+
 		Authentication auth = authenticationManager.authenticate(authenticationToken);
+
 		return auth;
 		
 	}
@@ -72,6 +73,9 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 				.withSubject(principal.getUsername())
 				.withExpiresAt(new Date(System.currentTimeMillis() + JWTProperties.EXPIRATION_TIME))
 				.sign(Algorithm.HMAC512(JWTProperties.SECRET.getBytes()));
+		
+		System.out.println("token succesfully created and activated: ");
+		System.out.println(token);
 		
 		// add token to response
 		response.addHeader(JWTProperties.HEADER_STRING, JWTProperties.TOKEN_PREFIX+token);
