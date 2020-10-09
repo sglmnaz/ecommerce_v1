@@ -8,11 +8,10 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.synclab.ecommerce.service.userDetails.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
 
 @Configuration
 @EnableWebSecurity
@@ -100,18 +99,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
 			.csrf().disable()
+			//.addFilter()
             .authorizeRequests()
             	.antMatchers(PUBLIC_ENDPOINTS).permitAll()
             	.antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER,MANAGER,ADMIN)
             	.antMatchers(MANAGER_OR_ABOVE_ENDPOINTS).hasAnyRole(MANAGER,ADMIN)
             	.antMatchers(ADMIN_ONLY_ENDPOINTS).hasRole(ADMIN)
-         
-            .and()
-            	.httpBasic()
-            	
-//            .and()
-//            	.formLogin()
-//            		.loginPage("/login")
+        
         ;
 
 	}

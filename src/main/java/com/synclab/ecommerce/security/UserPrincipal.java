@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.model;
+package com.synclab.ecommerce.security;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -7,6 +7,10 @@ import java.util.List;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.synclab.ecommerce.model.Account;
+import com.synclab.ecommerce.model.Role;
+import com.synclab.ecommerce.model.User;
 
 public class UserPrincipal implements UserDetails{
 	
