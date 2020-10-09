@@ -24,10 +24,10 @@ import com.synclab.ecommerce.service.user.UserServiceImplementation;
 public class AuthenticationController {
 	
 	@Autowired
-	private UserServiceImplementation usi;
+	private PasswordEncoder pe;
 	
 	@Autowired
-	private PasswordEncoder pe;
+	private UserServiceImplementation usi;
 
 	@Autowired
 	private RoleServiceImplementation rsi;
@@ -35,11 +35,10 @@ public class AuthenticationController {
 	@Autowired
 	private AccountServiceImplementation asi;
 
-		
+	// allows the user to access get an authentication token
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestParam String username,
-						@RequestParam String password,
-						@RequestParam(required = false) Boolean stayLogged) {
+						@RequestParam String password) {
 		
 		//cerca utente tramite username 
 		
@@ -69,7 +68,7 @@ public class AuthenticationController {
 		return ResponseEntity.ok(token);
 	}
 	
-    
+    // allows clients to register users 
     @PostMapping(value = "/signup", consumes = "application/json", produces = "application/json")
 	public ResponseEntity<String> signup(@RequestBody User request) {
 

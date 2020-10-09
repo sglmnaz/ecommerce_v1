@@ -16,6 +16,8 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+
+//TODO : rivedere questa classe seguendo una guida migliore
 public class AuthorizationFilter extends BasicAuthenticationFilter {
 
     public AuthorizationFilter(AuthenticationManager authManager) {
