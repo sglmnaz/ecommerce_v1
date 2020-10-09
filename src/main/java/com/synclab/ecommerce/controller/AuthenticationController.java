@@ -1,45 +1,42 @@
 package com.synclab.ecommerce.controller;
 
-import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.Collection;
 import java.util.Date;
-import java.util.Locale;
-
-import javax.servlet.ServletOutputStream;
-import javax.servlet.ServletResponse;
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.security.SecurityProperties;
+import com.synclab.ecommerce.security.JWTProperties;
+import com.synclab.ecommerce.service.account.AccountServiceImplementation;
+import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 
-import antlr.Token;
-import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.SignatureAlgorithm;
-
 @RestController
-@RequestMapping("/login")
-public class LoginController {
+@RequestMapping("/user/api")
+public class AuthenticationController {
 	
 	@Autowired
 	private UserServiceImplementation usi;
 	
 	@Autowired
 	private PasswordEncoder pe;
+
+	@Autowired
+	private RoleServiceImplementation rsi;
+
+	@Autowired
+	private AccountServiceImplementation asi;
+
 		
-	@PostMapping("")
+	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestParam String username,
 						@RequestParam String password,
 						@RequestParam(required = false) Boolean stayLogged) {
@@ -61,11 +58,41 @@ public class LoginController {
 			return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
 
 		// genera un token d accesso che verrà usato per le successive chiamate
-		Date exp = new Date(System.currentTimeMillis() + SecurityProperties.EXPIRATION);
-		String token = Jwts.builder().setSubject(username).signWith(SignatureAlgorithm.HS512, SecurityProperties.SECRET)
-				.setExpiration(exp).compact();
+	
+		String token = JWTProperties.doGenerateToken(username);
+		
+		System.out.println(token);
+		
+		//TODO: validate token
+		//send token back in response header
 		
 		return ResponseEntity.ok(token);
+	}
+	
+    
+    @PostMapping(value = "/signup", consumes = "application/json", produces = "application/json")
+	public ResponseEntity<String> signup(@RequestBody User request) {
+
+		if (request == null)
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+		User user = request;
+		Account account = user.getAccount();
+
+		// initialize fields with default value and add tthem to db
+		account.getRole().add(rsi.findByName("ROLE_CLIENT"));
+		account.setPassword(pe.encode(account.getPassword()));
+		account = asi.insert(account);
+
+		// assign fields to entity
+		user.setAccount(account);
+		user.setSignupDate(new Date());
+
+		// add entity to db
+		user = usi.insert(user);
+
+		return ResponseEntity.ok(account.getUsername() + " successfully registered");
+
 	}
 
 }

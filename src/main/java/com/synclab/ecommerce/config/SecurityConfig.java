@@ -8,9 +8,11 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import com.synclab.ecommerce.security.AuthorizationFilter;
 import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
 
 @Configuration
@@ -25,8 +27,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    private static final String[] PUBLIC_ENDPOINTS = {
 	         "/",
 	         "/index",
-	         "/login",
-	         "/signup",
+	         "/user/api/login",
+	         "/user/api/signup",
 	         "/error/**",
 	         "/resources/**",
 	    };
@@ -35,6 +37,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	    
 	    private static final String[] USER_OR_ABOVE_ENDPOINTS = {
 	         "/userpage/**",
+	         "/user/api/logout",
 	    };
 	    
 	    // managers routes and APIs
@@ -99,7 +102,11 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http
 			.csrf().disable()
-			//.addFilter()
+			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+			
+			.and()
+			.addFilter(new AuthorizationFilter(authenticationManager()))
+			
             .authorizeRequests()
             	.antMatchers(PUBLIC_ENDPOINTS).permitAll()
             	.antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER,MANAGER,ADMIN)
