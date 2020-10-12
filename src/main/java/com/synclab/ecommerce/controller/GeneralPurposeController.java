@@ -4,24 +4,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.ModelAndView;
 
 @RestController
 @RequestMapping("/")
 public class GeneralPurposeController {
-
-//	@GetMapping("login")
-//	public ModelAndView getLogin(Model model) {
-//		ModelAndView modelAndView = new ModelAndView();
-//		modelAndView.setViewName("login");
-//		return modelAndView;
-//	}
-	
-
-	@GetMapping("signup")
-	public String getSignup(Model model) {
-		return "<h1>Signup page</h1>";
-	}
 
 	@GetMapping("")
 	public String getHome(Model model) {

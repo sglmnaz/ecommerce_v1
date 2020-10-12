@@ -16,19 +16,16 @@ import org.springframework.security.web.authentication.www.BasicAuthenticationFi
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 
+public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
-//TODO : rivedere questa classe seguendo una guida migliore
-public class AuthorizationFilter extends BasicAuthenticationFilter {
-
-    public AuthorizationFilter(AuthenticationManager authManager) {
+    public JWTAuthorizationFilter(AuthenticationManager authManager) {
         super(authManager);
     }
 
     @Override
-    protected void doFilterInternal(HttpServletRequest req,
-                                    HttpServletResponse res,
-                                    FilterChain chain) throws IOException, ServletException {
-    	
+    protected void doFilterInternal(HttpServletRequest req, HttpServletResponse res, FilterChain chain)
+            throws IOException, ServletException {
+
         String header = req.getHeader(JWTProperties.HEADER);
 
         if (header == null || !header.startsWith(JWTProperties.PREFIX)) {
@@ -42,15 +39,15 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
         chain.doFilter(req, res);
     }
 
-    // Reads the JWT from the Authorization header, and then uses JWT to validate the token
+    // Reads the JWT from the Authorization header, and then uses JWT to validate
+    // the token
     private UsernamePasswordAuthenticationToken getAuthentication(HttpServletRequest request) {
+
         String token = request.getHeader(JWTProperties.HEADER);
 
         if (token != null) {
             // parse the token.
-            Claims user = Jwts.parser()
-                    .parseClaimsJws(token)
-                    .getBody();
+            Claims user = Jwts.parser().parseClaimsJws(token).getBody();
 
             if (user != null) {
                 // new arraylist means authorities

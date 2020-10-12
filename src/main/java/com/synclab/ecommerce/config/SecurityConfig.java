@@ -12,7 +12,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
-import com.synclab.ecommerce.security.AuthorizationFilter;
+import com.synclab.ecommerce.security.JWTAuthorizationFilter;
 import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
 
 @Configuration
@@ -69,7 +69,15 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     
     @Autowired
    	private UserDetailsServiceImplementation userDetailsServiceImplementation;
-    
+
+	// encoder
+
+	@Bean
+	PasswordEncoder passwordEncoder() {
+		return new BCryptPasswordEncoder();
+
+	}
+		   
     @Bean
     DaoAuthenticationProvider authenticationProvider() {
     	DaoAuthenticationProvider daoAuthenticationProvider = new DaoAuthenticationProvider();
@@ -86,13 +94,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
     
     
-    // encoder
-    
-    @Bean
-	PasswordEncoder passwordEncoder() {
-		return new BCryptPasswordEncoder();
-
-	}
 
     
     // authorizations
@@ -105,7 +106,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 			
 			.and()
-			.addFilter(new AuthorizationFilter(authenticationManager()))
+			.addFilter(new JWTAuthorizationFilter(authenticationManager()))
 			
             .authorizeRequests()
             	.antMatchers(PUBLIC_ENDPOINTS).permitAll()
