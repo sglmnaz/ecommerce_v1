@@ -1,13 +1,9 @@
 package com.synclab.ecommerce.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
 
-import javax.persistence.*;
-
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "wharehouses")
 public class Warehouse implements Serializable {
@@ -32,15 +28,58 @@ public class Warehouse implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "furnisher_id", referencedColumnName = "furnisher_id",
                             nullable = false, updatable = false)})
-	private List<Furnisher> furnishers;
+    private List<Furnisher> furnishers;
 
     @OneToOne()
-    @JoinColumn(name = "address_id" ,referencedColumnName = "address_id")
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
 
     @OneToOne()
-    @JoinColumn(name = "stock_id" ,referencedColumnName = "stock_id")
+    @JoinColumn(name = "stock_id", referencedColumnName = "stock_id")
     private Stock stock;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getWarehouseId() {
+        return warehouseId;
+    }
+
+    public void setWarehouseId(Long warehouseId) {
+        this.warehouseId = warehouseId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Furnisher> getFurnishers() {
+        return furnishers;
+    }
+
+    public void setFurnishers(List<Furnisher> furnishers) {
+        this.furnishers = furnishers;
+    }
+
+    public Address getAddress() {
+        return address;
+    }
+
+    public void setAddress(Address address) {
+        this.address = address;
+    }
+
+    public Stock getStock() {
+        return stock;
+    }
+
+    public void setStock(Stock stock) {
+        this.stock = stock;
+    }
 }
 

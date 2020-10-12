@@ -1,42 +1,41 @@
 package com.synclab.ecommerce.service.courier;
 
-import java.util.List;
-
+import com.synclab.ecommerce.model.Courier;
+import com.synclab.ecommerce.repository.CourierRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.synclab.ecommerce.model.Courier;
-import com.synclab.ecommerce.repository.CourierRepository;
+import java.util.List;
 
 @Service
-public class CourierServiceImplementation implements CourierService{
+public class CourierServiceImplementation implements CourierService {
 
-	@Autowired
-	private CourierRepository repository;
-	
-	@Override
-	public Courier insert(Courier entity) {
-		return repository.save(entity);
-	}
+    @Autowired
+    private CourierRepository repository;
 
-	@Override
-	public Courier findById(Long id) {
-		return repository.findById(id).get();
-	}
+    @Override
+    public Courier insert(Courier entity) {
+        return repository.save(entity);
+    }
 
-	@Override
-	public List<Courier> findAll() {
-		return repository.findAll();
-	}
+    @Override
+    public Courier findById(Long id) {
+        return repository.findById(id).get();
+    }
 
-	@Override
-	public Courier update(Courier entity) {
-		return repository.save(entity);
-	}
+    @Override
+    public List<Courier> findAll() {
+        return repository.findAll();
+    }
 
-	@Override
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+    @Override
+    public Courier update(Courier entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 
 }

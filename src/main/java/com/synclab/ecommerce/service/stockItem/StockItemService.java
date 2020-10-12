@@ -1,23 +1,23 @@
 package com.synclab.ecommerce.service.stockItem;
 
-import java.util.List;
-
 import com.synclab.ecommerce.model.StockItem;
+
+import java.util.List;
 
 public interface StockItemService {
 
-	// insert
-	StockItem insert(StockItem entity);
+    // insert
+    StockItem insert(StockItem entity);
 
-	// retrieve
-	StockItem findById(Long id);
+    // retrieve
+    StockItem findById(Long id);
 
-	List<StockItem> findAll();
+    List<StockItem> findAll();
 
-	// update
-	StockItem update(StockItem entity);
+    // update
+    StockItem update(StockItem entity);
 
-	// delete
-	void deleteById(Long id);
+    // delete
+    void deleteById(Long id);
 
 }

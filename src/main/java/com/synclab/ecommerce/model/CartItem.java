@@ -1,8 +1,7 @@
 package com.synclab.ecommerce.model;
 
-import java.io.Serializable;
-
 import javax.persistence.*;
+import java.io.Serializable;
 
 
 @Entity
@@ -22,22 +21,23 @@ public class CartItem implements Serializable {
     @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
     private Cart cart;
 
-	@OneToOne()
-    @JoinColumn(name = "product_id" , referencedColumnName = "product_id")
+    @OneToOne()
+    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
 
     @Column(name = "quantity")
     private Integer quantity;
-    
+
     // Initializer
-    
-    public CartItem() {}
-    
+
+    public CartItem() {
+    }
+
     public CartItem(Cart cart, Product product, Integer quantity) {
-    	super();
-    	this.cart=cart;
-    	this.product = product;
-    	this.quantity = quantity;
+        super();
+        this.cart = cart;
+        this.product = product;
+        this.quantity = quantity;
     }
 
     // getter and setters
@@ -74,12 +74,10 @@ public class CartItem implements Serializable {
         this.product = product;
     }
 
-	@Override
-	public String toString() {
-		return "CartItem [ID=" + cartItemId + ", cartID=" + getCartID() + ", product=" + product + ", quantity=" + quantity + "]";
-	}
-    
-    
+    @Override
+    public String toString() {
+        return "CartItem [ID=" + cartItemId + ", cartID=" + getCartID() + ", product=" + product + ", quantity=" + quantity + "]";
+    }
 
 
 }

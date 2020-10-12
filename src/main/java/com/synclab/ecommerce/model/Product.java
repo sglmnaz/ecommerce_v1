@@ -1,14 +1,10 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
-
-import lombok.Data;
-
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Data
 @Entity
 @Table(name = "products")
 public class Product implements Serializable {
@@ -33,8 +29,8 @@ public class Product implements Serializable {
             inverseJoinColumns = {
                     @JoinColumn(name = "category_id", referencedColumnName = "category_id",
                             nullable = false, updatable = false)})
-	private List<Category> categories;
-    
+    private List<Category> categories;
+
     @ManyToMany()
     @JoinTable(name = "products_images",
             joinColumns = {
@@ -57,5 +53,71 @@ public class Product implements Serializable {
     @Column(name = "is_available")
     private Boolean isAvailable;
 
-    
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getProductId() {
+        return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public List<Category> getCategories() {
+        return categories;
+    }
+
+    public void setCategories(List<Category> categories) {
+        this.categories = categories;
+    }
+
+    public List<Image> getImage() {
+        return image;
+    }
+
+    public void setImage(List<Image> image) {
+        this.image = image;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
+    }
+
+    public Integer getRating() {
+        return rating;
+    }
+
+    public void setRating(Integer rating) {
+        this.rating = rating;
+    }
+
+    public Boolean getAvailable() {
+        return isAvailable;
+    }
+
+    public void setAvailable(Boolean available) {
+        isAvailable = available;
+    }
 }

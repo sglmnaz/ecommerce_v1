@@ -1,14 +1,10 @@
 package com.synclab.ecommerce.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.*;
-
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "categories")
 public class Category implements Serializable {
@@ -25,10 +21,10 @@ public class Category implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne() 
-	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
+    @OneToOne()
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
     private Image image;
-    
+
     @ManyToMany()
     @JoinTable(name = "categories_subcategories",
             joinColumns = {
@@ -39,5 +35,39 @@ public class Category implements Serializable {
                             nullable = false, updatable = false)})
     private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 
-   
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getCategoryId() {
+        return categoryId;
+    }
+
+    public void setCategoryId(Long categoryId) {
+        this.categoryId = categoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
+
+    public List<Subcategory> getSubcategories() {
+        return subcategories;
+    }
+
+    public void setSubcategories(List<Subcategory> subcategories) {
+        this.subcategories = subcategories;
+    }
 }

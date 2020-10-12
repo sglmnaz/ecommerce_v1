@@ -4,6 +4,6 @@ import com.synclab.ecommerce.model.Status;
 
 public interface StatusService {
 
-	public Status findByName (String name);
-	
+    public Status findByName(String name);
+
 }

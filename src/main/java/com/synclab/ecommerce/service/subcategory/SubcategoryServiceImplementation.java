@@ -1,44 +1,43 @@
 package com.synclab.ecommerce.service.subcategory;
 
-import java.util.List;
-
+import com.synclab.ecommerce.model.Subcategory;
+import com.synclab.ecommerce.repository.SubcategoryRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.synclab.ecommerce.model.Subcategory;
-import com.synclab.ecommerce.repository.SubcategoryRepository;
+import java.util.List;
 
 
 @Service
 public class SubcategoryServiceImplementation implements SubcategoryService {
-	
-	@Autowired
-	private SubcategoryRepository repository;
 
-	@Override
-	public Subcategory insert(Subcategory entity) {
-		return repository.save(entity);
-	}
+    @Autowired
+    private SubcategoryRepository repository;
 
-	@Override
-	public Subcategory findById(Long id) {
-		return repository.findById(id).get();
-	}
+    @Override
+    public Subcategory insert(Subcategory entity) {
+        return repository.save(entity);
+    }
 
-	@Override
-	public List<Subcategory> findAll() {
-		return repository.findAll();
-	}
+    @Override
+    public Subcategory findById(Long id) {
+        return repository.findById(id).get();
+    }
 
-	@Override
-	public Subcategory update(Subcategory entity) {
-		return repository.save(entity);
-	}
+    @Override
+    public List<Subcategory> findAll() {
+        return repository.findAll();
+    }
 
-	@Override
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+    @Override
+    public Subcategory update(Subcategory entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 
 }
 

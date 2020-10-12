@@ -1,11 +1,8 @@
 package com.synclab.ecommerce.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "Subcategories")
 public class Subcategory implements Serializable {
@@ -22,9 +19,35 @@ public class Subcategory implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @OneToOne() 
-	@JoinColumn(name = "image_id" , referencedColumnName = "image_id")
+    @OneToOne()
+    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
     private Image image;
 
- 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getSubcategoryId() {
+        return subcategoryId;
+    }
+
+    public void setSubcategoryId(Long subcategoryId) {
+        this.subcategoryId = subcategoryId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
+    }
 }

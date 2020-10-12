@@ -1,47 +1,46 @@
 package com.synclab.ecommerce.service.shipping;
 
-import java.util.List;
-
+import com.synclab.ecommerce.model.Shipping;
+import com.synclab.ecommerce.repository.ShippingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.synclab.ecommerce.model.Shipping;
-import com.synclab.ecommerce.repository.ShippingRepository;
+import java.util.List;
 
 @Service
 public class ShippingServiceImplementation implements ShippingService {
 
-	@Autowired
-	private ShippingRepository repository;
-	
-	@Override
-	public Shipping insert(Shipping record) {
-		return repository.save(record);
-	}
+    @Autowired
+    private ShippingRepository repository;
 
-	@Override
-	public Shipping findById(Long id) {
-		return repository.findById(id).get();
-	}
+    @Override
+    public Shipping insert(Shipping record) {
+        return repository.save(record);
+    }
 
-	@Override
-	public List<Shipping> findAll() {
-		return repository.findAll();
-	}
+    @Override
+    public Shipping findById(Long id) {
+        return repository.findById(id).get();
+    }
 
-	@Override
-	public Shipping update(Shipping record) {
-		return repository.save(record);
-	}
+    @Override
+    public List<Shipping> findAll() {
+        return repository.findAll();
+    }
 
-	@Override
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+    @Override
+    public Shipping update(Shipping record) {
+        return repository.save(record);
+    }
 
-	@Override
-	public void deleteAll() {
-		repository.deleteAll();
-	}
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
 
 }

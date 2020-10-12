@@ -1,13 +1,8 @@
 package com.synclab.ecommerce.model;
 
+import javax.persistence.*;
 import java.io.Serializable;
 
-
-import javax.persistence.*;
-
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "couriers")
 public class Courier implements Serializable {
@@ -24,4 +19,23 @@ public class Courier implements Serializable {
     @Column(name = "name")
     private String name;
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getCourierId() {
+        return courierId;
+    }
+
+    public void setCourierId(Long courierId) {
+        this.courierId = courierId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
 }

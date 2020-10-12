@@ -4,8 +4,8 @@ import com.synclab.ecommerce.model.Role;
 
 public interface RoleService {
 
-	Role findByName (String name);
-	
-	Role insert (Role role);
-	
+    Role findByName(String name);
+
+    Role insert(Role role);
+
 }

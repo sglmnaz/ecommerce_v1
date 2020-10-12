@@ -1,7 +1,7 @@
 package com.synclab.ecommerce.model;
 
-import java.io.Serializable;
 import javax.persistence.*;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "roles")
@@ -21,15 +21,16 @@ public class Role implements Serializable {
 
     @Column(name = "description")
     private String description;
-    
+
     // constructor
-    
-    public Role() {}
-    
+
+    public Role() {
+    }
+
     public Role(String name, String desc) {
-    	super();
-    	this.name = name;
-    	this.description = desc;
+        super();
+        this.name = name;
+        this.description = desc;
     }
 
 
@@ -59,12 +60,12 @@ public class Role implements Serializable {
         this.description = description;
     }
 
-	
+
     // endregion
 
     @Override
-	public String toString() {
-		return "Role [roleId=" + roleId + ", name=" + name + ", description=" + description + "]";
-	}
-    
+    public String toString() {
+        return "Role [roleId=" + roleId + ", name=" + name + ", description=" + description + "]";
+    }
+
 }

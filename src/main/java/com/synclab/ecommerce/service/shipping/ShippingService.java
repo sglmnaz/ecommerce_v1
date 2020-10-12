@@ -1,25 +1,25 @@
 package com.synclab.ecommerce.service.shipping;
 
-import java.util.List;
-
 import com.synclab.ecommerce.model.Shipping;
+
+import java.util.List;
 
 public interface ShippingService {
 
-	// insert
-	Shipping insert(Shipping record);
+    // insert
+    Shipping insert(Shipping record);
 
-	// retrieve
-	Shipping findById(Long id);
+    // retrieve
+    Shipping findById(Long id);
 
-	List<Shipping> findAll();
+    List<Shipping> findAll();
 
-	// update
-	Shipping update(Shipping record);
+    // update
+    Shipping update(Shipping record);
 
-	// delete
-	void deleteById(Long id);
+    // delete
+    void deleteById(Long id);
 
-	void deleteAll();
-	
+    void deleteAll();
+
 }

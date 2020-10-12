@@ -1,16 +1,11 @@
 package com.synclab.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-
-import javax.persistence.*;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
-import lombok.Data;
-
-@Data
 @Entity
 @Table(name = "carts")
 public class Cart implements Serializable {
@@ -25,7 +20,7 @@ public class Cart implements Serializable {
     private Long cartId;
 
     @OneToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id" )
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonIgnore
     private User user;
 
@@ -53,4 +48,39 @@ public class Cart implements Serializable {
         this.totalPrice = totalPrice;
     }
 
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public Long getCartId() {
+        return cartId;
+    }
+
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+
+    public Integer getTotalItems() {
+        return totalItems;
+    }
+
+    public void setTotalItems(Integer totalItems) {
+        this.totalItems = totalItems;
+    }
 }

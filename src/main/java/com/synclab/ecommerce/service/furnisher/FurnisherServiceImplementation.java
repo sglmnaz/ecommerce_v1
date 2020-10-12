@@ -1,42 +1,41 @@
 package com.synclab.ecommerce.service.furnisher;
 
-import java.util.List;
-
+import com.synclab.ecommerce.model.Furnisher;
+import com.synclab.ecommerce.repository.FurnisherRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.synclab.ecommerce.model.Furnisher;
-import com.synclab.ecommerce.repository.FurnisherRepository;
+import java.util.List;
 
 @Service
-public class FurnisherServiceImplementation implements FurnisherService{
+public class FurnisherServiceImplementation implements FurnisherService {
 
-	@Autowired
-	private FurnisherRepository repository;
-	
-	@Override
-	public Furnisher insert(Furnisher entity) {
-		return repository.save(entity);
-	}
+    @Autowired
+    private FurnisherRepository repository;
 
-	@Override
-	public Furnisher findById(Long id) {
-		return repository.findById(id).get();
-	}
+    @Override
+    public Furnisher insert(Furnisher entity) {
+        return repository.save(entity);
+    }
 
-	@Override
-	public List<Furnisher> findAll() {
-		return repository.findAll();
-	}
+    @Override
+    public Furnisher findById(Long id) {
+        return repository.findById(id).get();
+    }
 
-	@Override
-	public Furnisher update(Furnisher entity) {
-		return repository.save(entity);
-	}
+    @Override
+    public List<Furnisher> findAll() {
+        return repository.findAll();
+    }
 
-	@Override
-	public void deleteById(Long id) {
-		repository.deleteById(id);
-	}
+    @Override
+    public Furnisher update(Furnisher entity) {
+        return repository.save(entity);
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        repository.deleteById(id);
+    }
 
 }
