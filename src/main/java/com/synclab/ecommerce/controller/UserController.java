@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/user")
+@RequestMapping("/user/api")
 public class UserController {
 
     @Autowired
@@ -73,16 +73,7 @@ public class UserController {
 
     // get
 
-    @GetMapping(value = "/findByFirstName/{name}", produces = "application/json")
-    public ResponseEntity<User> findByFitstName(@PathVariable(value = "name") String name) {
-
-        User newUser = userServiceImplementation.findByFirstName(name).get();
-
-        return CustomResponse.getFindResponse(newUser, "user not found",
-                "user with name: " + name + " could not be found.");
-    }
-
-    @GetMapping(value = "/get/{id}", produces = "application/json")
+    @GetMapping(value = "/get/id/{id}", produces = "application/json")
     public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
 
         User newUser = userServiceImplementation.findById(id);
@@ -101,7 +92,7 @@ public class UserController {
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-    @GetMapping(value = "/getFromQuery", produces = "application/json")
+    @GetMapping(value = "/get/query", produces = "application/json")
     public ResponseEntity<Page<User>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
                                                @RequestParam(value = "size") Integer size) {
 
@@ -155,7 +146,7 @@ public class UserController {
 
     // patch
 
-    @PatchMapping(value = "/patch/{id}", consumes = "applicationj/json", produces = "application/json")
+    @PatchMapping(value = "/patch/id/{id}", consumes = "applicationj/json", produces = "application/json")
     public ResponseEntity<User> patch(@PathVariable(name = "id") Long id, @RequestBody User user) {
 
         if (user == null)
@@ -189,7 +180,7 @@ public class UserController {
 
     // delete
 
-    @DeleteMapping(value = "/delete/{id}")
+    @DeleteMapping(value = "/delete/id/{id}")
     public ResponseEntity<User> delete(@PathVariable(name = "id") Long id) {
         userServiceImplementation.DeleteById(id);
         User user = userServiceImplementation.findById(id);

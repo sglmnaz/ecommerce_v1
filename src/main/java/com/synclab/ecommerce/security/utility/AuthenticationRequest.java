@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.security;
+package com.synclab.ecommerce.security.utility;
 
 public class AuthenticationRequest {
 	

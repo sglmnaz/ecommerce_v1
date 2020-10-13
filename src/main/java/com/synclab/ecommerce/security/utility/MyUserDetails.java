@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.security;
+package com.synclab.ecommerce.security.utility;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Role;

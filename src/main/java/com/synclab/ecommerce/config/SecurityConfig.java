@@ -1,8 +1,7 @@
 package com.synclab.ecommerce.config;
 
-import com.synclab.ecommerce.security.JWTAuthorizationFilter;
-import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
 import com.synclab.ecommerce.security.filters.JWTRequestFilter;
+import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
 
 import javax.servlet.Filter;
 

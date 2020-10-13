@@ -15,8 +15,8 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.synclab.ecommerce.security.JWTUtils;
-import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.security.utility.JWTUtils;
+import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
 
 @Component
 public class JWTRequestFilter extends OncePerRequestFilter {
@@ -50,8 +50,6 @@ public class JWTRequestFilter extends OncePerRequestFilter {
 		}
 		
 		filterChain.doFilter(request,response);
-		
-		
 	}
 
 }

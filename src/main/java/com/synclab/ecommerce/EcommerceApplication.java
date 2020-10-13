@@ -13,6 +13,7 @@ public class EcommerceApplication {
 
     public static void runningMessage() {
         System.out.println("Spring server started (✓) - Waiting for commands...");
+        System.out.println("");
     }
 
 }

@@ -1,9 +1,11 @@
-package com.synclab.ecommerce.security;
+package com.synclab.ecommerce.security.utility;
 
 import java.util.Date;
 import java.util.function.Function;
 
 import org.springframework.security.core.userdetails.UserDetails;
+
+import com.synclab.ecommerce.security.JWTProperties;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;

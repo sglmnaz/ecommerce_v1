@@ -2,12 +2,12 @@ package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.security.AuthenticationRequest;
-import com.synclab.ecommerce.security.AuthenticationResponse;
 import com.synclab.ecommerce.security.JWTProperties;
-import com.synclab.ecommerce.security.JWTUtils;
-import com.synclab.ecommerce.security.MyUserDetails;
-import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.security.utility.AuthenticationRequest;
+import com.synclab.ecommerce.security.utility.AuthenticationResponse;
+import com.synclab.ecommerce.security.utility.JWTUtils;
+import com.synclab.ecommerce.security.utility.MyUserDetails;
+import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
