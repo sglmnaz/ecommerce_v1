@@ -2,14 +2,21 @@ package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.User;
+import com.synclab.ecommerce.security.AuthenticationRequest;
+import com.synclab.ecommerce.security.AuthenticationResponse;
 import com.synclab.ecommerce.security.JWTProperties;
 import com.synclab.ecommerce.security.JWTUtils;
+import com.synclab.ecommerce.security.MyUserDetails;
+import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
@@ -21,6 +28,12 @@ public class AuthenticationController {
 
     @Autowired
     private PasswordEncoder pe;
+    
+    @Autowired
+    private AuthenticationManager am;
+    
+    @Autowired
+    private UserDetailsServiceImplementation udsi;
 
     @Autowired
     private UserServiceImplementation usi;
@@ -33,31 +46,19 @@ public class AuthenticationController {
 
     // allows the user to access get an authentication token
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestParam String username,
-                                        @RequestParam String password) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequest req) throws Exception {
 
-        //cerca utente tramite username
-
-        User user = null;
-        user = usi.findByAccount_username(username);
-
-        // controllare se questo utente esiste
-
-        if (user == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        // verificare password
-
-        String encodedPassword = user.getAccount().getPassword();
-        if (!pe.matches(password, encodedPassword))
-            return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
-
-        // genera un token d accesso che verrà usato per le successive chiamate
-
-        String token = JWTUtils.doGenerateToken(username);
-        System.out.println(JWTUtils.getUsernameFromToken(token));
-
-        return ResponseEntity.ok(token);
+    	try {
+        	am.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
+		} catch (Exception e) {
+			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+		}
+    	
+    	final UserDetails userDetails = udsi.loadUserByUsername(req.getUsername());
+    	final String jwt = JWTUtils.generateToken(userDetails);
+    	
+    	return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    	
     }
 
     // allows clients to register users 

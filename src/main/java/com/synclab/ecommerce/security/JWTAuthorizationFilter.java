@@ -43,18 +43,24 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
         String token = request.getHeader(JWTProperties.HEADER);
 
-        if (token != null) {
+        if (token != null) 
+        {
             // parse the token.
             Claims user = Jwts.parser().parseClaimsJws(token).getBody();
 
-            if (user != null) {
+            if (user != null) 
+            {
                 // new arraylist means authorities
                 return new UsernamePasswordAuthenticationToken(user, null, new ArrayList<>());
             }
+            else 
+            {
+            	System.err.println("user is null");            	
+            }
 
-            return null;
         }
-        else {
+        else 
+        {
 			System.err.println("token could not be found in request header with header (authorization)");
 		}
 

@@ -12,12 +12,17 @@ import io.jsonwebtoken.SignatureAlgorithm;
 
 public class JWTUtils {
 	
+	// generate token for user
+    public static String generateToken(UserDetails userDetails) {
+        return doGenerateToken(userDetails.getUsername());
+    }
+	
 	//generate token
     public static String doGenerateToken(String subject) {
     	
     	 JwtBuilder builder = Jwts.builder()
         		.setSubject(subject)
-        		.setIssuedAt(new Date())
+        		.setIssuedAt(new Date(System.currentTimeMillis()))
                 .setExpiration(new Date(System.currentTimeMillis() + JWTProperties.EXPIRATION))
                 .signWith(SignatureAlgorithm.HS512, JWTProperties.SECRET);
     	 
@@ -48,11 +53,6 @@ public class JWTUtils {
     private static Boolean isTokenExpired(String token) {
         final Date expiration = getExpirationDateFromToken(token);
         return expiration.before(new Date());
-    }
-
-    // generate token for user
-    public static String generateToken(UserDetails userDetails) {
-        return doGenerateToken(userDetails.getUsername());
     }
 
     // validate token

@@ -2,9 +2,14 @@ package com.synclab.ecommerce.config;
 
 import com.synclab.ecommerce.security.JWTAuthorizationFilter;
 import com.synclab.ecommerce.security.UserDetailsServiceImplementation;
+import com.synclab.ecommerce.security.filters.JWTRequestFilter;
+
+import javax.servlet.Filter;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -13,6 +18,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
@@ -69,12 +75,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private UserDetailsServiceImplementation userDetailsServiceImplementation;
 
+    @Autowired
+	private JWTRequestFilter jwtRequestFilter;
+
     // encoder
 
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
 
+    }
+    
+    // auth manager
+    
+    @Override
+    @Bean
+    public AuthenticationManager authenticationManagerBean() throws Exception{
+    	return super.authenticationManagerBean();
     }
 
     @Bean
@@ -86,9 +103,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     @Override
-    public void configure(AuthenticationManagerBuilder auth) {
+    public void configure(AuthenticationManagerBuilder auth) throws Exception{
 
         auth.authenticationProvider(authenticationProvider());
+        auth.userDetailsService(userDetailsServiceImplementation);
 
     }
 
@@ -102,7 +120,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
                 .and()
-                .addFilter(new JWTAuthorizationFilter(authenticationManager()))
+                .addFilterBefore(jwtRequestFilter,UsernamePasswordAuthenticationFilter.class)
 
                 .authorizeRequests()
                 .antMatchers(PUBLIC_ENDPOINTS).permitAll()

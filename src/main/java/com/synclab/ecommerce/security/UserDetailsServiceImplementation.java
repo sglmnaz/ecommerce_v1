@@ -9,17 +9,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class UserDetailsServiceImplementation implements UserDetailsService {
 
-    private UserServiceImplementation userServiceImp;
+    private UserServiceImplementation usi;
 
     public UserDetailsServiceImplementation(UserServiceImplementation userServiceImp) {
-        this.userServiceImp = userServiceImp;
+        this.usi = userServiceImp;
     }
 
     @Override
     public UserDetails loadUserByUsername(String username) {
 
-        User user = userServiceImp.findByAccount_username(username);
-        return new UserPrincipal(user);
+        User user = usi.findByAccount_username(username);
+        return new MyUserDetails(user);
 
     }
 
