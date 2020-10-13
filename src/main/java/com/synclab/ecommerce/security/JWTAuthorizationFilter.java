@@ -54,6 +54,9 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
             return null;
         }
+        else {
+			System.err.println("token could not be found in request header with header (authorization)");
+		}
 
         return null;
     }

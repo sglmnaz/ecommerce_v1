@@ -3,6 +3,7 @@ package com.synclab.ecommerce.controller;
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.security.JWTProperties;
+import com.synclab.ecommerce.security.JWTUtils;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
@@ -53,12 +54,8 @@ public class AuthenticationController {
 
         // genera un token d accesso che verrà usato per le successive chiamate
 
-        String token = JWTProperties.doGenerateToken(username);
-
-        System.out.println(token);
-
-        //TODO: validate token
-        //send token back in response header
+        String token = JWTUtils.doGenerateToken(username);
+        System.out.println(JWTUtils.getUsernameFromToken(token));
 
         return ResponseEntity.ok(token);
     }
