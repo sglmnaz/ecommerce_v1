@@ -42,7 +42,7 @@ public class UserController {
     public ResponseEntity<User> insert(@RequestBody User user) {
 
         if (user == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
 
         User entity = user;
@@ -89,7 +89,7 @@ public class UserController {
         List<User> users = userServiceImplementation.findAll();
 
         return !users.isEmpty() ? ResponseEntity.ok(users)
-                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
     @GetMapping(value = "/get/query", produces = "application/json")
@@ -139,7 +139,7 @@ public class UserController {
                 throw new RecordNotFoundException();
             }
         } else {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
         }
 
     }
@@ -150,7 +150,7 @@ public class UserController {
     public ResponseEntity<User> patch(@PathVariable(name = "id") Long id, @RequestBody User user) {
 
         if (user == null)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         User oldUser = userServiceImplementation.findById(id);
 

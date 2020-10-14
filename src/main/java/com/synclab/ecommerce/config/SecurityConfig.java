@@ -23,7 +23,6 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @EnableWebSecurity
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-
     // routes declaration
 
     // public routes and APIs
@@ -31,8 +30,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_ENDPOINTS = {
             "/",
             "/index",
-            "/user/api/login",
-            "/user/api/signup",
+            "/auth/api/login",
+            "/auth/api/signup",
             "/error/**",
             "/resources/**",
     };
@@ -41,7 +40,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] USER_OR_ABOVE_ENDPOINTS = {
             "/userpage/**",
-            "/user/api/logout",
+            "/auth/api/logout",
     };
 
     // managers routes and APIs
@@ -126,9 +125,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER, MANAGER, ADMIN)
                 .antMatchers(MANAGER_OR_ABOVE_ENDPOINTS).hasAnyRole(MANAGER, ADMIN)
                 .antMatchers(ADMIN_ONLY_ENDPOINTS).hasRole(ADMIN)
-
         ;
-
     }
-
 }

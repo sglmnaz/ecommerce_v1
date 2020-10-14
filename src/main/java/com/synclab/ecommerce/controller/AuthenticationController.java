@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/user/api")
+@RequestMapping("/auth/api")
 public class AuthenticationController {
 
     @Autowired
@@ -51,7 +51,7 @@ public class AuthenticationController {
     	try {
         	am.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
 		} catch (Exception e) {
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
     	
     	final UserDetails userDetails = udsi.loadUserByUsername(req.getUsername());

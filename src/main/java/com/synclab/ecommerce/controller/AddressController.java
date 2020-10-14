@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController()
-@RequestMapping("/address")
+@RequestMapping("/address/api")
 public class AddressController {
 
     @Autowired
@@ -21,7 +21,7 @@ public class AddressController {
     public ResponseEntity<Address> insert(@RequestBody final Address requestBody) {
 
         if (requestBody == null) // return error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         final Address address = addressRepository.save(requestBody);
 
@@ -29,11 +29,11 @@ public class AddressController {
     }
 
     // get - takes a path variable <- find the object in the db -> outputs Response entity
-    @GetMapping(value = "/findById", consumes = "application/json", produces = "application/json")
+    @GetMapping(value = "/get/id/{id}", produces = "application/json")
     public ResponseEntity<Address> findById(@PathVariable(value = "id") Long id) {
 
         if (id == null) // return error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         final Address address = addressRepository.findById(id).get();
         return ResponseEntity.ok(address);
@@ -46,10 +46,10 @@ public class AddressController {
                                               @RequestBody final Address requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         if (!addressRepository.findById(id).isPresent()) // returns an error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         Address address = requestBody;
         address.setAddressId(id);
@@ -65,12 +65,12 @@ public class AddressController {
                                              @RequestBody final Address requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         Address oldAddress = addressRepository.findById(id).get();
 
         if (oldAddress == null) // returns an error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         Address newAddress = oldAddress;
 
@@ -99,7 +99,7 @@ public class AddressController {
     public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
 
         if (id == null) // return error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         addressRepository.deleteById(id);
         return ResponseEntity.ok(new Date() + " - Entity deleted succesfully.");
