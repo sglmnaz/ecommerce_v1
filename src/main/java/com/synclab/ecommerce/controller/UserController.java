@@ -6,6 +6,7 @@ import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.address.AddressServiceImplementation;
+import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
@@ -20,7 +21,10 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 @RestController
+@Transactional
 @RequestMapping("/user/api")
 public class UserController {
 
@@ -35,6 +39,9 @@ public class UserController {
 
     @Autowired
     private AddressServiceImplementation addressServiceImplementation;
+    
+    @Autowired
+    private CartServiceImplementation cartServiceImplementation;
 
     // post
 
@@ -182,8 +189,15 @@ public class UserController {
 
     @DeleteMapping(value = "/delete/id/{id}")
     public ResponseEntity<User> delete(@PathVariable(name = "id") Long id) {
+       
+    	User user = userServiceImplementation.findById(id);
+        
+    	accountServiceImplementation.DeleteById(user.getAccount().getAccountId());
+    	cartServiceImplementation.deleteByUser_userId(id);
         userServiceImplementation.DeleteById(id);
-        User user = userServiceImplementation.findById(id);
+        
+        user = userServiceImplementation.findById(id);
+        
         return CustomResponse.getDeleteResponse(user, "deletion failed", "could not delete entity with id: " + id);
     }
 

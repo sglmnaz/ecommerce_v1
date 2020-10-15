@@ -49,4 +49,10 @@ public class CartServiceImplementation implements CartService {
         return repository.findByUser(user);
     }
 
+	@Override
+	public Void deleteByUser_userId(Long userId) {
+		repository.deleteByUser_userId(userId);
+		return null;
+	}
+
 }

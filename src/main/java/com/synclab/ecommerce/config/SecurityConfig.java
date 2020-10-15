@@ -32,8 +32,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/index",
             "/auth/api/login",
             "/auth/api/signup",
-            "/error/**",
-            "/resources/**",
     };
 
     // logged users routes and APIs
@@ -41,6 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] USER_OR_ABOVE_ENDPOINTS = {
             "/userpage/**",
             "/auth/api/logout",
+            "/user/api/get/**",
     };
 
     // managers routes and APIs
@@ -53,11 +52,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] ADMIN_ONLY_ENDPOINTS = {
             "/adminpage/**",
-            "/user/get/**",
-            "/user/getAll/**",
-            "/user/insert/**",
-            "/user/update/**",
-            "/user/delete/**",
+            "/user/api/delete/**",
     };
 
 
@@ -125,6 +120,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(USER_OR_ABOVE_ENDPOINTS).hasAnyRole(USER, MANAGER, ADMIN)
                 .antMatchers(MANAGER_OR_ABOVE_ENDPOINTS).hasAnyRole(MANAGER, ADMIN)
                 .antMatchers(ADMIN_ONLY_ENDPOINTS).hasRole(ADMIN)
-        ;
+                .anyRequest().denyAll();
     }
 }

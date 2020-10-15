@@ -51,6 +51,7 @@ public class AuthenticationController {
     	try {
         	am.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
 		} catch (Exception e) {
+			System.out.println("invalid credentials");
 			return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
 		}
     	

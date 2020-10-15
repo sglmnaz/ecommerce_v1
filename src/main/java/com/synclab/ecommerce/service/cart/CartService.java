@@ -22,7 +22,7 @@ public interface CartService {
 
     //delete
     void deleteById(Long id);
-
+    Void deleteByUser_userId(Long userId);
     void deleteAll();
 
 }
