@@ -1,7 +1,5 @@
 package com.synclab.ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-
 import javax.persistence.*;
 
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -18,8 +16,7 @@ public class Cart implements Serializable {
 
     @Id
     private String id;
-    @JsonIgnore
-    private User user;
+    private String userId;
     private BigDecimal totalPrice;
     private Integer totalItems;
 
@@ -34,31 +31,38 @@ public class Cart implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public Cart(User user, BigDecimal totalPrice, Integer totalItems) {
+    public Cart(String userId, BigDecimal totalPrice, Integer totalItems) {
         super();
-        this.user = user;
+        this.userId = userId;
         this.totalItems = totalItems;
         this.totalPrice = totalPrice;
+    }
+    
+    public Cart(String userId) {
+        super();
+        this.userId = userId;
+        this.totalItems = 0;
+        this.totalPrice = BigDecimal.ZERO;
     }
 
     public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public String getCartId() {
+    public String getId() {
         return id;
     }
 
-    public void setCartId(String cartId) {
-        this.id = cartId;
+    public void setId(String id) {
+        this.id = id;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String id) {
+        this.userId = id;
     }
 
     public BigDecimal getTotalPrice() {

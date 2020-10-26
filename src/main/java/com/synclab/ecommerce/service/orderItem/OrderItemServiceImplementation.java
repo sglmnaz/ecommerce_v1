@@ -26,7 +26,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
 
     @Override
     public List<OrderItem> findByOrder_OrderId(String orderId) {
-        return repository.findByOrder_OrderId(orderId);
+        return repository.findByOrder_Id(orderId);
     }
 
     @Override

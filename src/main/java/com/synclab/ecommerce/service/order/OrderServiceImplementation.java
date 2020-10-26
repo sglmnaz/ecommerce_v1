@@ -43,7 +43,7 @@ public class OrderServiceImplementation implements OrderService {
 
 	@Override
 	public List<Order> findByUser_UserId(String id) {
-		return repository.findByUser_UserId(id);
+		return repository.findByUserId(id);
 	}
 
 	@Override

@@ -39,19 +39,15 @@ public class CartServiceImplementation implements CartService {
         repository.deleteById(id);
     }
 
-    @Override
-    public void deleteAll() {
-        repository.deleteAll();
-    }
 
     @Override
-    public Cart findByUser(User user) {
-        return repository.findByUser(user);
+    public Cart findByUserId(String id) {
+        return repository.findByUserId(id);
     }
 
 	@Override
-	public Void deleteByUser_userId(String userId) {
-		repository.deleteByUser_userId(userId);
+	public Void deleteByUserId(String id) {
+		repository.deleteByUserId(id);
 		return null;
 	}
 

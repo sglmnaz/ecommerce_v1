@@ -8,5 +8,5 @@ import java.util.List;
 
 @Repository
 public interface CartItemRepository extends MongoRepository<CartItem, String> {
-    List<CartItem> findByCart_CartId(String cartId);
+    List<CartItem> findByCart_Id(String cartId);
 }

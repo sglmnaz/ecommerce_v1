@@ -190,8 +190,7 @@ public class UserController {
        
     	User user = userServiceImplementation.findById(id);
         
-    	accountServiceImplementation.DeleteById(user.getAccount().getAccountId());
-    	cartServiceImplementation.deleteByUser_userId(id);
+    	cartServiceImplementation.deleteByUserId(id);
         userServiceImplementation.DeleteById(id);
         
         user = userServiceImplementation.findById(id);

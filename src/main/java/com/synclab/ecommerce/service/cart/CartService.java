@@ -13,7 +13,7 @@ public interface CartService {
     //retrieve
     Cart findById(String id);
 
-    Cart findByUser(User user);
+    Cart findByUserId(String id);
 
     List<Cart> findAll();
 
@@ -22,7 +22,6 @@ public interface CartService {
 
     //delete
     void deleteById(String id);
-    Void deleteByUser_userId(String userId);
-    void deleteAll();
+    Void deleteByUserId(String id);
 
 }

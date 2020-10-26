@@ -3,8 +3,10 @@ package com.synclab.ecommerce.service.user;
 import com.github.tennaito.rsql.jpa.JpaCriteriaQueryVisitor;
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
+import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.repository.UserRepository;
+import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
@@ -23,6 +25,10 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private UserRepository userRepository;
+    
+    @Autowired
+    private CartServiceImplementation csi;
+    
 //    @Autowired
 //    private EntityManager entityManager;
 
@@ -33,7 +39,10 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User insert(User user) {
-        return userRepository.save(user);
+    	User u = userRepository.save(user);
+    	// creates an empty cart for the user
+    	csi.insert(new Cart(u.getUserId()));
+        return u;
     }
 
     @Override

@@ -45,7 +45,7 @@ public class CartItemServiceImplementation implements CartItemService {
 
     @Override
     public List<CartItem> findByCart_CartId(String cartId) {
-        return repository.findByCart_CartId(cartId);
+        return repository.findByCart_Id(cartId);
     }
 
 }

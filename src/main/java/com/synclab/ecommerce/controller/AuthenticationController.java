@@ -1,13 +1,14 @@
 package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.Account;
+import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.model.supportingEntities.LoginCredentials;
 import com.synclab.ecommerce.model.supportingEntities.LoginResponse;
 import com.synclab.ecommerce.model.supportingEntities.SignupCredentials;
 import com.synclab.ecommerce.security.utility.JWTUtils;
 import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
-import com.synclab.ecommerce.service.account.AccountServiceImplementation;
+import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import org.springframework.beans.factory.annotation.Autowired;

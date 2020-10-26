@@ -1,6 +1,5 @@
 package com.synclab.ecommerce.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
 
@@ -13,7 +12,7 @@ import java.util.Date;
 @Document(collection = "order")
 public class Order implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 
@@ -23,8 +22,7 @@ public class Order implements Serializable {
     private int totalItems;
     private Date creationDate;
     private Status status;
-    @JsonIgnore
-    private User user;
+    private String userId;
 
     //methods
     
@@ -72,11 +70,11 @@ public class Order implements Serializable {
         this.status = status;
     }
 
-    public User getUser() {
-        return user;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setUserId(String id) {
+        this.userId = id;
     }
 }

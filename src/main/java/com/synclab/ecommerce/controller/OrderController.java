@@ -54,7 +54,7 @@ public class OrderController {
         order.setCreationDate(new Date());
         order.setTotalItems(cart.getTotalItems());
         order.setTotalPrice(cart.getTotalPrice());
-        order.setUser(cart.getUser());
+        order.setUserId(cart.getUserId());
         order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED"));
 
         order = orderServiceImplementation.insert(order);

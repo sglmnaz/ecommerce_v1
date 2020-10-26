@@ -18,7 +18,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart")
+@RequestMapping("/cart/api")
 public class CartController {
 
     // fields
@@ -35,27 +35,6 @@ public class CartController {
     @Autowired
     private CartItemServiceImplementation cartItemServiceImplementation;
 
-    // post
-
-    @PostMapping(value = "/insert/{userId}", produces = "application/json")
-    public ResponseEntity<Cart> insert(@PathVariable(value = "userId") String userId) {
-
-        User user = userServiceImplementation.findById(userId);
-
-        if (user == null) // return error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-        // declarations
-        Cart entity = new Cart(BigDecimal.ZERO, 0);
-        entity.setUser(user);
-
-        // add to database
-        cartServiceImplementation.insert(entity);
-
-        return ResponseEntity.ok(entity);
-
-    }
-
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
@@ -68,11 +47,10 @@ public class CartController {
 
     }
 
-    @GetMapping(value = "/getByUser/{userId}", produces = "application/json")
+    @GetMapping(value = "/getByUserId/{userId}", produces = "application/json")
     public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") String userId) {
 
-        User user = userServiceImplementation.findById(userId);
-        Cart entity = cartServiceImplementation.findByUser(user);
+        Cart entity = cartServiceImplementation.findByUserId(userId);
 
         return entity != null ? ResponseEntity.ok(entity)
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -100,7 +78,7 @@ public class CartController {
 
         cartItem = cartItemServiceImplementation.insert(cartItem);
         cartServiceImplementation.update(cart);
-        evaluateTotals(cart.getCartId());
+        evaluateTotals(cart.getId());
 
         return cartItem != null
                 ? ResponseEntity.ok("product: " + product.getName() + " x" + productQuantity + " was added to cart")
@@ -132,7 +110,7 @@ public class CartController {
         cartItem = cartItemServiceImplementation.update(cartItem);
 
         cartServiceImplementation.update(cart);
-        evaluateTotals(cart.getCartId());
+        evaluateTotals(cart.getId());
 
         return cartItem != null ? ResponseEntity.ok("product quantity set to: " + productQuantity)
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -147,7 +125,7 @@ public class CartController {
         if (request == null) // return error message
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-        if (cartServiceImplementation.findById(request.getCartId()) == null) // no such object is present in the
+        if (cartServiceImplementation.findById(request.getId()) == null) // no such object is present in the
             // repository
             throw new RecordNotFoundException();
 
