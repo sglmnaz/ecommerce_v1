@@ -13,7 +13,7 @@ public interface UserService {
     User insert(User user);
 
     //R
-    User findById(Long id);
+    User findById(String id);
 
     User findByAccount(Account account);
 
@@ -26,12 +26,12 @@ public interface UserService {
     List<User> findAll();
 
     //U
-    User UpdateById(Long id, User user) throws Exception;
+    User UpdateById(String id, User user) throws Exception;
 
-    User PatchById(Long id, User user) throws Exception;
+    User PatchById(String id, User user) throws Exception;
 
     //D
-    void DeleteById(Long id);
+    void DeleteById(String id);
 
     void deleteAll();
 

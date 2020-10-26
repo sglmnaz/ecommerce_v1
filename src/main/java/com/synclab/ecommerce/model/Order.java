@@ -3,51 +3,41 @@ package com.synclab.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
-@Entity
-@Table(name = "orders")
+@Document(collection = "order")
 public class Order implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "order_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderId;
-
-    @Column(name = "total_price")
+    private String id;
     private BigDecimal totalPrice;
-
-    @Column(name = "total_items")
     private int totalItems;
-
-    @Column(name = "creation_date")
     private Date creationDate;
-
-    @ManyToOne()
-    @JoinColumn(name = "status_id", referencedColumnName = "status_id")
     private Status status;
-
-    @ManyToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
     @JsonIgnore
     private User user;
 
-    public static long getSerialVersionUID() {
+    //methods
+    
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getOrderId() {
-        return orderId;
+    public String getOrderId() {
+        return id;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+    public void setOrderId(String orderId) {
+        this.id = orderId;
     }
 
     public BigDecimal getTotalPrice() {

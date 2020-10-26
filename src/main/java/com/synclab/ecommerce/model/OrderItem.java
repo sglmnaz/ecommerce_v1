@@ -1,42 +1,36 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "orderitems")
+@Document(collection = "orderItem")
 public class OrderItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "order_item_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long orderItemId;
-
-    @ManyToOne
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private String id;
     private Order order;
-
-    @OneToOne()
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
-
-    @Column(name = "quantity")
     private Integer quantity;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getOrderItemId() {
-        return orderItemId;
+    public String getOrderItemId() {
+        return id;
     }
 
-    public void setOrderItemId(Long orderItemId) {
-        this.orderItemId = orderItemId;
+    public void setOrderItemId(String orderItemId) {
+        this.id = orderItemId;
     }
 
     public Order getOrder() {

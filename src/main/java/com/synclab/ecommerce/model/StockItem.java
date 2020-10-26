@@ -1,51 +1,40 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "stockitems")
+@Document(collection = "stockItem")
 public class StockItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "stock_item_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long stockItemId;
-
-    @Column(name = "stock_id")
-    private Long stockId;
-
-    @Column(name = "quantity")
+    private String id;
+    private String stockId;
     private Integer quantity;
-
-    @ManyToOne()
     private Stock stock;
-
-    @OneToOne()
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public String getStockItemId() {
+        return id;
     }
 
-    public Long getStockItemId() {
-        return stockItemId;
+    public void setStockItemId(String stockItemId) {
+        this.id = stockItemId;
     }
 
-    public void setStockItemId(Long stockItemId) {
-        this.stockItemId = stockItemId;
-    }
-
-    public Long getStockId() {
+    public String getStockId() {
         return stockId;
     }
 
-    public void setStockId(Long stockId) {
+    public void setStockId(String stockId) {
         this.stockId = stockId;
     }
 

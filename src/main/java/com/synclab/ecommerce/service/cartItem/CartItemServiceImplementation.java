@@ -19,7 +19,7 @@ public class CartItemServiceImplementation implements CartItemService {
     }
 
     @Override
-    public CartItem findById(Long id) {
+    public CartItem findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -34,7 +34,7 @@ public class CartItemServiceImplementation implements CartItemService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
@@ -44,7 +44,7 @@ public class CartItemServiceImplementation implements CartItemService {
     }
 
     @Override
-    public List<CartItem> findByCart_CartId(Long cartId) {
+    public List<CartItem> findByCart_CartId(String cartId) {
         return repository.findByCart_CartId(cartId);
     }
 

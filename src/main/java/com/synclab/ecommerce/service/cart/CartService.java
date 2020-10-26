@@ -11,7 +11,7 @@ public interface CartService {
     Cart insert(Cart record);
 
     //retrieve
-    Cart findById(Long id);
+    Cart findById(String id);
 
     Cart findByUser(User user);
 
@@ -21,8 +21,8 @@ public interface CartService {
     Cart update(Cart record);
 
     //delete
-    void deleteById(Long id);
-    Void deleteByUser_userId(Long userId);
+    void deleteById(String id);
+    Void deleteByUser_userId(String userId);
     void deleteAll();
 
 }

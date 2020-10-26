@@ -21,10 +21,8 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 import java.util.List;
 
-import javax.transaction.Transactional;
 
 @RestController
-@Transactional
 @RequestMapping("/user/api")
 public class UserController {
 
@@ -81,7 +79,7 @@ public class UserController {
     // get
 
     @GetMapping(value = "/get/id/{id}", produces = "application/json")
-    public ResponseEntity<User> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<User> findById(@PathVariable(value = "id") String id) {
 
         User newUser = userServiceImplementation.findById(id);
 
@@ -99,14 +97,14 @@ public class UserController {
                 : ResponseEntity.status(HttpStatus.NOT_FOUND).build();
     }
 
-    @GetMapping(value = "/get/query", produces = "application/json")
-    public ResponseEntity<Page<User>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
-                                               @RequestParam(value = "size") Integer size) {
-
-        List<User> list = userServiceImplementation.rsqlQuery(query);
-        return PageUtils.listToPageResponseEntity(list, page, size);
-
-    }
+//    @GetMapping(value = "/get/query", produces = "application/json")
+//    public ResponseEntity<Page<User>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
+//                                               @RequestParam(value = "size") Integer size) {
+//
+//        List<User> list = userServiceImplementation.rsqlQuery(query);
+//        return PageUtils.listToPageResponseEntity(list, page, size);
+//
+//    }
 
     // update
 
@@ -118,7 +116,7 @@ public class UserController {
             List<Address> addresses = user.getAddress();
             Account account = user.getAccount();
             Account oldAccount = accountServiceImplementation.findById(account.getAccountId()).get();
-            Long id = userServiceImplementation.findByAccount(oldAccount).getUserId();
+            String id = userServiceImplementation.findByAccount(oldAccount).getUserId();
             List<Role> roles = oldAccount.getRole();
 
             //crypt data
@@ -154,7 +152,7 @@ public class UserController {
     // patch
 
     @PatchMapping(value = "/patch/id/{id}", consumes = "applicationj/json", produces = "application/json")
-    public ResponseEntity<User> patch(@PathVariable(name = "id") Long id, @RequestBody User user) {
+    public ResponseEntity<User> patch(@PathVariable(name = "id") String id, @RequestBody User user) {
 
         if (user == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -188,7 +186,7 @@ public class UserController {
     // delete
 
     @DeleteMapping(value = "/delete/id/{id}")
-    public ResponseEntity<User> delete(@PathVariable(name = "id") Long id) {
+    public ResponseEntity<User> delete(@PathVariable(name = "id") String id) {
        
     	User user = userServiceImplementation.findById(id);
         

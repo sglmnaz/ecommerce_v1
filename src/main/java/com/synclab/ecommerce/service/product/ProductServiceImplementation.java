@@ -30,20 +30,20 @@ public class ProductServiceImplementation implements ProductService {
     @Autowired
     private CategoryRepository categoryRepository;
 
-
+//  @Autowired
+//  private EntityManager entityManager;
+    
     // insert
-    @Autowired
-    private EntityManager entityManager;
-
-    // retrieve
-
+    
     @Override
     public void insert(Product product) {
         repository.save(product);
     }
 
+    // retrieve
+
     @Override
-    public Product findById(Long id) {
+    public Product findById(String id) {
         Optional<Product> product = repository.findById(id);
         return product.isEmpty()
                 ? null
@@ -109,32 +109,28 @@ public class ProductServiceImplementation implements ProductService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 
-    // RSQL
-
-    @Override
-    public void deleteAll() {
-        repository.deleteAll();
-    }
-
-    public List<Product> rsqlQuery(String queryString) {
-        // We will need a JPA EntityManager
-
-        // Create the JPA Visitor
-        RSQLVisitor<CriteriaQuery<Product>, EntityManager> visitor = new JpaCriteriaQueryVisitor<Product>();
-
-        // Parse a RSQL into a Node
-        Node rootNode = new RSQLParser().parse(queryString);
-
-        // Visit the node to retrieve CriteriaQuery
-        CriteriaQuery<Product> query = rootNode.accept(visitor, entityManager);
-
-        // Execute and get results
-        List<Product> products = entityManager.createQuery(query).getResultList();
-        return products;
-    }
+//    // RSQL
+//
+//
+//    public List<Product> rsqlQuery(String queryString) {
+//        // We will need a JPA EntityManager
+//
+//        // Create the JPA Visitor
+//        RSQLVisitor<CriteriaQuery<Product>, EntityManager> visitor = new JpaCriteriaQueryVisitor<Product>();
+//
+//        // Parse a RSQL into a Node
+//        Node rootNode = new RSQLParser().parse(queryString);
+//
+//        // Visit the node to retrieve CriteriaQuery
+//        CriteriaQuery<Product> query = rootNode.accept(visitor, entityManager);
+//
+//        // Execute and get results
+//        List<Product> products = entityManager.createQuery(query).getResultList();
+//        return products;
+//    }
 
 }

@@ -1,28 +1,24 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "roles")
+@Document(collection = "role")
 public class Role implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "role_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @Column(name = "description")
     private String description;
 
-    // constructor
+    // methods
 
     public Role() {
     }
@@ -33,15 +29,12 @@ public class Role implements Serializable {
         this.description = desc;
     }
 
-
-    // getter and setters
-
-    public Long getRoleId() {
-        return roleId;
+    public String getRoleId() {
+        return id;
     }
 
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.id = roleId;
     }
 
     public String getName() {
@@ -65,7 +58,7 @@ public class Role implements Serializable {
 
     @Override
     public String toString() {
-        return "Role [roleId=" + roleId + ", name=" + name + ", description=" + description + "]";
+        return "Role [roleId=" + id + ", name=" + name + ", description=" + description + "]";
     }
 
 }

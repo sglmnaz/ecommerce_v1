@@ -1,9 +1,9 @@
 package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.*;
-import com.synclab.ecommerce.service.Order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.address.AddressServiceImplementation;
 import com.synclab.ecommerce.service.courier.CourierServiceImplementation;
+import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.shipping.ShippingServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.response.CustomResponse;
@@ -34,9 +34,9 @@ public class ShippingController {
     // post
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Shipping> insert(@RequestParam(name = "orderId") Long orderId,
-                                           @RequestParam(name = "userId") Long userId, @RequestParam(name = "addressId") Long addressId,
-                                           @RequestParam(name = "courierId") Long courierId) {
+    public ResponseEntity<Shipping> insert(@RequestParam(name = "orderId") String orderId,
+                                           @RequestParam(name = "userId") String userId, @RequestParam(name = "addressId") String addressId,
+                                           @RequestParam(name = "courierId") String courierId) {
 
         Order order = orderServiceImplementation.findById(orderId);
         Address address = addressServiceImplementation.findById(addressId);
@@ -60,7 +60,7 @@ public class ShippingController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Shipping> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Shipping> findById(@PathVariable(value = "id") String id) {
 
         Shipping entity = shippingServiceImplementation.findById(id);
         return CustomResponse.getFindResponse(entity, "record not found",
@@ -70,7 +70,7 @@ public class ShippingController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Shipping> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Shipping> deleteById(@PathVariable(value = "id") String id) {
 
         shippingServiceImplementation.deleteById(id);
         Shipping entity = shippingServiceImplementation.findById(id);

@@ -25,12 +25,12 @@ public class AddressServiceImplementation implements AddressService {
     }
 
     @Override
-    public Address findById(Long id) {
+    public Address findById(String id) {
         return addressRepository.findById(id).get();
     }
 
     @Override
-    public Address UpdateById(Long id, Address address) throws Exception {
+    public Address UpdateById(String id, Address address) throws Exception {
 
         if (findById(id) == null)
             throw new RecordNotFoundException();
@@ -41,13 +41,13 @@ public class AddressServiceImplementation implements AddressService {
     }
 
     @Override
-    public Address PatchById(Long id, Address address) throws Exception {
+    public Address PatchById(String id, Address address) throws Exception {
         // TODO Auto-generated method stub
         return null;
     }
 
     @Override
-    public void DeleteById(Long id) {
+    public void DeleteById(String id) {
         addressRepository.deleteById(id);
 
     }

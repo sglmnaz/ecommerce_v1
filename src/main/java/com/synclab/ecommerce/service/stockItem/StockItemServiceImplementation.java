@@ -19,7 +19,7 @@ public class StockItemServiceImplementation implements StockItemService {
     }
 
     @Override
-    public StockItem findById(Long id) {
+    public StockItem findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -34,7 +34,7 @@ public class StockItemServiceImplementation implements StockItemService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

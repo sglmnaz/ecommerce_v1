@@ -10,7 +10,7 @@ public interface StockItemService {
     StockItem insert(StockItem entity);
 
     // retrieve
-    StockItem findById(Long id);
+    StockItem findById(String id);
 
     List<StockItem> findAll();
 
@@ -18,6 +18,6 @@ public interface StockItemService {
     StockItem update(StockItem entity);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }

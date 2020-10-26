@@ -1,46 +1,42 @@
 package com.synclab.ecommerce.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "images")
-@JsonIgnoreProperties(value = {"file"})
+@Document(collection = "image")
 public class Image implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "image_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long imageId;
-
+    private String id;
+    @JsonIgnore
     @Column(name = "file", columnDefinition = "BLOB")
     private byte[] file;
-
-    @Column(name = "file_name")
     private String fileName;
-
-    @Column(name = "mimetype")
     private String mimetype;
-
-    @Column(name = "file_size")
     private Long fileSize;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getImageId() {
-        return imageId;
+    public String getImageId() {
+        return id;
     }
 
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
+    public void setImageId(String imageId) {
+        this.id = imageId;
     }
 
     public byte[] getFile() {

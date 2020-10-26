@@ -31,7 +31,7 @@ public class FurnisherController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Furnisher> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Furnisher> findById(@PathVariable(value = "id") String id) {
 
         Furnisher entity = furnisherServiceImplementation.findById(id);
         return CustomResponse.getFindResponse(entity, "record not found",
@@ -41,7 +41,7 @@ public class FurnisherController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Furnisher> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Furnisher> deleteById(@PathVariable(value = "id") String id) {
 
         furnisherServiceImplementation.deleteById(id);
         Furnisher entity = furnisherServiceImplementation.findById(id);

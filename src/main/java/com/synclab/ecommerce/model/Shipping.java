@@ -1,56 +1,41 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity
-@Table(name = "shippings")
+@Document(collection = "shipping")
 public class Shipping implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "shipping_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long shippingId;
-
-    @OneToOne()
-    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
+    private String id;
     private Order order;
-
-    @Column(name = "recipient")
     private String recipient;
-
-    @ManyToOne()
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
-
-    @ManyToOne()
-    @JoinColumn(name = "courier_id", referencedColumnName = "courier_id")
     private Courier courier;
-
-    @Column(name = "shipping_date")
     private Date shippingDate;
-
-    @Column(name = "deliver_date")
     private Date deliverDate;
-
-    @Column(name = "estimated_deliver_date")
     private Date estimatedDeliverDate;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getShippingId() {
-        return shippingId;
+    public String getShippingId() {
+        return id;
     }
 
-    public void setShippingId(Long shippingId) {
-        this.shippingId = shippingId;
+    public void setShippingId(String shippingId) {
+        this.id = shippingId;
     }
 
     public Order getOrder() {

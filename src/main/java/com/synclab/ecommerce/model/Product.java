@@ -1,68 +1,42 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.List;
 
-@Entity
-@Table(name = "products")
+@Document(collection = "product")
 public class Product implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "product_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long productId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @ManyToMany()
-    @JoinTable(name = "products_categories",
-            joinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "category_id",
-                            nullable = false, updatable = false)})
     private List<Category> categories;
-
-    @ManyToMany()
-    @JoinTable(name = "products_images",
-            joinColumns = {
-                    @JoinColumn(name = "product_id", referencedColumnName = "product_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "image_id", referencedColumnName = "image_id",
-                            nullable = false, updatable = false)})
     private List<Image> image;
-
-    @Column(name = "description")
     private String description;
-
-    @Column(name = "price")
     private BigDecimal price;
-
-    @Column(name = "rating")
     private Integer rating;
-
-    @Column(name = "is_available")
     private Boolean isAvailable;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getProductId() {
-        return productId;
+    public String getProductId() {
+        return id;
     }
 
-    public void setProductId(Long productId) {
-        this.productId = productId;
+    public void setProductId(String productId) {
+        this.id = productId;
     }
 
     public String getName() {

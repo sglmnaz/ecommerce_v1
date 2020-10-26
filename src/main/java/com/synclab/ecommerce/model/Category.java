@@ -1,50 +1,38 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity
-@Table(name = "categories")
+@Document(collection = "category")
 public class Category implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "category_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long categoryId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @OneToOne()
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
     private Image image;
-
-    @ManyToMany()
-    @JoinTable(name = "categories_subcategories",
-            joinColumns = {
-                    @JoinColumn(name = "category_id", referencedColumnName = "category_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "subcategory_id", referencedColumnName = "subcategory_id",
-                            nullable = false, updatable = false)})
     private List<Subcategory> subcategories = new ArrayList<Subcategory>();
 
-    public static long getSerialVersionUID() {
+    //methods
+    
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getCategoryId() {
-        return categoryId;
+    public String getCategoryId() {
+        return id;
     }
 
-    public void setCategoryId(Long categoryId) {
-        this.categoryId = categoryId;
+    public void setCategoryId(String categoryId) {
+        this.id = categoryId;
     }
 
     public String getName() {

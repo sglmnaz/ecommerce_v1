@@ -1,34 +1,34 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "couriers")
+@Document(collection = "courier")
 public class Courier implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "courier_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long courierId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getCourierId() {
-        return courierId;
+    public String getCourierId() {
+        return id;
     }
 
-    public void setCourierId(Long courierId) {
-        this.courierId = courierId;
+    public void setCourierId(String courierId) {
+        this.id = courierId;
     }
 
     public String getName() {

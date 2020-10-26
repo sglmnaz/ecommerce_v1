@@ -10,7 +10,7 @@ public interface FurnisherService {
     Furnisher insert(Furnisher entity);
 
     //retrieve
-    Furnisher findById(Long id);
+    Furnisher findById(String id);
 
     List<Furnisher> findAll();
 
@@ -18,6 +18,6 @@ public interface FurnisherService {
     Furnisher update(Furnisher entity);
 
     //delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }

@@ -20,12 +20,12 @@ public class OrderItemServiceImplementation implements OrderItemService {
     }
 
     @Override
-    public OrderItem findById(Long id) {
+    public OrderItem findById(String id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public List<OrderItem> findByOrder_OrderId(Long orderId) {
+    public List<OrderItem> findByOrder_OrderId(String orderId) {
         return repository.findByOrder_OrderId(orderId);
     }
 
@@ -40,7 +40,7 @@ public class OrderItemServiceImplementation implements OrderItemService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

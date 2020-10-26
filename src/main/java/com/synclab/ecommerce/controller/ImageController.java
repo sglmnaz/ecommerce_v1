@@ -1,7 +1,8 @@
 package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.Image;
-import com.synclab.ecommerce.service.Image.ImageServiceImplementation;
+import com.synclab.ecommerce.service.image.ImageServiceImplementation;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +43,7 @@ public class ImageController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Image> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Image> deleteById(@PathVariable(value = "id") String id) {
 
         imageServiceImplementation.deleteById(id);
 

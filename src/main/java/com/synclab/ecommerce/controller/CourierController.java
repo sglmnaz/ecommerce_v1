@@ -31,7 +31,7 @@ public class CourierController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Courier> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Courier> findById(@PathVariable(value = "id") String id) {
 
         Courier entity = courierServiceImplementation.findById(id);
         return CustomResponse.getFindResponse(entity, "record not found",
@@ -41,7 +41,7 @@ public class CourierController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Courier> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Courier> deleteById(@PathVariable(value = "id") String id) {
 
         courierServiceImplementation.deleteById(id);
         Courier entity = courierServiceImplementation.findById(id);

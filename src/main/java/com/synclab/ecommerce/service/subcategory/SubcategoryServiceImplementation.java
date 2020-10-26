@@ -20,7 +20,7 @@ public class SubcategoryServiceImplementation implements SubcategoryService {
     }
 
     @Override
-    public Subcategory findById(Long id) {
+    public Subcategory findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -35,7 +35,7 @@ public class SubcategoryServiceImplementation implements SubcategoryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

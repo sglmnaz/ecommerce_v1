@@ -10,9 +10,9 @@ public interface OrderItemService {
     OrderItem insert(OrderItem record);
 
     // retrieve
-    OrderItem findById(Long id);
+    OrderItem findById(String id);
 
-    List<OrderItem> findByOrder_OrderId(Long orderId);
+    List<OrderItem> findByOrder_OrderId(String orderId);
 
     List<OrderItem> findAll();
 
@@ -20,7 +20,7 @@ public interface OrderItemService {
     OrderItem update(OrderItem record);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
     void deleteAll();
 

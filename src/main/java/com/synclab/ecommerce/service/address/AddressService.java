@@ -13,15 +13,15 @@ public interface AddressService {
     //R
     List<Address> findAll();
 
-    Address findById(Long id);
+    Address findById(String id);
 
     //U
-    Address UpdateById(Long id, Address address) throws Exception;
+    Address UpdateById(String id, Address address) throws Exception;
 
-    Address PatchById(Long id, Address address) throws Exception;
+    Address PatchById(String id, Address address) throws Exception;
 
     //D
-    void DeleteById(Long id);
+    void DeleteById(String id);
 
     void deleteAll();
 

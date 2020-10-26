@@ -1,40 +1,31 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "statuses")
+@Document(collection = "status")
 public class Status implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "status_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long roleId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @Column(name = "description")
     private String description;
 
     // methods
 
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public String getRoleId() {
+        return id;
     }
 
-    public Long getRoleId() {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId) {
-        this.roleId = roleId;
+    public void setRoleId(String roleId) {
+        this.id = roleId;
     }
 
     public String getName() {

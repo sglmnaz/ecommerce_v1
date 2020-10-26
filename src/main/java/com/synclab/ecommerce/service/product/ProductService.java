@@ -15,7 +15,7 @@ public interface ProductService {
     void insert(Product product);
 
     //retrieve
-    Product findById(Long id);
+    Product findById(String id);
 
     Page<Product> findAll(Pageable pageable);
 
@@ -33,9 +33,8 @@ public interface ProductService {
     void update(Product product);
 
     //delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
-    void deleteAll();
 
 
 }

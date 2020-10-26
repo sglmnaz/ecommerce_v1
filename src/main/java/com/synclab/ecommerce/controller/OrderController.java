@@ -4,9 +4,9 @@ import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
 import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.OrderItem;
-import com.synclab.ecommerce.service.Order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.cartItem.CartItemServiceImplementation;
+import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.orderItem.OrderItemServiceImplementation;
 import com.synclab.ecommerce.service.status.StatusServiceImplementation;
 import com.synclab.ecommerce.utility.pages.PageUtils;
@@ -43,7 +43,7 @@ public class OrderController {
 
     // transorms a cart in order
     @PostMapping(value = "/insert/{cartId}", produces = "application/json")
-    public ResponseEntity<Order> insert(@PathVariable(value = "cartId") Long cartId) {
+    public ResponseEntity<Order> insert(@PathVariable(value = "cartId") String cartId) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
 
@@ -84,7 +84,7 @@ public class OrderController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Order> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Order> findById(@PathVariable(value = "id") String id) {
 
         Order entity = orderServiceImplementation.findById(id);
 
@@ -92,16 +92,16 @@ public class OrderController {
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
     }
 
-    @GetMapping(value = "/getFromQuery", produces = "application/json")
-    public ResponseEntity<Page<Order>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
-                                                @RequestParam(value = "size") Integer size) {
-
-        List<Order> list = orderServiceImplementation.rsqlQuery(query);
-        return PageUtils.listToPageResponseEntity(list, page, size);
-    }
+//    @GetMapping(value = "/getFromQuery", produces = "application/json")
+//    public ResponseEntity<Page<Order>> findById(@RequestParam String query, @RequestParam(value = "page") Integer page,
+//                                                @RequestParam(value = "size") Integer size) {
+//
+//        List<Order> list = orderServiceImplementation.rsqlQuery(query);
+//        return PageUtils.listToPageResponseEntity(list, page, size);
+//    }
 
     @GetMapping(value = "/getForUser/{id}", produces = "application/json")
-    public ResponseEntity<Page<Order>> findByUserId(@PathVariable(name = "id") Long userId,
+    public ResponseEntity<Page<Order>> findByUserId(@PathVariable(name = "id") String userId,
                                                     @RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
 
         List<Order> list = orderServiceImplementation.findByUser_UserId(userId);
@@ -120,7 +120,7 @@ public class OrderController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Order> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Order> deleteById(@PathVariable(value = "id") String id) {
 
         Order entity = orderServiceImplementation.findById(id);
 

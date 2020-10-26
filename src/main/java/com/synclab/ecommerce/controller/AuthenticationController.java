@@ -2,11 +2,10 @@ package com.synclab.ecommerce.controller;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.security.JWTProperties;
-import com.synclab.ecommerce.security.utility.AuthenticationRequest;
-import com.synclab.ecommerce.security.utility.AuthenticationResponse;
+import com.synclab.ecommerce.model.supportingEntities.LoginCredentials;
+import com.synclab.ecommerce.model.supportingEntities.LoginResponse;
+import com.synclab.ecommerce.model.supportingEntities.SignupCredentials;
 import com.synclab.ecommerce.security.utility.JWTUtils;
-import com.synclab.ecommerce.security.utility.MyUserDetails;
 import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
@@ -41,12 +40,10 @@ public class AuthenticationController {
     @Autowired
     private RoleServiceImplementation rsi;
 
-    @Autowired
-    private AccountServiceImplementation asi;
 
     // allows the user to access get an authentication token
     @PostMapping("/login")
-    public ResponseEntity<?> login(@RequestBody AuthenticationRequest req) throws Exception {
+    public ResponseEntity<?> login(@RequestBody LoginCredentials req) throws Exception {
 
     	try {
         	am.authenticate(new UsernamePasswordAuthenticationToken(req.getUsername(), req.getPassword()));
@@ -58,34 +55,39 @@ public class AuthenticationController {
     	final UserDetails userDetails = udsi.loadUserByUsername(req.getUsername());
     	final String jwt = JWTUtils.generateToken(userDetails);
     	
-    	return ResponseEntity.ok(new AuthenticationResponse(jwt));
+    	return ResponseEntity.ok(new LoginResponse(jwt));
     	
     }
 
     // allows clients to register users 
     @PostMapping(value = "/signup", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> signup(@RequestBody User request) {
+    public ResponseEntity<String> signup(@RequestBody SignupCredentials request) {
 
         if (request == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
-        User user = request;
-        Account account = user.getAccount();
-
-        // initialize fields with default value and add tthem to db
-        account.getRole().add(rsi.findByName("ROLE_CLIENT"));
-        account.setPassword(pe.encode(account.getPassword()));
-        account = asi.insert(account);
-
-        // assign fields to entity
-        user.setAccount(account);
+        SignupCredentials credentials = request;
+        
+        //create a new user and account with specified credentials
+   
+        Account account = new Account();
+        account.setEmail(credentials.getEmail());
+        account.setUsername(credentials.getUsername());
+        account.setPassword(pe.encode(credentials.getPassword()));
+        account.setBirthDate(credentials.getBirth());
+        account.addRole(rsi.findByName("ROLE_CLIENT"));
+        
+        User user = new User();
+        user.setFirstName(credentials.getName());
+        user.setLastName(credentials.getLastName());
         user.setSignupDate(new Date());
+        user.setAccount(account);
 
         // add entity to db
         user = usi.insert(user);
 
-        return ResponseEntity.ok(account.getUsername() + " successfully registered");
+        return ResponseEntity.ok(user.getUserId() + " successfully registered");
 
     }
-
+    
 }

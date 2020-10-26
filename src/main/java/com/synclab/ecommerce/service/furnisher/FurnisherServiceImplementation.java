@@ -19,7 +19,7 @@ public class FurnisherServiceImplementation implements FurnisherService {
     }
 
     @Override
-    public Furnisher findById(Long id) {
+    public Furnisher findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -34,7 +34,7 @@ public class FurnisherServiceImplementation implements FurnisherService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

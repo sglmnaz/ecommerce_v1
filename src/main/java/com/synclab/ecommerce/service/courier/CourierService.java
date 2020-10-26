@@ -10,7 +10,7 @@ public interface CourierService {
     Courier insert(Courier entity);
 
     //retrieve
-    Courier findById(Long id);
+    Courier findById(String id);
 
     List<Courier> findAll();
 
@@ -18,6 +18,6 @@ public interface CourierService {
     Courier update(Courier entity);
 
     //delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }

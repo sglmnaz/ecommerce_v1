@@ -3,31 +3,24 @@ package com.synclab.ecommerce.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.math.BigDecimal;
 
-@Entity
-@Table(name = "carts")
+@Document(collection = "cart")
 public class Cart implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // Fields
 
     @Id
-    @Column(name = "cart_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartId;
-
-    @OneToOne()
-    @JoinColumn(name = "user_id", referencedColumnName = "user_id")
+    private String id;
     @JsonIgnore
     private User user;
-
-    @Column(name = "total_price")
     private BigDecimal totalPrice;
-
-    @Column(name = "total_items")
     private Integer totalItems;
 
     // Initializer
@@ -48,16 +41,16 @@ public class Cart implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getCartId() {
-        return cartId;
+    public String getCartId() {
+        return id;
     }
 
-    public void setCartId(Long cartId) {
-        this.cartId = cartId;
+    public void setCartId(String cartId) {
+        this.id = cartId;
     }
 
     public User getUser() {

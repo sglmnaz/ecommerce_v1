@@ -38,7 +38,7 @@ public class CartController {
     // post
 
     @PostMapping(value = "/insert/{userId}", produces = "application/json")
-    public ResponseEntity<Cart> insert(@PathVariable(value = "userId") Long userId) {
+    public ResponseEntity<Cart> insert(@PathVariable(value = "userId") String userId) {
 
         User user = userServiceImplementation.findById(userId);
 
@@ -59,7 +59,7 @@ public class CartController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Cart> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Cart> findById(@PathVariable(value = "id") String id) {
 
         Cart entity = cartServiceImplementation.findById(id);
 
@@ -69,7 +69,7 @@ public class CartController {
     }
 
     @GetMapping(value = "/getByUser/{userId}", produces = "application/json")
-    public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") Long userId) {
+    public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") String userId) {
 
         User user = userServiceImplementation.findById(userId);
         Cart entity = cartServiceImplementation.findByUser(user);
@@ -80,7 +80,7 @@ public class CartController {
     }
 
     @GetMapping(value = "/getAllProducts/{id}", produces = "application/json")
-    public ResponseEntity<List<CartItem>> findAllProductsById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<List<CartItem>> findAllProductsById(@PathVariable(value = "id") String id) {
 
         Cart entity = cartServiceImplementation.findById(id);
 
@@ -90,8 +90,8 @@ public class CartController {
     }
 
     @GetMapping(value = "/insertProduct", produces = "application/json")
-    public ResponseEntity<String> addProduct(@RequestParam(name = "cartId") Long cartId,
-                                             @RequestParam(name = "productId") Long productId,
+    public ResponseEntity<String> addProduct(@RequestParam(name = "cartId") String cartId,
+                                             @RequestParam(name = "productId") String productId,
                                              @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
@@ -109,8 +109,8 @@ public class CartController {
     }
 
     @GetMapping(value = "/changeProductQuantity", produces = "application/json")
-    public ResponseEntity<String> changeProductQuantity(@RequestParam(name = "cartId") Long cartId,
-                                                        @RequestParam(name = "productId") Long productId,
+    public ResponseEntity<String> changeProductQuantity(@RequestParam(name = "cartId") String cartId,
+                                                        @RequestParam(name = "productId") String productId,
                                                         @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
@@ -166,7 +166,7 @@ public class CartController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Cart> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Cart> deleteById(@PathVariable(value = "id") String id) {
 
         cartServiceImplementation.deleteById(id);
 
@@ -196,7 +196,7 @@ public class CartController {
         return total;
     }
 
-    public void evaluateTotals(Long cartId) {
+    public void evaluateTotals(String cartId) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
         List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);

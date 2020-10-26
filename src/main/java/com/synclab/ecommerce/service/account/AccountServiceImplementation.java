@@ -26,7 +26,7 @@ public class AccountServiceImplementation implements AccountService {
     }
 
     @Override
-    public Optional<Account> findById(Long id) {
+    public Optional<Account> findById(String id) {
         return accountRepository.findById(id);
     }
 
@@ -37,7 +37,7 @@ public class AccountServiceImplementation implements AccountService {
 
 
     @Override
-    public Account UpdateById(Long id, Account account) throws Exception {
+    public Account UpdateById(String id, Account account) throws Exception {
 
         if (findById(id) == null)
             throw new RecordNotFoundException();
@@ -49,7 +49,7 @@ public class AccountServiceImplementation implements AccountService {
     }
 
     @Override
-    public Account PatchById(Long id, Account account) throws Exception {
+    public Account PatchById(String id, Account account) throws Exception {
 
         Account newAccount = findById(id).get();
         if (newAccount == null)
@@ -69,7 +69,7 @@ public class AccountServiceImplementation implements AccountService {
     }
 
     @Override
-    public void DeleteById(Long id) {
+    public void DeleteById(String id) {
         accountRepository.deleteById(id);
     }
 

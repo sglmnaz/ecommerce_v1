@@ -1,38 +1,31 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
-@Entity
-@Table(name = "Subcategories")
+@Document(collection = "subcategory")
 public class Subcategory implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "subcategory_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long subcategoryId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @OneToOne()
-    @JoinColumn(name = "image_id", referencedColumnName = "image_id")
     private Image image;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public String getSubcategoryId() {
+        return id;
     }
 
-    public Long getSubcategoryId() {
-        return subcategoryId;
-    }
-
-    public void setSubcategoryId(Long subcategoryId) {
-        this.subcategoryId = subcategoryId;
+    public void setSubcategoryId(String subcategoryId) {
+        this.id = subcategoryId;
     }
 
     public String getName() {

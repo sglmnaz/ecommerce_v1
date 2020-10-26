@@ -10,7 +10,7 @@ public interface SubcategoryService {
     Subcategory insert(Subcategory entity);
 
     // retrieve
-    Subcategory findById(Long id);
+    Subcategory findById(String id);
 
     List<Subcategory> findAll();
 
@@ -18,6 +18,6 @@ public interface SubcategoryService {
     Subcategory update(Subcategory entity);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }

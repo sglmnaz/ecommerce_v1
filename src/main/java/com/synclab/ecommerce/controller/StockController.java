@@ -31,7 +31,7 @@ public class StockController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Stock> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Stock> findById(@PathVariable(value = "id") String id) {
 
         Stock entity = stockServiceImplementation.findById(id);
         return CustomResponse.getFindResponse(entity, "record not found",
@@ -41,7 +41,7 @@ public class StockController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Stock> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Stock> deleteById(@PathVariable(value = "id") String id) {
 
         stockServiceImplementation.deleteById(id);
         Stock entity = stockServiceImplementation.findById(id);

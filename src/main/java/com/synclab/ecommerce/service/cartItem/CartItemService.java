@@ -10,9 +10,9 @@ public interface CartItemService {
     CartItem insert(CartItem record);
 
     // retrieve
-    CartItem findById(Long id);
+    CartItem findById(String id);
 
-    List<CartItem> findByCart_CartId(Long cartId);
+    List<CartItem> findByCart_CartId(String cartId);
 
     List<CartItem> findAll();
 
@@ -20,7 +20,7 @@ public interface CartItemService {
     CartItem update(CartItem record);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
     void deleteAll();
 

@@ -10,7 +10,7 @@ public interface categoryService {
     void insert(Category category);
 
     //retrieve
-    Category findById(Long id);
+    Category findById(String id);
 
     List<Category> findAll();
 
@@ -20,7 +20,7 @@ public interface categoryService {
     void update(Category category);
 
     //delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
     void deleteAll();
 }

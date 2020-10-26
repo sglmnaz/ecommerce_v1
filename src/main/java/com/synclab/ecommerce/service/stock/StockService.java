@@ -10,7 +10,7 @@ public interface StockService {
     Stock insert(Stock entity);
 
     // retrieve
-    Stock findById(Long id);
+    Stock findById(String id);
 
     List<Stock> findAll();
 
@@ -18,6 +18,6 @@ public interface StockService {
     Stock update(Stock entity);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
 }

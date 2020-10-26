@@ -19,7 +19,7 @@ public class ShippingServiceImplementation implements ShippingService {
     }
 
     @Override
-    public Shipping findById(Long id) {
+    public Shipping findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -34,7 +34,7 @@ public class ShippingServiceImplementation implements ShippingService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
     }
 

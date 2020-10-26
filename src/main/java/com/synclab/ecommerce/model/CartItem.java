@@ -1,31 +1,26 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
 
 
-@Entity
-@Table(name = "cartsitems")
+@Document(collection = "cartItem")
 public class CartItem implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "cart_item_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long cartItemId;
-
-    @ManyToOne()
-    @JoinColumn(name = "cart_id", referencedColumnName = "cart_id")
+    private String id;
+    @JsonIgnore
     private Cart cart;
-
-    @OneToOne()
-    @JoinColumn(name = "product_id", referencedColumnName = "product_id")
     private Product product;
-
-    @Column(name = "quantity")
     private Integer quantity;
 
     // Initializer
@@ -42,12 +37,12 @@ public class CartItem implements Serializable {
 
     // getter and setters
 
-    public Long getCartItemId() {
-        return cartItemId;
+    public String getCartItemId() {
+        return id;
     }
 
-    public void setCartItemId(Long cartItemId) {
-        this.cartItemId = cartItemId;
+    public void setCartItemId(String cartItemId) {
+        this.id = cartItemId;
     }
 
     public Integer getQuantity() {
@@ -58,8 +53,8 @@ public class CartItem implements Serializable {
         this.quantity = quantity;
     }
 
-    public Long getCartID() { //changed to avoid loop (can be canged with jsnignoreproperty?)
-        return cart.getCartId();
+    public Cart getCart() {
+        return cart;
     }
 
     public void setCart(Cart cart) {
@@ -72,11 +67,6 @@ public class CartItem implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
-    }
-
-    @Override
-    public String toString() {
-        return "CartItem [ID=" + cartItemId + ", cartID=" + getCartID() + ", product=" + product + ", quantity=" + quantity + "]";
     }
 
 

@@ -23,8 +23,8 @@ public class UserServiceImplementation implements UserService {
 
     @Autowired
     private UserRepository userRepository;
-    @Autowired
-    private EntityManager entityManager;
+//    @Autowired
+//    private EntityManager entityManager;
 
     @Override
     public Optional<User> findByFirstName(String name) {
@@ -37,7 +37,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User findById(Long id) {
+    public User findById(String id) {
         return userRepository.findById(id).get();
     }
 
@@ -52,7 +52,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User UpdateById(Long id, User user) throws Exception {
+    public User UpdateById(String id, User user) throws Exception {
 
         if (findById(id) == null)
             throw new RecordNotFoundException();
@@ -65,7 +65,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public User PatchById(Long id, User user) throws Exception {
+    public User PatchById(String id, User user) throws Exception {
 
         User newUser = findById(id);
         if (newUser == null)
@@ -92,7 +92,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public void DeleteById(Long id) {
+    public void DeleteById(String id) {
         userRepository.deleteById(id);
     }
 
@@ -107,31 +107,37 @@ public class UserServiceImplementation implements UserService {
         return userRepository.findByAccount(account);
     }
 
-    // RSQL
+	@Override
+	public List<User> findByAddress(Address address) {
+		System.err.println("not implemented yet");
+		return null;
+	}
 
-    @Override
-    public List<User> findByAddress(Address address) {
-        List<User> users = new ArrayList<>();
-        users = userRepository.findByAddress(address);
-        return users;
-    }
-
-    public List<User> rsqlQuery(String queryString) {
-        // We will need a JPA EntityManager
-
-        // Create the JPA Visitor
-        RSQLVisitor<CriteriaQuery<User>, EntityManager> visitor = new JpaCriteriaQueryVisitor<User>();
-
-        // Parse a RSQL into a Node
-        Node rootNode = new RSQLParser().parse(queryString);
-
-        // Visit the node to retrieve CriteriaQuery
-        CriteriaQuery<User> query = rootNode.accept(visitor, entityManager);
-
-        // Execute and get results
-        List<User> entities = entityManager.createQuery(query).getResultList();
-        return entities;
-    }
+//    // RSQL
+//
+//    @Override
+//    public List<User> findByAddress(Address address) {
+//        List<User> users = new ArrayList<>();
+//        users = userRepository.findByAddress(address);
+//        return users;
+//    }
+//
+//    public List<User> rsqlQuery(String queryString) {
+//        // We will need a JPA EntityManager
+//
+//        // Create the JPA Visitor
+//        RSQLVisitor<CriteriaQuery<User>, EntityManager> visitor = new JpaCriteriaQueryVisitor<User>();
+//
+//        // Parse a RSQL into a Node
+//        Node rootNode = new RSQLParser().parse(queryString);
+//
+//        // Visit the node to retrieve CriteriaQuery
+//        CriteriaQuery<User> query = rootNode.accept(visitor, entityManager);
+//
+//        // Execute and get results
+//        List<User> entities = entityManager.createQuery(query).getResultList();
+//        return entities;
+//    }
 
 
 }

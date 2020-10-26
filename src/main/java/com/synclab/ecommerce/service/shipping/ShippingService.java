@@ -10,7 +10,7 @@ public interface ShippingService {
     Shipping insert(Shipping record);
 
     // retrieve
-    Shipping findById(Long id);
+    Shipping findById(String id);
 
     List<Shipping> findAll();
 
@@ -18,7 +18,7 @@ public interface ShippingService {
     Shipping update(Shipping record);
 
     // delete
-    void deleteById(Long id);
+    void deleteById(String id);
 
     void deleteAll();
 

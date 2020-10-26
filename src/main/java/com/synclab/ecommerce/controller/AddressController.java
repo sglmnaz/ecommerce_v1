@@ -30,7 +30,7 @@ public class AddressController {
 
     // get - takes a path variable <- find the object in the db -> outputs Response entity
     @GetMapping(value = "/get/id/{id}", produces = "application/json")
-    public ResponseEntity<Address> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Address> findById(@PathVariable(value = "id") String id) {
 
         if (id == null) // return error message
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
@@ -42,7 +42,7 @@ public class AddressController {
     // update - takes a path variable and a request body <- find the object in the
     // db and updates -> outputs Response entity
     @PutMapping(value = "/updateById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Address> updateById(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Address> updateById(@PathVariable(value = "id") String id,
                                               @RequestBody final Address requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
@@ -61,7 +61,7 @@ public class AddressController {
     // patch - takes a path variable and a request body <- find the object in the
     // db and patches -> outputs Response entity
     @PatchMapping(value = "/patchById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Address> patchById(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Address> patchById(@PathVariable(value = "id") String id,
                                              @RequestBody final Address requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
@@ -96,7 +96,7 @@ public class AddressController {
 
     // delete - takes a path variable <- delete the object in the db -> outputs Response entity
     @DeleteMapping(value = "/findById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable(value = "id") String id) {
 
         if (id == null) // return error message
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();

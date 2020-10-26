@@ -32,7 +32,7 @@ public class AccountController {
     // get - takes a path variable <- find the object in the db -> outputs Response
     // entity
     @GetMapping(value = "/findById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Account> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Account> findById(@PathVariable(value = "id") String id) {
 
         if (id == null) // return error message
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
@@ -44,7 +44,7 @@ public class AccountController {
     // update - takes a path variable and a request body <- find the object in the
     // db and updates -> outputs Response entity
     @PutMapping(value = "/updateById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Account> updateById(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Account> updateById(@PathVariable(value = "id") String id,
                                               @RequestBody final Account requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
@@ -63,7 +63,7 @@ public class AccountController {
     // patch - takes a path variable and a request body <- find the object in the
     // db and patches -> outputs Response entity
     @PatchMapping(value = "/patchById/{id}", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Account> patchById(@PathVariable(value = "id") Long id,
+    public ResponseEntity<Account> patchById(@PathVariable(value = "id") String id,
                                              @RequestBody final Account requestBody) {
 
         if (id == null || requestBody == null) // returns an error message
@@ -101,7 +101,7 @@ public class AccountController {
     // delete - takes a path variable <- delete the object in the db -> outputs
     // Response entity
     @DeleteMapping(value = "/findById", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<String> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<String> deleteById(@PathVariable(value = "id") String id) {
 
         if (id == null) // return error message
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

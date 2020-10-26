@@ -1,53 +1,34 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 import java.util.List;
 
-@Entity
-@Table(name = "wharehouses")
+@Document(collection = "warehouse")
 public class Warehouse implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "warehouse_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long warehouseId;
-
-    @Column(name = "name")
+    private String id;
     private String name;
-
-    @ManyToMany()
-    @JoinTable(name = "warehouses_furnishers",
-            joinColumns = {
-                    @JoinColumn(name = "warehouse_id", referencedColumnName = "warehouse_id",
-                            nullable = false, updatable = false)},
-            inverseJoinColumns = {
-                    @JoinColumn(name = "furnisher_id", referencedColumnName = "furnisher_id",
-                            nullable = false, updatable = false)})
-    private List<Furnisher> furnishers;
-
-    @OneToOne()
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id")
     private Address address;
-
-    @OneToOne()
-    @JoinColumn(name = "stock_id", referencedColumnName = "stock_id")
     private Stock stock;
+    private List<Furnisher> furnishers;
+    
+    //methods
 
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public String getWarehouseId() {
+        return id;
     }
 
-    public Long getWarehouseId() {
-        return warehouseId;
-    }
-
-    public void setWarehouseId(Long warehouseId) {
-        this.warehouseId = warehouseId;
+    public void setWarehouseId(String warehouseId) {
+        this.id = warehouseId;
     }
 
     public String getName() {

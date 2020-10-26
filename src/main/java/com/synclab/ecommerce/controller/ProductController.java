@@ -72,7 +72,7 @@ public class ProductController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Product> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Product> findById(@PathVariable(value = "id") String id) {
 
         Product newProduct = productServiceImplementation.findById(id);
 
@@ -81,14 +81,14 @@ public class ProductController {
 
     }
 
-    @GetMapping(value = "/getFromQuery", produces = "application/json")
-    public ResponseEntity<Page<Product>> findById(@RequestParam String query,
-                                                  @RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
-
-        List<Product> list = productServiceImplementation.rsqlQuery(query);
-        return PageUtils.listToPageResponseEntity(list, page, size);
-
-    }
+//    @GetMapping(value = "/getFromQuery", produces = "application/json")
+//    public ResponseEntity<Page<Product>> findById(@RequestParam String query,
+//                                                  @RequestParam(value = "page") Integer page, @RequestParam(value = "size") Integer size) {
+//
+//        List<Product> list = productServiceImplementation.rsqlQuery(query);
+//        return PageUtils.listToPageResponseEntity(list, page, size);
+//
+//    }
 
     @GetMapping(value = "/get/all", produces = "application/json")
     public ResponseEntity<Page<Product>> findAll(@RequestParam(value = "page") Integer page,

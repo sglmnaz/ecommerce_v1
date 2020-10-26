@@ -1,40 +1,27 @@
 package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
+
+import org.springframework.data.mongodb.core.mapping.Document;
+
 import java.io.Serializable;
 
 
-@Entity
-@Table(name = "addresses")
+@Document(collection = "address")
 public class Address implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+    private static final Long serialVersionUID = 1L;
 
     // fields
 
     @Id
-    @Column(name = "address_id")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long addressId;
-
-    @Column(name = "country")
+    private String id;
     private String country;
-
-    @Column(name = "province")
     private String province;
-
-    @Column(name = "city")
     private String city;
-
-    @Column(name = "zipcode")
     private Integer zipcode;
-
-    @Column(name = "street")
     private String street;
-
-    @Column(name = "house_number")
     private Integer houseNumber;
-
 
     // methods
 
@@ -51,16 +38,16 @@ public class Address implements Serializable {
         this.houseNumber = houseNumber;
     }
 
-    public static long getSerialVersionUID() {
+    public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public Long getAddressId() {
-        return addressId;
+    public String getAddressId() {
+        return id;
     }
 
-    public void setAddressId(Long addressId) {
-        this.addressId = addressId;
+    public void setAddressId(String addressId) {
+        this.id = addressId;
     }
 
     public String getCountry() {

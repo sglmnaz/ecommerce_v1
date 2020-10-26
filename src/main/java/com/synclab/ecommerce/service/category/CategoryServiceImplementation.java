@@ -19,7 +19,7 @@ public class CategoryServiceImplementation implements categoryService {
     }
 
     @Override
-    public Category findById(Long id) {
+    public Category findById(String id) {
         return repository.findById(id).get();
     }
 
@@ -39,7 +39,7 @@ public class CategoryServiceImplementation implements categoryService {
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         repository.deleteById(id);
 
     }
