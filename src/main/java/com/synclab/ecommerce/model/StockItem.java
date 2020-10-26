@@ -9,7 +9,7 @@ import java.io.Serializable;
 @Document(collection = "stockItem")
 public class StockItem implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 

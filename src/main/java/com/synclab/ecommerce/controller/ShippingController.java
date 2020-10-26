@@ -7,6 +7,9 @@ import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.shipping.ShippingServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.response.CustomResponse;
+
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -35,12 +38,19 @@ public class ShippingController {
 
     @PostMapping(value = "/insert")
     public ResponseEntity<Shipping> insert(@RequestParam(name = "orderId") String orderId,
-                                           @RequestParam(name = "userId") String userId, @RequestParam(name = "addressId") String addressId,
+                                           @RequestParam(name = "userId") String userId,
+                                           @RequestParam(name = "addressId") String addressId,
                                            @RequestParam(name = "courierId") String courierId) {
 
         Order order = orderServiceImplementation.findById(orderId);
-        Address address = addressServiceImplementation.findById(addressId);
+        
         User user = userServiceImplementation.findById(userId);
+        List<Address> addresses = user.getAddress();
+        Address address = null;
+        for (Address add : addresses) {
+			if (add.getAddressId().equals(addressId))
+				address = add;
+		}
         Courier courier = courierServiceImplementation.findById(courierId);
 
         if (order == null || address == null || user == null || courier == null)

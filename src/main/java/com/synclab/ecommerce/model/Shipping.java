@@ -10,7 +10,7 @@ import java.util.Date;
 @Document(collection = "shipping")
 public class Shipping implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 

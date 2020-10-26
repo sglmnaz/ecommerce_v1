@@ -12,7 +12,7 @@ import java.io.Serializable;
 @Document(collection = "cartItem")
 public class CartItem implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 

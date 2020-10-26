@@ -11,7 +11,7 @@ public class CustomResponse {
     public static <T> ResponseEntity<T> getFindResponse(T entity, String errorHeader, String errorMessage) {
 
         return entity != null ? ResponseEntity.ok(entity)
-                : ResponseEntity.status(HttpStatus.NO_CONTENT).header(errorHeader, errorMessage).build();
+                : ResponseEntity.status(HttpStatus.NOT_FOUND).header(errorHeader, errorMessage).build();
     }
 
     public static <T> ResponseEntity<T> getDeleteResponse(T entity, String errorHeader, String errorMessage) {

@@ -76,7 +76,7 @@ public class AuthenticationController {
         account.setUsername(credentials.getUsername());
         account.setPassword(pe.encode(credentials.getPassword()));
         account.setBirthDate(credentials.getBirth());
-        account.addRole(rsi.findByName("ROLE_CLIENT"));
+        account.addRole(rsi.findByName("ROLE_USER"));
         
         User user = new User();
         user.setFirstName(credentials.getName());

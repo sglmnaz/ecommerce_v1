@@ -14,10 +14,9 @@ import java.util.List;
 @Document(collection = "account")
 public class Account implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
-
     @Id
     private String id;
     private String username;
@@ -44,17 +43,17 @@ public class Account implements Serializable {
         this.role = role;
     }
 
+   
+    public String getId() {
+		return id;
+	}
 
-    public static Long getSerialVersionUID() {
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public static Long getSerialVersionUID() {
         return serialVersionUID;
-    }
-
-    public String getAccountId() {
-        return id;
-    }
-
-    public void setAccountId(String accountId) {
-        this.id = accountId;
     }
 
     public String getUsername() {
@@ -127,7 +126,7 @@ public class Account implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Account [accountId=" + id + ", username=" + username + ", email=" + email + ", password="
+		return "Account [ username=" + username + ", email=" + email + ", password="
 				+ password + ", birthDate=" + birthDate + ", phone=" + phone + ", isSuspended=" + isSuspended
 				+ ", isBanned=" + isBanned + ", role=" + role + "]";
 	}

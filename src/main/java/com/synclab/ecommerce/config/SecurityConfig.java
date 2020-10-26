@@ -39,7 +39,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] USER_OR_ABOVE_ENDPOINTS = {
             "/userpage/**",
             "/auth/api/logout",
-            "/user/api/get/**",
+            "/user/api/**",
     };
 
     // managers routes and APIs
@@ -52,7 +52,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] ADMIN_ONLY_ENDPOINTS = {
             "/adminpage/**",
-            "/user/api/delete/**",
     };
 
 

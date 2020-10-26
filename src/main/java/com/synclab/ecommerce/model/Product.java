@@ -11,7 +11,7 @@ import java.util.List;
 @Document(collection = "product")
 public class Product implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 

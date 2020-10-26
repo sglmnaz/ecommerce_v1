@@ -12,7 +12,7 @@ import java.util.List;
 @Document(collection = "user")
 public class User implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 
@@ -61,6 +61,14 @@ public class User implements Serializable {
 
     public void setAddress(List<Address> address) {
         this.address = address;
+    }
+    
+    public void addAddress(Address address) {
+        this.address.add(address);
+    }
+    
+    public void removeAddress(Address address) {
+        this.address.remove(address);
     }
 
     public String getFirstName() {

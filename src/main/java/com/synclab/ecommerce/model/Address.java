@@ -7,10 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.io.Serializable;
 
 
-@Document(collection = "address")
 public class Address implements Serializable {
 
-    private static final Long serialVersionUID = 1L;
+    private static final long serialVersionUID = 1L;
 
     // fields
 
@@ -97,4 +96,12 @@ public class Address implements Serializable {
     public void setHouseNumber(Integer houseNumber) {
         this.houseNumber = houseNumber;
     }
+
+	@Override
+	public String toString() {
+		return "Address [country=" + country + ", province=" + province + ", city=" + city + ", zipcode=" + zipcode
+				+ ", street=" + street + ", houseNumber=" + houseNumber + "]";
+	}
+    
+    
 }

@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -41,40 +42,6 @@ public class UserController {
     @Autowired
     private CartServiceImplementation cartServiceImplementation;
 
-    // post
-
-    @PostMapping(value = "/insert", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> insert(@RequestBody User user) {
-
-        if (user == null) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-
-        User entity = user;
-        Account account = entity.getAccount();
-        List<Address> addressList = entity.getAddress();
-
-        // initialize fields with default value and add tthem to db
-        account.getRole().add(roleServiceImplementation.findByName("ROLE_CLIENT"));
-        account = accountServiceImplementation.insert(account);
-        if (addressList != null) {
-            for (Address address : addressList) {
-                addressServiceImplementation.insert(address);
-            }
-        }
-
-        //crypt data
-
-        // assign fields to entity
-        entity.setAccount(account);
-        entity.setSignupDate(new Date());
-
-        // add entity to db
-        entity = userServiceImplementation.insert(entity);
-
-        return ResponseEntity.ok(entity);
-
-    }
 
     // get
 
@@ -106,85 +73,34 @@ public class UserController {
 //
 //    }
 
-    // update
-
-    @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<User> update(@RequestBody User user) throws RecordNotFoundException {
-
-        if (user != null) {
-
-            List<Address> addresses = user.getAddress();
-            Account account = user.getAccount();
-            Account oldAccount = accountServiceImplementation.findById(account.getAccountId()).get();
-            String id = userServiceImplementation.findByAccount(oldAccount).getUserId();
-            List<Role> roles = oldAccount.getRole();
-
-            //crypt data
-
-            User newUser = user;
-
-            // initialize fields with default values
-            newUser.setUserId(id);
-            newUser.setAddress(addresses);
-            newUser.setAccount(account);
-            account.setRole(roles);
-
-            // update to database
-            try {
-                accountServiceImplementation.UpdateById(oldAccount.getAccountId(), account);
-
-                for (Address address : addresses) {
-                    addressServiceImplementation.insert(address);
-                }
-
-                userServiceImplementation.UpdateById(id, newUser);
-
-                return ResponseEntity.ok(newUser);
-            } catch (Exception e) {
-                throw new RecordNotFoundException();
-            }
-        } else {
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-        }
-
-    }
-
     // patch
-
-    @PatchMapping(value = "/patch/id/{id}", consumes = "applicationj/json", produces = "application/json")
-    public ResponseEntity<User> patch(@PathVariable(name = "id") String id, @RequestBody User user) {
-
-        if (user == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-
-        User oldUser = userServiceImplementation.findById(id);
-
-        if (oldUser == null)
-            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
-
-        if (user.getFirstName() != null)
-            oldUser.setFirstName(user.getFirstName());
-        if (user.getLastName() != null)
-            oldUser.setLastName(user.getLastName());
-        if (user.getSignupDate() != null)
-            oldUser.setSignupDate(user.getSignupDate());
-        if (user.getAccount() != null) {
-            Account account = user.getAccount();
-            //crypt data
-            oldUser.setAccount(account);
-        }
-        if (user.getAddress() != null)
-            oldUser.setAddress(user.getAddress());
-        if (user.getLastLoginDate() != null)
-            oldUser.setLastLoginDate(user.getLastLoginDate());
-
-        oldUser = userServiceImplementation.insert(oldUser);
-        return ResponseEntity.ok(oldUser);
-
+    @PatchMapping(value = "address/add/{id}",consumes = "application/json")
+    public ResponseEntity<String> addAddress(@PathVariable(value = "id") String id,
+    		@RequestBody Address address) {
+    	
+    	User user = userServiceImplementation.findById(id);
+    	if (user == null)
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    	user.addAddress(address);
+    	user = userServiceImplementation.insert(user);
+    	return ResponseEntity.ok("address changed");
     }
-
+    
+    @PatchMapping(value = "address/remove/{id}",consumes = "application/json")
+    public ResponseEntity<String> removeAddress(@PathVariable(value = "id") String id,
+    		@RequestBody Address address) {
+    	
+    	User user = userServiceImplementation.findById(id);
+    	if (user == null)
+    		return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+    	user.removeAddress(address);
+    	user = userServiceImplementation.insert(user);
+    	return ResponseEntity.ok("address changed");
+    }
+    
     // delete
 
+    @Transactional
     @DeleteMapping(value = "/delete/id/{id}")
     public ResponseEntity<User> delete(@PathVariable(name = "id") String id) {
        
@@ -194,7 +110,6 @@ public class UserController {
         userServiceImplementation.DeleteById(id);
         
         user = userServiceImplementation.findById(id);
-        
         return CustomResponse.getDeleteResponse(user, "deletion failed", "could not delete entity with id: " + id);
     }
 
