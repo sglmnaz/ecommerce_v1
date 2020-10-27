@@ -1,7 +1,7 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.stockingAndTransportAPIs;
 
-import com.synclab.ecommerce.model.Warehouse;
-import com.synclab.ecommerce.service.warehouse.WarehouseServiceImplementation;
+import com.synclab.ecommerce.model.Courier;
+import com.synclab.ecommerce.service.courier.CourierServiceImplementation;
 import com.synclab.ecommerce.utility.response.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -9,21 +9,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/warehouse")
-public class WarehouseController {
+@RequestMapping("/courier")
+public class CourierController {
 
     @Autowired
-    private WarehouseServiceImplementation stockServiceImplementation;
+    private CourierServiceImplementation courierServiceImplementation;
 
     // post
 
     @PostMapping(value = "/insert")
-    public ResponseEntity<Warehouse> insert(@RequestBody Warehouse request) {
+    public ResponseEntity<Courier> insert(@RequestBody Courier request) {
 
         if (request == null)
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
-        Warehouse entity = stockServiceImplementation.insert(request);
+        Courier entity = courierServiceImplementation.insert(request);
 
         return ResponseEntity.ok(entity);
     }
@@ -31,9 +31,9 @@ public class WarehouseController {
     // get
 
     @GetMapping(value = "/get/{id}", produces = "application/json")
-    public ResponseEntity<Warehouse> findById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Courier> findById(@PathVariable(value = "id") String id) {
 
-        Warehouse entity = stockServiceImplementation.findById(id);
+        Courier entity = courierServiceImplementation.findById(id);
         return CustomResponse.getFindResponse(entity, "record not found",
                 "record with id: " + id + " could not be found");
     }
@@ -41,10 +41,10 @@ public class WarehouseController {
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
-    public ResponseEntity<Warehouse> deleteById(@PathVariable(value = "id") Long id) {
+    public ResponseEntity<Courier> deleteById(@PathVariable(value = "id") String id) {
 
-        stockServiceImplementation.deleteById(id);
-        Warehouse entity = stockServiceImplementation.findById(id);
+        courierServiceImplementation.deleteById(id);
+        Courier entity = courierServiceImplementation.findById(id);
 
         return CustomResponse.getDeleteResponse(entity, "deletion failed",
                 "record with id: " + id + " could not be deleted");

@@ -1,14 +1,10 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.shopAPIs;
 
 import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
 import com.synclab.ecommerce.model.Product;
-import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
-import com.synclab.ecommerce.service.cartItem.CartItemServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
-import com.synclab.ecommerce.service.user.UserServiceImplementation;
-import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -27,13 +23,7 @@ public class CartController {
     private CartServiceImplementation cartServiceImplementation;
 
     @Autowired
-    private UserServiceImplementation userServiceImplementation;
-
-    @Autowired
     private ProductServiceImplementation productServiceImplementation;
-
-    @Autowired
-    private CartItemServiceImplementation cartItemServiceImplementation;
 
     // get
 
@@ -47,40 +37,29 @@ public class CartController {
 
     }
 
-    @GetMapping(value = "/getByUserId/{userId}", produces = "application/json")
-    public ResponseEntity<Cart> findByUser(@PathVariable(value = "userId") String userId) {
-
-        Cart entity = cartServiceImplementation.findByUserId(userId);
-
-        return entity != null ? ResponseEntity.ok(entity)
-                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-    }
-
-    @GetMapping(value = "/getAllProducts/{id}", produces = "application/json")
+    @GetMapping(value = "/get/products/{id}", produces = "application/json")
     public ResponseEntity<List<CartItem>> findAllProductsById(@PathVariable(value = "id") String id) {
 
-        Cart entity = cartServiceImplementation.findById(id);
+        Cart cart = cartServiceImplementation.findById(id);
 
-        return entity != null ? ResponseEntity.ok(cartItemServiceImplementation.findByCart_CartId(id))
+        return cart != null ? ResponseEntity.ok(cart.getItems())
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
     }
 
-    @GetMapping(value = "/insertProduct", produces = "application/json")
+    @GetMapping(value = "/insert/product", produces = "application/json")
     public ResponseEntity<String> addProduct(@RequestParam(name = "cartId") String cartId,
                                              @RequestParam(name = "productId") String productId,
                                              @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
         Product product = productServiceImplementation.findById(productId);
-        CartItem cartItem = new CartItem(cart, product, productQuantity);
+        CartItem item = new CartItem(product, productQuantity);
+        cart.getItems().add(item);
+        cart = cartServiceImplementation.update(cart);
+        evaluateTotals(cart);
 
-        cartItem = cartItemServiceImplementation.insert(cartItem);
-        cartServiceImplementation.update(cart);
-        evaluateTotals(cart.getId());
-
-        return cartItem != null
+        return item != null
                 ? ResponseEntity.ok("product: " + product.getName() + " x" + productQuantity + " was added to cart")
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
@@ -92,27 +71,26 @@ public class CartController {
                                                         @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
 
         Cart cart = cartServiceImplementation.findById(cartId);
-        List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
+        List<CartItem> items = cart.getItems();
 
-        CartItem cartItem = null;
+        CartItem item = null;
 
-        for (CartItem item : items) {
-            if (item.getProduct().getProductId() == productId) {
-                cartItem = item;
+        for (CartItem _item : items) {
+            if (_item.getProduct().getProductId() == productId) {
+                item = _item;
             }
         }
 
-        if (cartItem == null)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-        cartItem.setQuantity(productQuantity);
-
-        cartItem = cartItemServiceImplementation.update(cartItem);
+        if (item == null)
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+        cart.getItems().remove(item);
+        item.setQuantity(productQuantity);
+        cart.getItems().add(item);
 
         cartServiceImplementation.update(cart);
-        evaluateTotals(cart.getId());
+        evaluateTotals(cart);
 
-        return cartItem != null ? ResponseEntity.ok("product quantity set to: " + productQuantity)
+        return item != null ? ResponseEntity.ok("product quantity set to: " + productQuantity)
                 : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 
     }
@@ -120,24 +98,46 @@ public class CartController {
     // update
 
     @PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Cart> update(@RequestBody Cart request) throws RecordNotFoundException {
+    public ResponseEntity<Cart> update(@RequestBody Cart request) {
 
         if (request == null) // return error message
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         if (cartServiceImplementation.findById(request.getId()) == null) // no such object is present in the
             // repository
-            throw new RecordNotFoundException();
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
 
         // declarations
-        Cart entity = request;
-
-        // operations
+        Cart cart = request;
+        evaluateTotals(cart);
 
         // add to database
-        cartServiceImplementation.insert(entity);
+        cart = cartServiceImplementation.insert(cart);
 
-        return ResponseEntity.ok(entity);
+        return ResponseEntity.ok(cart);
+
+    }
+    
+    // patch
+
+    @PatchMapping(value = "/empty/{id}", produces = "application/json")
+    public ResponseEntity<Cart> empty(@PathVariable(value = "id") String id) {
+
+        if (id == null) // return error message
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+
+        Cart cart = cartServiceImplementation.findById(id);
+        
+        if (cart == null) // no cart found
+        	return ResponseEntity.status(HttpStatus.NOT_FOUND).build();
+
+        cartServiceImplementation.emptyCart(cart);
+        evaluateTotals(cart);
+
+        // add to database
+        cart = cartServiceImplementation.insert(cart);
+
+        return ResponseEntity.ok(cart);
 
     }
 
@@ -174,10 +174,10 @@ public class CartController {
         return total;
     }
 
-    public void evaluateTotals(String cartId) {
+    public void evaluateTotals(Cart _cart) {
 
-        Cart cart = cartServiceImplementation.findById(cartId);
-        List<CartItem> items = cartItemServiceImplementation.findByCart_CartId(cartId);
+        Cart cart = _cart;
+        List<CartItem> items = cart.getItems();
         Integer total = 0;
 
         if (items == null)

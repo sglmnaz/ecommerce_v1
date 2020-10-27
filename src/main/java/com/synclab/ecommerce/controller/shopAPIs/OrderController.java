@@ -1,11 +1,10 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.shopAPIs;
 
 import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.CartItem;
 import com.synclab.ecommerce.model.Order;
 import com.synclab.ecommerce.model.OrderItem;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
-import com.synclab.ecommerce.service.cartItem.CartItemServiceImplementation;
 import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.orderItem.OrderItemServiceImplementation;
 import com.synclab.ecommerce.service.status.StatusServiceImplementation;
@@ -31,9 +30,6 @@ public class OrderController {
     private CartServiceImplementation cartServiceImplementation;
 
     @Autowired
-    private CartItemServiceImplementation cartItemServiceImplementation;
-
-    @Autowired
     private OrderItemServiceImplementation orderItemServiceImplementation;
 
     @Autowired
@@ -41,45 +37,45 @@ public class OrderController {
 
     // post
 
-    // transorms a cart in order
-    @PostMapping(value = "/insert/{cartId}", produces = "application/json")
-    public ResponseEntity<Order> insert(@PathVariable(value = "cartId") String cartId) {
-
-        Cart cart = cartServiceImplementation.findById(cartId);
-
-        if (cart == null)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-
-        Order order = new Order();
-        order.setCreationDate(new Date());
-        order.setTotalItems(cart.getTotalItems());
-        order.setTotalPrice(cart.getTotalPrice());
-        order.setUserId(cart.getUserId());
-        order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED"));
-
-        order = orderServiceImplementation.insert(order);
-
-        List<CartItem> cartItems = cartItemServiceImplementation.findByCart_CartId(cartId);
-        // List<OrderItem> orderItems = new ArrayList<OrderItem>();
-
-        for (CartItem item : cartItems) {
-            OrderItem orderItem = new OrderItem();
-            orderItem.setOrder(order);
-            orderItem.setProduct(item.getProduct());
-            orderItem.setQuantity(item.getQuantity());
-            orderItemServiceImplementation.insert(orderItem);
-            cartItemServiceImplementation.deleteById(item.getCartItemId());
-            // orderItems.add(orderItem);
-        }
-
-        cart.setTotalItems(0);
-        cart.setTotalPrice(BigDecimal.ZERO);
-
-        cartServiceImplementation.update(cart);
-
-        return ResponseEntity.ok(order);
-
-    }
+//    // transorms a cart in order
+//    @PostMapping(value = "/insert/{cartId}", produces = "application/json")
+//    public ResponseEntity<Order> insert(@PathVariable(value = "cartId") String cartId) {
+//
+//        Cart cart = cartServiceImplementation.findById(cartId);
+//
+//        if (cart == null)
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//
+//        Order order = new Order();
+//        order.setCreationDate(new Date());
+//        order.setTotalItems(cart.getTotalItems());
+//        order.setTotalPrice(cart.getTotalPrice());
+//        order.setUserId(cart.getUserId());
+//        order.setStatus(statusServiceImplementation.findByName("STATUS_CREATED"));
+//
+//        order = orderServiceImplementation.insert(order);
+//
+//        List<CartItem> cartItems = cartItemServiceImplementation.findByCart_CartId(cartId);
+//        // List<OrderItem> orderItems = new ArrayList<OrderItem>();
+//
+//        for (CartItem item : cartItems) {
+//            OrderItem orderItem = new OrderItem();
+//            orderItem.setOrder(order);
+//            orderItem.setProduct(item.getProduct());
+//            orderItem.setQuantity(item.getQuantity());
+//            orderItemServiceImplementation.insert(orderItem);
+//            cartItemServiceImplementation.deleteById(item.getCartItemId());
+//            // orderItems.add(orderItem);
+//        }
+//
+//        cart.setTotalItems(0);
+//        cart.setTotalPrice(BigDecimal.ZERO);
+//
+//        cartServiceImplementation.update(cart);
+//
+//        return ResponseEntity.ok(order);
+//
+//    }
 
     // get
 

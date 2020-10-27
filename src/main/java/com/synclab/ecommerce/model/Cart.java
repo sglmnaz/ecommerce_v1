@@ -6,6 +6,8 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.List;
 
 @Document(collection = "cart")
 public class Cart implements Serializable {
@@ -17,6 +19,7 @@ public class Cart implements Serializable {
     @Id
     private String id;
     private String userId;
+    private List<CartItem> items = new ArrayList<CartItem>();
     private BigDecimal totalPrice;
     private Integer totalItems;
 
@@ -80,4 +83,12 @@ public class Cart implements Serializable {
     public void setTotalItems(Integer totalItems) {
         this.totalItems = totalItems;
     }
+
+	public List<CartItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<CartItem> items) {
+		this.items = items;
+	}
 }

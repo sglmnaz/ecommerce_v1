@@ -1,15 +1,13 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.profileAPIs;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Address;
 import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.service.account.AccountServiceImplementation;
-import com.synclab.ecommerce.service.address.AddressServiceImplementation;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
-import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import com.synclab.ecommerce.utility.pages.PageUtils;
 import com.synclab.ecommerce.utility.response.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,9 +33,6 @@ public class UserController {
 
     @Autowired
     private AccountServiceImplementation accountServiceImplementation;
-
-    @Autowired
-    private AddressServiceImplementation addressServiceImplementation;
     
     @Autowired
     private CartServiceImplementation cartServiceImplementation;

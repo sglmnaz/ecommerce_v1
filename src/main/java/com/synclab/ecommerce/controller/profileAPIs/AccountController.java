@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.profileAPIs;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.repository.AccountRepository;

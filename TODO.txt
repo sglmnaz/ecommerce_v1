@@ -29,3 +29,8 @@ database auth
 token - standard e json web token <-
 login controller
 lo out 2
+
+MONGODB
+rivedere prodotti
+		 ordini
+		 spedizioni

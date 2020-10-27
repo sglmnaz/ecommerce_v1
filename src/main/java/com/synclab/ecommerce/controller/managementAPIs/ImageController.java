@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.managementAPIs;
 
 import com.synclab.ecommerce.model.Image;
 import com.synclab.ecommerce.service.image.ImageServiceImplementation;

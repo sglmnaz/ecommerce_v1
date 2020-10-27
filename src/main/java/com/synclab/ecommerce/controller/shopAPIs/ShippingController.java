@@ -1,7 +1,6 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.shopAPIs;
 
 import com.synclab.ecommerce.model.*;
-import com.synclab.ecommerce.service.address.AddressServiceImplementation;
 import com.synclab.ecommerce.service.courier.CourierServiceImplementation;
 import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.shipping.ShippingServiceImplementation;
@@ -21,9 +20,6 @@ public class ShippingController {
 
     @Autowired
     private ShippingServiceImplementation shippingServiceImplementation;
-
-    @Autowired
-    private AddressServiceImplementation addressServiceImplementation;
 
     @Autowired
     private OrderServiceImplementation orderServiceImplementation;

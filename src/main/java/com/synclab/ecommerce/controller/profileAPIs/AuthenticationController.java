@@ -1,7 +1,8 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.profileAPIs;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Cart;
+import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.model.supportingEntities.LoginCredentials;
 import com.synclab.ecommerce.model.supportingEntities.LoginResponse;
@@ -76,7 +77,10 @@ public class AuthenticationController {
         account.setUsername(credentials.getUsername());
         account.setPassword(pe.encode(credentials.getPassword()));
         account.setBirthDate(credentials.getBirth());
-        account.addRole(rsi.findByName("ROLE_USER"));
+        Role role = rsi.findByName("ROLE_USER");
+        if (role == null)
+        	return new ResponseEntity<String>("ROLE_USER not found in DB", HttpStatus.NOT_FOUND);
+        account.addRole(role);
         
         User user = new User();
         user.setFirstName(credentials.getName());

@@ -7,7 +7,6 @@ import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.User;
 import com.synclab.ecommerce.repository.UserRepository;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
-import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import cz.jirutka.rsql.parser.RSQLParser;
 import cz.jirutka.rsql.parser.ast.Node;
 import cz.jirutka.rsql.parser.ast.RSQLVisitor;
@@ -62,10 +61,7 @@ public class UserServiceImplementation implements UserService {
 
     @Override
     public User UpdateById(String id, User user) throws Exception {
-
-        if (findById(id) == null)
-            throw new RecordNotFoundException();
-
+    	
         User newUser = user;
         newUser.setUserId(id);
 
@@ -77,8 +73,6 @@ public class UserServiceImplementation implements UserService {
     public User PatchById(String id, User user) throws Exception {
 
         User newUser = findById(id);
-        if (newUser == null)
-            throw new RecordNotFoundException();
 
         if (user.getUserId() != null)
             newUser.setUserId(user.getUserId());

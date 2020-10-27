@@ -32,6 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/index",
             "/auth/api/login",
             "/auth/api/signup",
+            "/testing/**"
     };
 
     // logged users routes and APIs
@@ -40,6 +41,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             "/userpage/**",
             "/auth/api/logout",
             "/user/api/**",
+            "/cart/api/**",
     };
 
     // managers routes and APIs
@@ -52,6 +54,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     private static final String[] ADMIN_ONLY_ENDPOINTS = {
             "/adminpage/**",
+            "/admin/**"
     };
 
 

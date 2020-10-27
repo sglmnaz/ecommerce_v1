@@ -1,10 +1,9 @@
-package com.synclab.ecommerce.controller;
+package com.synclab.ecommerce.controller.shopAPIs;
 
 import com.synclab.ecommerce.model.Category;
 import com.synclab.ecommerce.model.Product;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.product.ProductServiceImplementation;
-import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import com.synclab.ecommerce.utility.pages.PageUtils;
 import com.synclab.ecommerce.utility.response.CustomResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -153,7 +152,7 @@ public class ProductController {
     // update
 
     @PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
-    public ResponseEntity<Product> update(@RequestBody Product product) throws RecordNotFoundException {
+    public ResponseEntity<Product> update(@RequestBody Product product) {
 
         if (product != null) {
 
@@ -166,7 +165,7 @@ public class ProductController {
                 productServiceImplementation.update(newProduct);
                 return ResponseEntity.ok(newProduct);
             } catch (Exception e) {
-                throw new RecordNotFoundException();
+            	return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
             }
         } else {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();

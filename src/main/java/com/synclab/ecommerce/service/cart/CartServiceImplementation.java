@@ -6,6 +6,8 @@ import com.synclab.ecommerce.repository.CartRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -49,6 +51,16 @@ public class CartServiceImplementation implements CartService {
 	public Void deleteByUserId(String id) {
 		repository.deleteByUserId(id);
 		return null;
+	}
+	
+	public void emptyCart(Cart _cart) {
+		Cart cart = _cart;
+		if (cart == null)
+			return;
+		cart.setItems(new ArrayList<>());
+		cart.setTotalItems(0);
+		cart.setTotalPrice(BigDecimal.ZERO);
+		repository.save(cart);
 	}
 
 }

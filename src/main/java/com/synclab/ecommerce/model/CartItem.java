@@ -8,8 +8,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.io.Serializable;
 
-
-@Document(collection = "cartItem")
 public class CartItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -18,8 +16,6 @@ public class CartItem implements Serializable {
 
     @Id
     private String id;
-    @JsonIgnore
-    private Cart cart;
     private Product product;
     private Integer quantity;
 
@@ -28,9 +24,8 @@ public class CartItem implements Serializable {
     public CartItem() {
     }
 
-    public CartItem(Cart cart, Product product, Integer quantity) {
+    public CartItem( Product product, Integer quantity) {
         super();
-        this.cart = cart;
         this.product = product;
         this.quantity = quantity;
     }
@@ -51,14 +46,6 @@ public class CartItem implements Serializable {
 
     public void setQuantity(Integer quantity) {
         this.quantity = quantity;
-    }
-
-    public Cart getCart() {
-        return cart;
-    }
-
-    public void setCart(Cart cart) {
-        this.cart = cart;
     }
 
     public Product getProduct() {

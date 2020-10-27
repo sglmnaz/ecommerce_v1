@@ -2,7 +2,6 @@ package com.synclab.ecommerce.service.account;
 
 import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.repository.AccountRepository;
-import com.synclab.ecommerce.utility.exception.RecordNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
