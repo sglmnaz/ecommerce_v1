@@ -24,7 +24,7 @@ public class ImageController {
     public ResponseEntity<Image> insert(@RequestPart(value = "file") MultipartFile file) throws IOException {
 
         if (file == null)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         // SerialBlob blob = new SerialBlob(file.getBytes());
         Image image = new Image();
@@ -35,11 +35,12 @@ public class ImageController {
 
         // add entity to db
         image = imageServiceImplementation.insert(image);
-
+        
         return ResponseEntity.ok(image);
 
     }
-
+    
+    
     // delete
 
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
@@ -50,7 +51,7 @@ public class ImageController {
         Image entity = imageServiceImplementation.findById(id);
 
         return entity == null ? ResponseEntity.ok(entity)
-                : ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+                : ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
 
     }
 

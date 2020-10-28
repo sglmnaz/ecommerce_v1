@@ -34,7 +34,7 @@ public class AdminController {
 	}
 	
 	@PatchMapping("/role/set/{id}")
-	public ResponseEntity<String> insertRole(@RequestParam(value = "role") String _role,
+	public ResponseEntity<String> setRole(@RequestParam(value = "role") String _role,
 											 @PathVariable(value = "id") String id) {
 		Role role = rsi.findByName(_role);
 		if (role == null)

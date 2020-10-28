@@ -34,3 +34,6 @@ MONGODB
 rivedere prodotti
 		 ordini
 		 spedizioni
+
+gridFs
+updatemulti
