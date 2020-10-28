@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.synclab.ecommerce.model.Category;
+import com.synclab.ecommerce.model.Courier;
 import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.Status;
 import com.synclab.ecommerce.service.category.CategoryServiceImplementation;
 import com.synclab.ecommerce.service.category.categoryService;
+import com.synclab.ecommerce.service.courier.CourierService;
 import com.synclab.ecommerce.service.role.RoleServiceImplementation;
 import com.synclab.ecommerce.service.status.StatusServiceImplementation;
 
@@ -22,41 +24,56 @@ import com.synclab.ecommerce.service.status.StatusServiceImplementation;
 public class TestingController {
 
 	@Autowired
-	private RoleServiceImplementation rsi;
+	private RoleServiceImplementation roleSI;
 
     @PostMapping("/role/initialize")
 	public ResponseEntity<String> insertRoles() {
-		rsi.insert(new Role("ROLE_USER","standard user"));
-		rsi.insert(new Role("ROLE_MANAGER","Manager user"));
-		rsi.insert(new Role("ROLE_ADMIN","admin user"));
-		return ResponseEntity.ok("Roles initialized.");
+		roleSI.insert(new Role("ROLE_USER","standard user"));
+		roleSI.insert(new Role("ROLE_MANAGER","Manager user"));
+		roleSI.insert(new Role("ROLE_ADMIN","admin user"));
+		return ResponseEntity.ok("Roles collection initialized.");
 	}
     
     @Autowired
-	private CategoryServiceImplementation csi;
+	private CategoryServiceImplementation categorySI;
 
     @PostMapping("/category/initialize")
 	public ResponseEntity<String> insertCategories() {
-		csi.insert(new Category("Other"));
-		csi.insert(new Category("Electronics"));
-		csi.insert(new Category("Furniture"));
-		csi.insert(new Category("Clothing"));
-		csi.insert(new Category("Healt"));
-		csi.insert(new Category("Sport"));
-		csi.insert(new Category("Kids"));
-		return ResponseEntity.ok("Category initialized.");
+		categorySI.insert(new Category("Other"));
+		categorySI.insert(new Category("Electronics"));
+		categorySI.insert(new Category("Furniture"));
+		categorySI.insert(new Category("Clothing"));
+		categorySI.insert(new Category("Healt"));
+		categorySI.insert(new Category("Sport"));
+		categorySI.insert(new Category("Kids"));
+		return ResponseEntity.ok("Category collection initialized.");
 	}
     
 
     @Autowired
-	private StatusServiceImplementation ssi;
+	private StatusServiceImplementation statusSI;
 
     @PostMapping("/status/initialize")
 	public ResponseEntity<String> insertStatuses() {
-		ssi.insert(new Status("STATUS_CREATED"));
-		ssi.insert(new Status("STATUS_TRANSPORT"));
-		ssi.insert(new Status("STATUS_DELIVERED"));
-		ssi.insert(new Status("STATUS_CANCELLED"));
-		return ResponseEntity.ok("Status initialized.");
+		statusSI.insert(new Status("STATUS_CREATED"));
+		statusSI.insert(new Status("STATUS_TRANSPORT"));
+		statusSI.insert(new Status("STATUS_DELIVERED"));
+		statusSI.insert(new Status("STATUS_CANCELLED"));
+		return ResponseEntity.ok("Status collection initialized.");
+	}
+    
+    
+
+    @Autowired
+	private CourierService courierSI;
+
+    @PostMapping("/courier/initialize")
+	public ResponseEntity<String> insertCouriers() {
+    	courierSI.insert(new Courier("Bartolini"));
+    	courierSI.insert(new Courier("SDA"));
+    	courierSI.insert(new Courier("FedEx"));
+    	courierSI.insert(new Courier("UPS"));
+    	courierSI.insert(new Courier("DHL"));
+		return ResponseEntity.ok("Courier collection initialized.");
 	}
 }

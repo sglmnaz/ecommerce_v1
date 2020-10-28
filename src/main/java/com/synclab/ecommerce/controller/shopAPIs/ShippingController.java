@@ -4,9 +4,11 @@ import com.synclab.ecommerce.model.*;
 import com.synclab.ecommerce.service.courier.CourierServiceImplementation;
 import com.synclab.ecommerce.service.order.OrderServiceImplementation;
 import com.synclab.ecommerce.service.shipping.ShippingServiceImplementation;
+import com.synclab.ecommerce.service.status.StatusServiceImplementation;
 import com.synclab.ecommerce.service.user.UserServiceImplementation;
 import com.synclab.ecommerce.utility.response.CustomResponse;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +32,9 @@ public class ShippingController {
     @Autowired
     private CourierServiceImplementation courierServiceImplementation;
 
+    @Autowired
+	private StatusServiceImplementation statusServiceImplementation;
+
     // post
 
     @PostMapping(value = "/insert")
@@ -40,23 +45,32 @@ public class ShippingController {
 
         Order order = orderServiceImplementation.findById(orderId);
         
-        User user = userServiceImplementation.findById(userId);
-        List<Address> addresses = user.getAddress();
-        Address address = null;
-        for (Address add : addresses) {
-			if (add.getAddressId().equals(addressId))
-				address = add;
-		}
+        if (!order.getStatus().getName().equalsIgnoreCase("STATUS_CREATED"))
+        	return ResponseEntity.status(HttpStatus.EXPECTATION_FAILED).build();
+        
         Courier courier = courierServiceImplementation.findById(courierId);
+        User user = userServiceImplementation.findById(userId);
+        Address address = null;
+        
+        List<Address> addresses = user.getAddress();
+        
+        for (Address _address : addresses) {
+			if (_address.getAddressId().equals(addressId))
+				address = _address;
+		}
 
         if (order == null || address == null || user == null || courier == null)
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         Shipping shipping = new Shipping();
         shipping.setOrderId(orderId);
+        shipping.setRecipient(user.getFirstName() + " " + user.getLastName());
         shipping.setAddress(address);
         shipping.setCourier(courier);
-        shipping.setRecipient(user.getFirstName() + " " + user.getLastName());
+        shipping.setShippingDate(new Date());
+        
+        order.setStatus(statusServiceImplementation.findByName("STATUS_TRANSPORT"));
+        orderServiceImplementation.update(order);
 
         shipping = shippingServiceImplementation.insert(shipping);
         return ResponseEntity.ok(shipping);

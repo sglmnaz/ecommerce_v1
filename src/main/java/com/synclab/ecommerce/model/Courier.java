@@ -18,16 +18,25 @@ public class Courier implements Serializable {
     private String name;
     
     //methods
+    
+    
 
+    public Courier(String name) {
+		super();
+		this.name = name;
+	}
+    
+
+    
     public static Long getSerialVersionUID() {
         return serialVersionUID;
     }
 
-    public String getCourierId() {
+	public String getId() {
         return id;
     }
 
-    public void setCourierId(String courierId) {
+    public void setId(String courierId) {
         this.id = courierId;
     }
 
