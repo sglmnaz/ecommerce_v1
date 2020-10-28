@@ -30,24 +30,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     private static final String[] PUBLIC_ENDPOINTS = {
             "/",
             "/index",
-            "/auth/api/login",
-            "/auth/api/signup",
-            "/testing/**"
+            "/auth/login",
+            "/auth/signup",
+            "/testing/**",
+            
     };
 
     // logged users routes and APIs
 
     private static final String[] USER_OR_ABOVE_ENDPOINTS = {
             "/userpage/**",
-            "/auth/api/logout",
-            "/user/api/**",
-            "/cart/api/**",
+            "/auth/logout",
+            "/user/**",
+            "/cart/**",
+            "/order/**",
+            "/shipping/**",
     };
 
     // managers routes and APIs
 
     private static final String[] MANAGER_OR_ABOVE_ENDPOINTS = {
             "/managerpage/**",
+            "/product/**",
     };
 
     // admin reserved routes and APIs

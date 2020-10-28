@@ -6,46 +6,30 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
-@Document(collection = "orderItem")
 public class OrderItem implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     // fields
 
-    @Id
-    private String id;
-    private Order order;
     private Product product;
     private Integer quantity;
     
     //methods
-
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getOrderItemId() {
-        return id;
-    }
-
-    public void setOrderItemId(String orderItemId) {
-        this.id = orderItemId;
-    }
-
-    public Order getOrder() {
-        return order;
-    }
-
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+    
+    
+    public OrderItem(Product product, Integer quantity) {
+  		super();
+  		this.product = product;
+  		this.quantity = quantity;
+  	}
+    
 
     public Product getProduct() {
         return product;
     }
 
-    public void setProduct(Product product) {
+	public void setProduct(Product product) {
         this.product = product;
     }
 

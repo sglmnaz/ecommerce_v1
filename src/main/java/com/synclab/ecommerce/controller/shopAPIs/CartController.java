@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 import java.util.List;
 
 @RestController
-@RequestMapping("/cart/api")
+@RequestMapping("/cart")
 public class CartController {
 
     // fields
@@ -47,7 +47,7 @@ public class CartController {
 
     }
 
-    @GetMapping(value = "/insert/product", produces = "application/json")
+    @PostMapping(value = "/insert/product", produces = "application/json")
     public ResponseEntity<String> addProduct(@RequestParam(name = "cartId") String cartId,
                                              @RequestParam(name = "productId") String productId,
                                              @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
@@ -65,7 +65,7 @@ public class CartController {
 
     }
 
-    @GetMapping(value = "/changeProductQuantity", produces = "application/json")
+    @PatchMapping(value = "/changeProductQuantity", produces = "application/json")
     public ResponseEntity<String> changeProductQuantity(@RequestParam(name = "cartId") String cartId,
                                                         @RequestParam(name = "productId") String productId,
                                                         @RequestParam(name = "productQuantity", defaultValue = "1") Integer productQuantity) {
@@ -76,7 +76,7 @@ public class CartController {
         CartItem item = null;
 
         for (CartItem _item : items) {
-            if (_item.getProduct().getProductId() == productId) {
+            if (_item.getProduct().getId() == productId) {
                 item = _item;
             }
         }
@@ -97,7 +97,7 @@ public class CartController {
 
     // update
 
-    @PostMapping(value = "/update", consumes = "application/json", produces = "application/json")
+    @PutMapping(value = "/update", consumes = "application/json", produces = "application/json")
     public ResponseEntity<Cart> update(@RequestBody Cart request) {
 
         if (request == null) // return error message
@@ -120,7 +120,7 @@ public class CartController {
     
     // patch
 
-    @PatchMapping(value = "/empty/{id}", produces = "application/json")
+    @PutMapping(value = "/empty/{id}", produces = "application/json")
     public ResponseEntity<Cart> empty(@PathVariable(value = "id") String id) {
 
         if (id == null) // return error message

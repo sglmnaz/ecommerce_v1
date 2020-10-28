@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
-@RequestMapping("/auth/api")
+@RequestMapping("/auth")
 public class AuthenticationController {
 
     @Autowired

@@ -23,17 +23,29 @@ public class Category implements Serializable {
 
     //methods
     
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+    public Category() {
+		super();
+	}
+    
+    public Category(String name) {
+		super();
+		this.name = name;
+	}
 
-    public String getCategoryId() {
-        return id;
-    }
+	public Category(String name, Image image, List<Subcategory> subcategories) {
+		super();
+		this.name = name;
+		this.image = image;
+		this.subcategories = subcategories;
+	}
+	
+	public String getId() {
+		return id;
+	}
 
-    public void setCategoryId(String categoryId) {
-        this.id = categoryId;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
     public String getName() {
         return name;

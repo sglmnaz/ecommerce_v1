@@ -29,11 +29,11 @@ public class Role implements Serializable {
         this.description = desc;
     }
 
-    public String getRoleId() {
+    public String getId() {
         return id;
     }
 
-    public void setRoleId(String roleId) {
+    public void setId(String roleId) {
         this.id = roleId;
     }
 

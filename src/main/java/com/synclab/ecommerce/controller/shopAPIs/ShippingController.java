@@ -50,11 +50,11 @@ public class ShippingController {
         Courier courier = courierServiceImplementation.findById(courierId);
 
         if (order == null || address == null || user == null || courier == null)
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         Shipping shipping = new Shipping();
+        shipping.setOrderId(orderId);
         shipping.setAddress(address);
-        shipping.setOrder(order);
         shipping.setCourier(courier);
         shipping.setRecipient(user.getFirstName() + " " + user.getLastName());
 

@@ -14,8 +14,6 @@ public class CartItem implements Serializable {
 
     // fields
 
-    @Id
-    private String id;
     private Product product;
     private Integer quantity;
 
@@ -31,14 +29,7 @@ public class CartItem implements Serializable {
     }
 
     // getter and setters
-
-    public String getCartItemId() {
-        return id;
-    }
-
-    public void setCartItemId(String cartItemId) {
-        this.id = cartItemId;
-    }
+    
 
     public Integer getQuantity() {
         return quantity;

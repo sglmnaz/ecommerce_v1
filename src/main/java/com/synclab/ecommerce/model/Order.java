@@ -7,7 +7,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Document(collection = "order")
 public class Order implements Serializable {
@@ -18,25 +20,14 @@ public class Order implements Serializable {
 
     @Id
     private String id;
+    private String userId;
+    private List<OrderItem> items = new ArrayList<OrderItem>();
     private BigDecimal totalPrice;
-    private int totalItems;
+    private Integer totalItems;
     private Date creationDate;
     private Status status;
-    private String userId;
 
     //methods
-    
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
-
-    public String getOrderId() {
-        return id;
-    }
-
-    public void setOrderId(String orderId) {
-        this.id = orderId;
-    }
 
     public BigDecimal getTotalPrice() {
         return totalPrice;
@@ -46,7 +37,7 @@ public class Order implements Serializable {
         this.totalPrice = totalPrice;
     }
 
-    public int getTotalItems() {
+    public Integer getTotalItems() {
         return totalItems;
     }
 
@@ -77,4 +68,21 @@ public class Order implements Serializable {
     public void setUserId(String id) {
         this.userId = id;
     }
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public List<OrderItem> getItems() {
+		return items;
+	}
+
+	public void setItems(List<OrderItem> items) {
+		this.items = items;
+	}
+    
 }

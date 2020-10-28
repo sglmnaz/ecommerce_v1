@@ -11,87 +11,93 @@ import java.util.List;
 @Document(collection = "product")
 public class Product implements Serializable {
 
-    private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
 
-    // fields
+	// fields
 
-    @Id
-    private String id;
-    private String name;
-    private List<Category> categories;
-    private List<Image> image;
-    private String description;
-    private BigDecimal price;
-    private Integer rating;
-    private Boolean isAvailable;
-    
-    //methods
+	@Id
+	private String id;
+	private String name;
+	private String brand;
+	private String description;
+	private BigDecimal price;
+	private Integer rating;
+	private Boolean available;
+	private List<Category> categories;
+	private List<Image> image;
 
-    public static Long getSerialVersionUID() {
-        return serialVersionUID;
-    }
+	// methods
 
-    public String getProductId() {
-        return id;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setProductId(String productId) {
-        this.id = productId;
-    }
+	public String getId() {
+		return id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public String getBrand() {
+		return brand;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
 
-    public List<Category> getCategories() {
-        return categories;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public void setCategories(List<Category> categories) {
-        this.categories = categories;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
 
-    public List<Image> getImage() {
-        return image;
-    }
+	public List<Category> getCategories() {
+		return categories;
+	}
 
-    public void setImage(List<Image> image) {
-        this.image = image;
-    }
+	public void setCategories(List<Category> categories) {
+		this.categories = categories;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public List<Image> getImage() {
+		return image;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setImage(List<Image> image) {
+		this.image = image;
+	}
 
-    public BigDecimal getPrice() {
-        return price;
-    }
+	public String getDescription() {
+		return description;
+	}
 
-    public void setPrice(BigDecimal price) {
-        this.price = price;
-    }
+	public void setDescription(String description) {
+		this.description = description;
+	}
 
-    public Integer getRating() {
-        return rating;
-    }
+	public BigDecimal getPrice() {
+		return price;
+	}
 
-    public void setRating(Integer rating) {
-        this.rating = rating;
-    }
+	public void setPrice(BigDecimal price) {
+		this.price = price;
+	}
 
-    public Boolean getAvailable() {
-        return isAvailable;
-    }
+	public Integer getRating() {
+		return rating;
+	}
 
-    public void setAvailable(Boolean available) {
-        isAvailable = available;
-    }
+	public void setRating(Integer rating) {
+		this.rating = rating;
+	}
+
+	public Boolean getAvailable() {
+		return available;
+	}
+
+	public void setAvailable(Boolean available) {
+		this.available = available;
+	}
+
 }

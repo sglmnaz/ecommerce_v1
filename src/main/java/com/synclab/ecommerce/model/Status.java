@@ -19,16 +19,24 @@ public class Status implements Serializable {
     private String description;
 
     // methods
+    
+    
+    public Status(String name) {
+		super();
+		this.name = name;
+	}
+    
+    
 
-    public String getRoleId() {
-        return id;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public void setRoleId(String roleId) {
-        this.id = roleId;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public String getName() {
+	public String getName() {
         return name;
     }
 

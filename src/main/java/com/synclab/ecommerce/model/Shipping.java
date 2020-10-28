@@ -16,13 +16,13 @@ public class Shipping implements Serializable {
 
     @Id
     private String id;
-    private Order order;
+    private String orderId;
     private String recipient;
     private Address address;
     private Courier courier;
     private Date shippingDate;
-    private Date deliverDate;
     private Date estimatedDeliverDate;
+    private Date deliverDate;
     
     //methods
 
@@ -30,23 +30,23 @@ public class Shipping implements Serializable {
         return serialVersionUID;
     }
 
-    public String getShippingId() {
-        return id;
-    }
+    public String getId() {
+		return id;
+	}
 
-    public void setShippingId(String shippingId) {
-        this.id = shippingId;
-    }
+	public void setId(String id) {
+		this.id = id;
+	}
 
-    public Order getOrder() {
-        return order;
-    }
+	public String getOrderId() {
+		return orderId;
+	}
 
-    public void setOrder(Order order) {
-        this.order = order;
-    }
+	public void setOrderId(String orderId) {
+		this.orderId = orderId;
+	}
 
-    public String getRecipient() {
+	public String getRecipient() {
         return recipient;
     }
 

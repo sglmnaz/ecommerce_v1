@@ -6,4 +6,6 @@ public interface StatusService {
 
     public Status findByName(String name);
 
+	void insert(Status status);
+
 }

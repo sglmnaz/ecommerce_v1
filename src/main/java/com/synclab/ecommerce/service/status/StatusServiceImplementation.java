@@ -16,4 +16,9 @@ public class StatusServiceImplementation implements StatusService {
         return repository.findByName(name);
     }
 
+    @Override
+	public void insert(Status status) {
+		repository.insert(status);
+	}
+
 }
