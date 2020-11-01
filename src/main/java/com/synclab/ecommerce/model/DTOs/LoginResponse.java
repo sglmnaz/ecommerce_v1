@@ -1,4 +1,4 @@
-package com.synclab.ecommerce.model.supportingEntities;
+package com.synclab.ecommerce.model.DTOs;
 
 public class LoginResponse {
 	

@@ -25,7 +25,15 @@ public class TestingController {
 
 	@Autowired
 	private RoleServiceImplementation roleSI;
+    @Autowired
+	private CategoryServiceImplementation categorySI;
+    @Autowired
+	private CourierService courierSI;
+    @Autowired
+	private StatusServiceImplementation statusSI;
 
+    //Requests
+    
     @PostMapping("/role/initialize")
 	public ResponseEntity<String> insertRoles() {
 		roleSI.insert(new Role("ROLE_USER","standard user"));
@@ -34,9 +42,6 @@ public class TestingController {
 		return ResponseEntity.ok("Roles collection initialized.");
 	}
     
-    @Autowired
-	private CategoryServiceImplementation categorySI;
-
     @PostMapping("/category/initialize")
 	public ResponseEntity<String> insertCategories() {
 		categorySI.insert(new Category("Other"));
@@ -48,10 +53,6 @@ public class TestingController {
 		categorySI.insert(new Category("Kids"));
 		return ResponseEntity.ok("Category collection initialized.");
 	}
-    
-
-    @Autowired
-	private StatusServiceImplementation statusSI;
 
     @PostMapping("/status/initialize")
 	public ResponseEntity<String> insertStatuses() {
@@ -62,11 +63,6 @@ public class TestingController {
 		return ResponseEntity.ok("Status collection initialized.");
 	}
     
-    
-
-    @Autowired
-	private CourierService courierSI;
-
     @PostMapping("/courier/initialize")
 	public ResponseEntity<String> insertCouriers() {
     	courierSI.insert(new Courier("Bartolini"));

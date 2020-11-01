@@ -35,4 +35,6 @@ public interface UserService {
 
     void deleteAll();
 
+	User findByAccount_email(String email);
+
 }

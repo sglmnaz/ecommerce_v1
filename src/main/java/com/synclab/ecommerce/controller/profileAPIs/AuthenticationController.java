@@ -4,9 +4,9 @@ import com.synclab.ecommerce.model.Account;
 import com.synclab.ecommerce.model.Cart;
 import com.synclab.ecommerce.model.Role;
 import com.synclab.ecommerce.model.User;
-import com.synclab.ecommerce.model.supportingEntities.LoginCredentials;
-import com.synclab.ecommerce.model.supportingEntities.LoginResponse;
-import com.synclab.ecommerce.model.supportingEntities.SignupCredentials;
+import com.synclab.ecommerce.model.DTOs.LoginCredentials;
+import com.synclab.ecommerce.model.DTOs.LoginResponse;
+import com.synclab.ecommerce.model.DTOs.SignupCredentials;
 import com.synclab.ecommerce.security.utility.JWTUtils;
 import com.synclab.ecommerce.security.utility.UserDetailsServiceImplementation;
 import com.synclab.ecommerce.service.cart.CartServiceImplementation;
@@ -69,6 +69,19 @@ public class AuthenticationController {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
 
         SignupCredentials credentials = request;
+        
+        //check username availability
+        if (usi.findByAccount_username(credentials.getUsername()) != null)
+        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Username already in use");
+        
+        //check email availability
+        if (usi.findByAccount_email(credentials.getEmail()) != null)
+        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Email already in use");
+        
+        //check password 
+        String password = credentials.getPassword();
+        if (password.length() < 8 || password.length() > 28 || password.contains(" "))
+        	return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body("Password should be 8-28 characters long, spaces are not allowed");
         
         //create a new user and account with specified credentials
    

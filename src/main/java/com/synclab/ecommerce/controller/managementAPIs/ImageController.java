@@ -18,8 +18,8 @@ public class ImageController {
     @Autowired
     private ImageServiceImplementation imageServiceImplementation;
 
+    
     // post
-
     @PostMapping(value = "/insert")
     public ResponseEntity<Image> insert(@RequestPart(value = "file") MultipartFile file) throws IOException {
 
@@ -40,9 +40,7 @@ public class ImageController {
 
     }
     
-    
     // delete
-
     @DeleteMapping(value = "/delete/{id}", produces = "application/json")
     public ResponseEntity<Image> deleteById(@PathVariable(value = "id") String id) {
 

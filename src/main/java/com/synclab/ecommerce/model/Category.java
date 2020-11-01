@@ -2,6 +2,7 @@ package com.synclab.ecommerce.model;
 
 import javax.persistence.*;
 
+import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;

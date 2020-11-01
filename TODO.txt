@@ -26,9 +26,9 @@ basic auth
 installare amazon corretto jdk 11
 enable ssl/https 
 database auth 
-token - standard e json web token <-
+token - standard e json web token 
 login controller
-lo out 2
+lo auth 2
 
 MONGODB
 rivedere prodotti
@@ -36,4 +36,4 @@ rivedere prodotti
 		 spedizioni
 
 gridFs
-updatemulti
+updatemulti <-

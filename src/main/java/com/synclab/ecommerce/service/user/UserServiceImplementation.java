@@ -53,6 +53,11 @@ public class UserServiceImplementation implements UserService {
     public User findByAccount_username(String username) {
         return userRepository.findByAccount_username(username);
     }
+    
+    @Override
+    public User findByAccount_email(String email) {
+        return userRepository.findByAccount_email(email);
+    }
 
     @Override
     public List<User> findAll() {
