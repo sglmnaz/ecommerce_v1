@@ -1,6 +1,10 @@
 package com.synclab.ecommerce.controller.managementAPIs;
 
+import org.springframework.amqp.core.Queue;
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -72,4 +76,26 @@ public class TestingController {
     	courierSI.insert(new Courier("DHL"));
 		return ResponseEntity.ok("Courier collection initialized.");
 	}
+    
+    // rabbitmq
+    
+    private final String queue = "synclab.ecommerce.com";
+    
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
+	@Bean
+	public Queue myQueue() {
+	    return new Queue(queue, false);
+	}
+    
+    @PostMapping("/email")
+	public ResponseEntity<?> sendMessage(@RequestBody String message) {
+    	
+    	rabbitTemplate.convertAndSend(queue, message);
+    	System.out.println("message sent.");
+    	
+		return ResponseEntity.ok("message sent.");
+	}
+    
 }

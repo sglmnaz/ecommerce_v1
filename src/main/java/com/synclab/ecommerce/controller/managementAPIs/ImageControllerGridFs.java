@@ -49,27 +49,27 @@ public class ImageControllerGridFs {
     }
     
     //get 
-    @GetMapping(value = "/get/{id}")
-    public ResponseEntity<byte[]> getGridFs(@PathVariable(value = "id") String id) {
-
-    	GridFSFile image = gridFsOperations.findOne(new Query(Criteria.where("_id").is(id)));
-
-    	if (image == null)
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-            	
-    	try {
-    		ObjectId objectId = new ObjectId(id);
-    	    FileOutputStream streamToDownloadTo = new FileOutputStream("image");
-    	    gridFsConfig.getGridBucket().downloadToStream(objectId, streamToDownloadTo);;
-    	    streamToDownloadTo.close();
-    	    return ResponseEntity.ok(streamToDownloadTo);
-    	}
-    	catch (IOException e) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-    	}
-    	
-    	
-    }
+//    @GetMapping(value = "/get/{id}")
+//    public ResponseEntity<byte[]> getGridFs(@PathVariable(value = "id") String id) {
+//
+//    	GridFSFile image = gridFsOperations.findOne(new Query(Criteria.where("_id").is(id)));
+//
+//    	if (image == null)
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//            	
+//    	try {
+//    		ObjectId objectId = new ObjectId(id);
+//    	    FileOutputStream streamToDownloadTo = new FileOutputStream("image");
+//    	    gridFsConfig.getGridBucket().downloadToStream(objectId, streamToDownloadTo);;
+//    	    streamToDownloadTo.close();
+//    	    return ResponseEntity.ok(streamToDownloadTo);
+//    	}
+//    	catch (IOException e) {
+//            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
+//    	}
+//    	
+//    	
+//    }
 
 
 }
