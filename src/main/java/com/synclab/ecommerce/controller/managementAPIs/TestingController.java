@@ -5,6 +5,7 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -81,21 +82,31 @@ public class TestingController {
     
     private final String queue = "synclab.ecommerce.com";
     
-    @Autowired
-    private RabbitTemplate rabbitTemplate;
-    
-	@Bean
+    @Bean
 	public Queue myQueue() {
 	    return new Queue(queue, false);
 	}
     
+    @Autowired
+    private RabbitTemplate rabbitTemplate;
+    
     @PostMapping("/email")
 	public ResponseEntity<?> sendMessage(@RequestBody String message) {
     	
-    	rabbitTemplate.convertAndSend(queue, message);
-    	System.out.println("message sent.");
+    	try {
+    	 	rabbitTemplate.convertAndSend(queue, message);
+        	System.out.println("message sent.");
+    		return ResponseEntity
+    				.ok("message sent.");
+    	}
     	
-		return ResponseEntity.ok("message sent.");
+    	catch (Exception e) {
+    		System.err.println(e);
+			return ResponseEntity
+					.status(HttpStatus.INTERNAL_SERVER_ERROR)
+					.body("could not send message");
+		}
+   
 	}
     
 }
